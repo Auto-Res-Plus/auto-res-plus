@@ -1,0 +1,160 @@
+---
+// Auto Reservation Plus - Staging Page
+---
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Staging | Auto Reservation Plus</title>
+    <style>
+        :root { 
+            --brand-blue: #2BA6CB; 
+            --dark-text: #333;
+            --light-bg: #f4f4f4;
+        }
+        * {
+        box-sizing: border-box;
+        }
+        body { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; background: var(--light-bg); color: var(--dark-text); line-height: 1.6; }
+        
+        /* Layout Containers */
+        .container { max-width: 990px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header & Logo */
+        .top-bar { background: white; padding: 20px 0; border-bottom: 1px solid #eee; }
+        .top-flex { display: flex; justify-content: space-between; align-items: center; }
+        .logo-area h2 { margin:0; color: var(--brand-blue); letter-spacing: -1px; font-size: 1.5rem; }
+        .phone { font-weight: bold; color: var(--brand-blue); }
+
+        /* Navigation */
+        nav.main-nav { background: #333; color: white; position: sticky; top: 0; z-index: 100; }
+        .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; }
+        .nav-flex li a { display: block; padding: 15px 20px; color: white; text-decoration: none; font-size: 14px; font-weight: bold; transition: background 0.2s; }
+        .nav-flex li a:hover { background: var(--brand-blue); }
+
+        /* Mobile Nav Toggle */
+        .mobile-toggle { display: none; background: none; border: none; color: white; font-size: 24px; padding: 10px; cursor: pointer; }
+
+        /* Content Area */
+        .main-content { background: white; padding: 30px; margin-top: 30px; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: var(--brand-blue); margin-top: 0; }
+        
+        /* Engine Placeholder */
+        .engine-container { border: 2px dashed #ccc; background: #fafafa; padding: 60px 20px; text-align: center; border-radius: 8px; margin: 20px 0; }
+        
+        /* Info Section */
+        .info-section { margin-top: 40px; border-top: 1px solid #eee; padding-top: 30px; }
+        .steps-box { background: #f9f9f9; padding: 20px; border-left: 5px solid var(--brand-blue); margin: 20px 0; }
+        .steps-box b { color: var(--brand-blue); }
+        .inclusive-note { font-size: 0.9rem; color: #666; font-style: italic; }
+
+        /* Flyout Panel (Mobile) */
+        #mobile-panel { 
+            position: fixed; top: 0; left: -100%; width: 250px; height: 100%; 
+            background: #333; transition: 0.3s; z-index: 1000; padding: 20px; 
+        }
+        #mobile-panel.open { left: 0; }
+        #mobile-panel a { display: block; color: white; padding: 15px 0; text-decoration: none; border-bottom: 1px solid #444; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 999; }
+        .overlay.active { display: block; }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .container { width: 100%; }
+            .nav-flex { display: none; }
+            .mobile-toggle { display: block; }
+            .top-flex { flex-direction: column; text-align: center; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mobile-panel">
+        <button id="close-btn" style="color: white; background: none; border: none; font-size: 30px; cursor: pointer;">&times;</button>
+        <a href="#">Home</a>
+        <a href="#">Our Fleet</a>
+        <a href="#">Destinations</a>
+        <a href="#">Manage Booking</a>
+        <a href="#">FAQ</a>
+        <a href="#">Contact Us</a>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <header class="top-bar">
+        <div class="container top-flex">
+            <div class="logo-area"><h2>AUTO RESERVATION PLUS</h2></div>
+            <div class="phone">Tel: +44(0)1622 631146</div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <button class="mobile-toggle" id="menu-btn">☰</button>
+            <ul class="nav-flex">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Our Fleet</a></li>
+                <li><a href="#">Destinations</a></li>
+                <li><a href="#">Manage Booking</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="main-content">
+            <h1>Car Hire, Van Hire and Exotic Car Rental in 3 Steps!</h1>
+            
+            <div class="engine-container">
+                <div id="ct-booking-engine">
+                    <p><strong>[ New CarTrawler Engine ]</strong></p>
+                </div>
+            </div>
+
+            <section class="info-section">
+                <h3>3 Step Booking Process</h3>
+                <p>For <strong>car hire, van hire, exotic car rental</strong> in destinations <strong>Worldwide</strong>. Our system compares the best prices from 800 suppliers in over 30,000 locations.</p>
+                
+                <div class="steps-box">
+                    <p><strong>1st Step - What you need to do...</strong></p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li><b>Choose</b> Location either Airport, City, Railway Station, Sea Port, Town.</li>
+                        <li><b>Select</b> Rental Period for both Pick Up and Drop Off.</li>
+                        <li><b>Confirm</b> Driver's Age to establish any age restrictions.</li>
+                        <li><b>Choose</b> Car Group range from Mini-Economy, Economy to Luxury and Exotic...including Vans.</li>
+                        <li><b>Click</b> Search!</li>
+                    </ul>
+                </div>
+
+                <p class="inclusive-note">
+                    <strong>Inclusive Rates:</strong> Most of our rates are fully inclusive, however some countries do not provide inclusive rates. All-inclusive offers do not apply to North American residents or domestic bookings made within North American Countries. Click 'rate details' on Step 2 of the booking process to see what your rate includes...
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 40px; color: #999; font-size: 13px;">
+        &copy; 2026 Auto Reservation Plus Limited
+    </footer>
+
+    <script is:inline>
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const panel = document.getElementById('mobile-panel');
+        const overlay = document.getElementById('overlay');
+
+        menuBtn.addEventListener('click', () => {
+            panel.classList.add('open');
+            overlay.classList.add('active');
+        });
+
+        const closeMenu = () => {
+            panel.classList.remove('open');
+            overlay.classList.remove('active');
+        };
+
+        closeBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+    </script>
+</body>
+</html>
