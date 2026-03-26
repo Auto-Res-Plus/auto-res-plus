@@ -1,31 +1,31 @@
 ---
-// Auto Reservation Plus - Polished 2-Column Grid
+// Auto Reservation Plus - Force Styles & Same-Tab Redirect
 ---
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Auto Reservation Plus | Holiday Car Rentals</title>
-    <style>
+    <style is:global>
         :root { 
             --brand-blue: #2BA6CB; 
             --dark-text: #333; 
             --light-bg: #f4f4f4; 
         }
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--light-bg); color: var(--dark-text); }
+        body { margin: 0; font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--light-bg); }
         
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
         /* Header & Nav */
         header { background: white; padding: 15px 0; border-bottom: 1px solid #eee; }
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
-        .logo-area h2 { margin:0; color: var(--brand-blue); text-transform: uppercase; font-size: 1.4rem; letter-spacing: 1px; }
+        .logo-area h2 { margin:0; color: var(--brand-blue); text-transform: uppercase; font-size: 1.4rem; }
         .phone { font-weight: bold; color: var(--brand-blue); }
         
         nav { background: #333; position: sticky; top: 0; z-index: 1000; }
         .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; }
-        .nav-flex li a { display: block; padding: 15px 25px; color: white; text-decoration: none; font-weight: bold; font-size: 14px; }
+        .nav-flex li a { display: block; padding: 15px 25px; color: white; text-decoration: none; font-weight: bold; }
         nav .nav-flex li a:hover { background-color: var(--brand-blue) !important; }
 
         /* --- THE GRID HERO --- */
@@ -39,40 +39,15 @@
             display: flex;
             align-items: center;
         }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr; /* Text side slightly wider */
-            gap: 60px;
-            align-items: center;
-        }
-
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center; }
         .hero-left-text { color: white; }
-        .hero-left-text h1 { font-size: 4.2rem; margin: 0; line-height: 1; text-shadow: 0 2px 15px rgba(0,0,0,0.5); font-weight: 800; }
+        .hero-left-text h1 { font-size: 4.2rem; margin: 0; line-height: 1; font-weight: 800; }
         
-        /* Bullet List Styling */
         .check-list { list-style: none; padding: 0; margin: 30px 0 0 0; }
-        .check-list li { 
-            font-size: 1.3rem; 
-            margin-bottom: 15px; 
-            display: flex; 
-            align-items: center; 
-            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
-        }
+        .check-list li { font-size: 1.3rem; margin-bottom: 15px; display: flex; align-items: center; }
         .check-list li::before {
-            content: '✓';
-            display: inline-block;
-            width: 28px;
-            height: 28px;
-            background: var(--brand-blue);
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 28px;
-            margin-right: 15px;
-            font-size: 16px;
-            font-weight: bold;
-            flex-shrink: 0;
+            content: '✓'; display: inline-block; width: 28px; height: 28px; background: var(--brand-blue);
+            color: white; border-radius: 50%; text-align: center; line-height: 28px; margin-right: 15px; font-weight: bold;
         }
 
         /* --- THE SEARCH BOX (RIGHT SIDE) --- */
@@ -81,32 +56,39 @@
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            min-height: 450px;
         }
 
-        /* --- CUSTOM WIDGET OVERRIDES --- */
-        /* Forces the widget background to be white/transparent */
-        [ct-app] .ct-step-1-container, 
-        [ct-app] .ct-search-container { 
-            background: transparent !important; 
-            border: none !important; 
+        /* --- NUCLEAR CSS OVERRIDES FOR CARTRAWLER --- */
+        /* 1. Kill the grey background */
+        div[ct-app] .ct-step-1-container,
+        div[ct-app] .ct-search-container,
+        div[ct-app] .ct-engine-step-1 {
+            background: #ffffff !important;
+            background-color: #ffffff !important;
+            border: none !important;
+            box-shadow: none !important;
         }
 
-        /* FORCES THE SEARCH BUTTON TO BRAND BLUE */
-        [ct-app] .ct-btn-search,
-        [ct-app] button[type="submit"] {
+        /* 2. Force the Search Button to Brand Blue */
+        div[ct-app] .ct-btn-search,
+        div[ct-app] button.ct-btn-search,
+        div[ct-app] .ct-search-button-container button {
+            background: var(--brand-blue) !important;
             background-color: var(--brand-blue) !important;
-            border-color: var(--brand-blue) !important;
-            background-image: none !important;
-            font-weight: bold !important;
+            color: #ffffff !important;
+            border: none !important;
             text-transform: uppercase !important;
-            height: 55px !important;
+            font-weight: bold !important;
+            background-image: none !important; /* Removes default gradients */
         }
 
-        /* Responsive Fix */
+        div[ct-app] .ct-btn-search:hover {
+            filter: brightness(1.1);
+        }
+
         @media (max-width: 992px) {
             .hero-grid { grid-template-columns: 1fr; padding: 40px 0; }
-            .hero-left-text h1 { font-size: 3rem; text-align: center; }
-            .check-list { display: inline-block; text-align: left; width: 100%; max-width: 400px; margin: 30px auto; }
             .hero-left-text { text-align: center; }
         }
     </style>
@@ -133,7 +115,6 @@
     <section class="hero-grid-wrapper">
         <div class="container">
             <div class="hero-grid">
-                
                 <div class="hero-left-text">
                     <h1>Holiday Car Rentals</h1>
                     <ul class="check-list">
@@ -143,14 +124,12 @@
                         <li>24/7 Customer Support</li>
                     </ul>
                 </div>
-
                 <div class="hero-right-engine">
                     <div class="engine-container">
-                        <div ct-app>
+                        <div ct-app id="ct-target">
                             </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -160,14 +139,16 @@
     </footer>
 
     <script is:inline>
+        /* --- CARTRAWLER CONFIG --- */
         var CT = {
           ABE: {
             Settings: {
               clientID: '315556',
               type: window.innerWidth < 992 ? 'mobile' : 'desktop',
               step1: {
-                deeplinkURL: 'https://book.cartrawler.com/?clientID=315556',
-                showAvailNewWindow: false
+                // Pointing to your specific whitelabel
+                deeplinkURL: 'https://partner-whitelabel.cartrawler.com/?clientID=315556',
+                showAvailNewWindow: false // Keeps the initial search in the same tab
               }
             }
           }
