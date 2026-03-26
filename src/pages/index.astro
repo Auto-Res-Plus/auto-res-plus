@@ -1,5 +1,5 @@
 ---
-// Auto Reservation Plus - Precision 2-Column Build
+// Auto Reservation Plus - Refined Grid & Padding Fix
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -18,22 +18,19 @@
         
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
-        /* Header */
         header { background: white; padding: 15px 0; border-bottom: 1px solid #eee; }
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
         .logo-area h2 { margin:0; color: var(--brand-blue); text-transform: uppercase; font-size: 1.4rem; }
         .phone { font-weight: bold; color: var(--brand-blue); }
         
-        /* Navigation */
         nav { background: #333; position: sticky; top: 0; z-index: 1000; }
         .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; }
         .nav-flex li a { display: block; padding: 15px 25px; color: white; text-decoration: none; font-weight: bold; font-size: 14px; }
-        nav .nav-flex li a:hover { background-color: var(--brand-blue) !important; }
 
-        /* Hero Grid */
+        /* --- THE HERO GRID --- */
         .hero-grid-wrapper {
             width: 100%;
-            min-height: 600px;
+            min-height: 550px;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
                         url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&q=80&w=2000');
             background-size: cover;
@@ -41,16 +38,17 @@
             display: flex;
             align-items: center;
         }
-        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: start; padding: 40px 0; }
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; padding: 40px 0; }
         
-        .hero-left-text { color: white; padding-top: 20px; }
-        .hero-left-text h1 { font-size: 4rem; margin: 0; line-height: 1; font-weight: 800; }
+        .hero-left-text { color: white; }
+        /* Reduced H1 Size */
+        .hero-left-text h1 { font-size: 3.2rem; margin: 0; line-height: 1.1; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
         
-        .check-list { list-style: none; padding: 0; margin: 30px 0 0 0; }
-        .check-list li { font-size: 1.2rem; margin-bottom: 12px; display: flex; align-items: center; font-weight: 500; }
+        .check-list { list-style: none; padding: 0; margin: 25px 0 0 0; }
+        .check-list li { font-size: 1.15rem; margin-bottom: 10px; display: flex; align-items: center; font-weight: 500; }
         .check-list li::before {
-            content: '✓'; display: inline-block; width: 24px; height: 24px; background: var(--brand-blue);
-            color: white; border-radius: 50%; text-align: center; line-height: 24px; margin-right: 12px; font-weight: bold; font-size: 14px;
+            content: '✓'; display: inline-block; width: 22px; height: 22px; background: var(--brand-blue);
+            color: white; border-radius: 50%; text-align: center; line-height: 22px; margin-right: 12px; font-weight: bold; font-size: 12px;
         }
 
         /* --- THE SEARCH BOX FIX --- */
@@ -58,37 +56,35 @@
             background: white;
             border-radius: 12px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            overflow: hidden; /* Clips any "unwanted extra padding" from the engine */
+            /* Internal padding so fields don't touch the card edges */
+            padding: 25px; 
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             margin-left: auto;
+            position: relative;
         }
 
-        /* Force Remove Internal Widget Backgrounds */
-        #ct-mount-point, .ct-step-1-container, .ct-search-container {
-            background-color: #ffffff !important;
-            background: #ffffff !important;
+        /* Kill the extra gap below the button by forcing the CT container to collapse */
+        [ct-app], .ct-step-1-container, .ct-search-container {
+            background: transparent !important;
+            margin: 0 !important;
             padding: 0 !important;
+            height: auto !important;
         }
 
-        /* FORCE THE BUTTON COLOR (Targets multiple possible V5 classes) */
-        button.ct-btn-search, 
-        .ct-btn-search,
-        .ct-btn-search-container button,
-        [type="submit"].ct-btn-search {
-            background: var(--brand-blue) !important;
-            background-color: var(--brand-blue) !important;
+        /* Nuclear Color Fix for Button */
+        .ct-btn-search, button.ct-btn-search {
+            background-color: #2BA6CB !important;
             background-image: none !important;
             border: none !important;
             color: white !important;
-            height: 50px !important;
-            border-radius: 4px !important;
+            box-shadow: 0 4px 0 #1e7a96 !important; /* Adds a little "clicky" depth */
         }
 
         @media (max-width: 992px) {
             .hero-grid { grid-template-columns: 1fr; text-align: center; }
-            .engine-card { margin: 0 auto; }
-            .check-list { display: inline-block; text-align: left; }
+            .engine-card { margin: 20px auto 0; }
+            .hero-left-text h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -125,9 +121,8 @@
                 </div>
                 <div class="hero-right-engine">
                     <div class="engine-card">
-                        <div style="height: 410px; overflow: hidden;">
-                            <div ct-app id="ct-mount-point"></div>
-                        </div>
+                        <div ct-app id="ct-mount-point">
+                            </div>
                     </div>
                 </div>
             </div>
@@ -139,12 +134,10 @@
     </footer>
 
     <script is:inline>
-        /* --- CARTRAWLER CONFIG --- */
         var CT = {
           ABE: {
             Settings: {
               clientID: '315556',
-              // Force detection logic from FAQ
               type: window.innerWidth < 800 ? 'mobile' : 'desktop',
               step1: {
                 deeplinkURL: 'https://book.cartrawler.com/?clientID=315556',
@@ -163,17 +156,25 @@
           s.parentNode.insertBefore(cts, s);
         })();
 
-        /* --- THE STUBBORN COLOR FIXER --- */
-        // This script waits for the engine to load, then forces the button color one last time
-        const colorFixer = setInterval(() => {
+        /* --- THE COLOR AND PADDING POLICE --- */
+        const tidyUp = setInterval(() => {
             const btn = document.querySelector('.ct-btn-search');
+            const ctContainer = document.querySelector('.ct-search-container');
+            
             if (btn) {
-                btn.style.backgroundColor = '#2BA6CB';
-                btn.style.backgroundImage = 'none';
-                // Once we find it and fix it, we stop looking
-                clearInterval(colorFixer);
+                // Force button color
+                btn.style.setProperty('background-color', '#2BA6CB', 'important');
+                btn.style.setProperty('background-image', 'none', 'important');
+                
+                // Kill internal CT margins that cause the "edge-to-edge" issue
+                if (ctContainer) {
+                    ctContainer.style.setProperty('margin', '0', 'important');
+                    ctContainer.style.setProperty('padding', '0', 'important');
+                }
+                
+                clearInterval(tidyUp);
             }
-        }, 500);
+        }, 300);
     </script>
 </body>
 </html>
