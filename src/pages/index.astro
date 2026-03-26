@@ -1,5 +1,5 @@
 ---
-// Auto Reservation Plus - Mediterranean Edition
+// Auto Reservation Plus - Final Mediterranean Build
 ---
 <html lang="en">
 <head>
@@ -17,11 +17,13 @@
         
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
-        /* Header & Nav */
-        .top-bar { background: white; padding: 2040px 0; border-bottom: 1px solid #eee; padding: 20px 0; }
+        /* Header */
+        .top-bar { background: white; padding: 20px 0; border-bottom: 1px solid #eee; }
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
         .logo-area h2 { margin:0; color: var(--brand-blue); letter-spacing: -1px; font-size: 1.5rem; }
         .phone { font-weight: bold; color: var(--brand-blue); }
+
+        /* Nav */
         nav.main-nav { background: #333; color: white; position: sticky; top: 0; z-index: 100; }
         .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; }
         .nav-flex li a { display: block; padding: 15px 20px; color: white; text-decoration: none; font-size: 14px; font-weight: bold; }
@@ -31,9 +33,9 @@
         .hero-wrapper {
             width: 100%;
             min-height: 650px;
-            /* Mediterranean Holiday Background */
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('http://googleusercontent.com/image_collection/image_retrieval/4602155511181258834_0');
+            /* RELIABLE IMAGE: Mediterranean coastal road with a car */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1519003722824-191d44fbd50d?q=80&w=2000&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -47,33 +49,25 @@
             gap: 40px;
             align-items: start;
             width: 100%;
-            transition: all 0.4s ease-in-out;
+            transition: all 0.5s ease-in-out;
         }
 
-        /* --- THE ULTIMATE FIX FOR THE 2-COLUMN BUG --- */
-        /* 1. If JavaScript adds the class manually */
-        .hero-grid.search-active { grid-template-columns: 1fr !important; }
-        
-        /* 2. SMART CSS: If the engine-container contains car results, force 1 column */
-        /* This works in Safari/Chrome on your M4 Mac without needing a click! */
-        .hero-grid:has(.ct-results-container), 
-        .hero-grid:has(.ct-engine-step-2) { 
-            grid-template-columns: 1fr !important; 
+        /* --- THE GRID FIX --- */
+        /* This class is added by the script below when search results appear */
+        .hero-grid.search-active {
+            grid-template-columns: 1fr !important;
         }
 
-        /* Hide text when the results are active */
-        .hero-grid:has(.ct-results-container) .hero-text,
-        .hero-grid:has(.ct-engine-step-2) .hero-text,
         .hero-grid.search-active .hero-text {
             display: none !important;
         }
 
         /* Text Styling */
-        .hero-text { color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .hero-text { color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         .hero-text h1 { font-size: 3.5rem; color: white; margin: 0 0 10px 0; line-height: 1.1; }
         .hero-text p { font-size: 1.3rem; margin-bottom: 20px; }
         .hero-bullets { list-style: none; padding: 0; font-weight: bold; }
-        .hero-bullets li { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .hero-bullets li { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 1.1rem; }
 
         /* Engine Box */
         .engine-container {
@@ -82,7 +76,7 @@
             border-radius: 12px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             width: 100%;
-            min-height: 480px;
+            min-height: 500px;
         }
 
         /* Mobile Menu */
@@ -133,15 +127,15 @@
         <div class="container hero-grid" id="main-hero-grid">
             <div class="hero-text">
                 <h1>Mediterranean Car Hire</h1>
-                <p>The best prices from 800 suppliers in 30,000 locations.</p>
+                <p>Compare 800+ suppliers in 30,000 locations worldwide.</p>
                 <ul class="hero-bullets">
-                    <li>✓ Local Support</li>
+                    <li>✓ Local 24/7 Support</li>
                     <li>✓ No Hidden Charges</li>
                     <li>✓ All Inclusive Rates</li>
                 </ul>
             </div>
 
-            <div class="engine-container">
+            <div class="engine-container" id="engine-box">
                 <div ct-app>
                     <noscript>YOUR BROWSER DOES NOT SUPPORT JAVASCRIPT</noscript>
                 </div>
@@ -154,7 +148,7 @@
     </footer>
 
     <script is:inline>
-        /* --- CARTRAWLER V5 --- */
+        /* --- 1. CARTRAWLER V5 --- */
         var isMobile = window.innerWidth <= 768;
         var CT = { ABE: { Settings: { clientID: '315556' } } };
         if (isMobile) { CT.ABE.Settings.type = 'mobile'; }
@@ -168,20 +162,29 @@
             s.parentNode.insertBefore(cts, s);
         })();
 
-        /* --- ROBUST LAYOUT SWITCHER --- */
-        // We check every 500ms if the engine has moved to search results
-        setInterval(function() {
-            const results = document.querySelector('.ct-results-container, .ct-engine-step-2');
-            if (results) {
+        /* --- 2. THE "NUCLEAR" LAYOUT OBSERVER --- */
+        // This watches the engine-box. As soon as CarTrawler injects 
+        // the results page, we snap the layout to full width.
+        const targetNode = document.getElementById('engine-box');
+        const config = { childList: true, subtree: true };
+
+        const callback = function(mutationsList, observer) {
+            // We check if the car results container has been added to the DOM
+            if (document.querySelector('.ct-results-container, .ct-engine-step-2, .ct-loading-container')) {
                 const grid = document.getElementById('main-hero-grid');
                 if (grid && !grid.classList.contains('search-active')) {
                     grid.classList.add('search-active');
                     window.scrollTo({ top: 100, behavior: 'smooth' });
+                    // Once expanded, we can stop watching to save memory
+                    observer.disconnect();
                 }
             }
-        }, 500);
+        };
 
-        /* --- MOBILE MENU --- */
+        const observer = new MutationObserver(callback);
+        observer.observe(targetNode, config);
+
+        /* --- 3. MOBILE MENU --- */
         const menuBtn = document.getElementById('menu-btn');
         const closeBtn = document.getElementById('close-btn');
         const panel = document.getElementById('mobile-panel');
@@ -196,7 +199,7 @@
                 panel.classList.remove('open');
                 overlay.classList.remove('active');
             };
-            closeBtn.addEventListener('click', closeMenu);
+            if (closeBtn) closeBtn.addEventListener('click', closeMenu);
             overlay.addEventListener('click', closeMenu);
         }
     </script>
