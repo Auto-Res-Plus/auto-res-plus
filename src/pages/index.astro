@@ -1,5 +1,5 @@
 ---
-// Auto Reservation Plus - Production Staging
+// Auto Reservation Plus - Mediterranean Edition
 ---
 <html lang="en">
 <head>
@@ -17,71 +17,75 @@
         
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
-        /* Header */
-        .top-bar { background: white; padding: 20px 0; border-bottom: 1px solid #eee; }
+        /* Header & Nav */
+        .top-bar { background: white; padding: 2040px 0; border-bottom: 1px solid #eee; padding: 20px 0; }
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
         .logo-area h2 { margin:0; color: var(--brand-blue); letter-spacing: -1px; font-size: 1.5rem; }
         .phone { font-weight: bold; color: var(--brand-blue); }
-
-        /* Nav */
         nav.main-nav { background: #333; color: white; position: sticky; top: 0; z-index: 100; }
         .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; }
-        .nav-flex li a { display: block; padding: 15px 20px; color: white; text-decoration: none; font-size: 14px; font-weight: bold; transition: background 0.2s; }
-        .nav-flex li a:hover { background: var(--brand-blue); }
-
+        .nav-flex li a { display: block; padding: 15px 20px; color: white; text-decoration: none; font-size: 14px; font-weight: bold; }
         .mobile-toggle { display: none; background: none; border: none; color: white; font-size: 24px; padding: 10px; cursor: pointer; }
 
         /* --- HERO SECTION --- */
         .hero-wrapper {
             width: 100%;
-            min-height: 600px;
-            /* High-res Unsplash image with a 60% dark tint for readability */
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2000');
+            min-height: 650px;
+            /* Mediterranean Holiday Background */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('http://googleusercontent.com/image_collection/image_retrieval/4602155511181258834_0');
             background-size: cover;
             background-position: center;
             display: flex;
             align-items: center;
             padding: 60px 0;
-            transition: min-height 0.5s ease;
         }
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr; /* Slightly wider left side for text */
+            grid-template-columns: 1fr 1fr;
             gap: 40px;
             align-items: start;
             width: 100%;
+            transition: all 0.4s ease-in-out;
         }
 
-        /* The Hero Text */
-        .hero-text { color: white; }
-        .hero-text h1 { font-size: 3.5rem; color: white; margin: 0 0 20px 0; line-height: 1.1; }
-        .hero-text p { font-size: 1.2rem; margin-bottom: 30px; }
-        .hero-bullets { list-style: none; padding: 0; }
-        .hero-bullets li { margin-bottom: 12px; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
-
-        /* The Engine Container */
-        .engine-container {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            width: 100%;
-            min-height: 450px; /* Prevents layout jump */
+        /* --- THE ULTIMATE FIX FOR THE 2-COLUMN BUG --- */
+        /* 1. If JavaScript adds the class manually */
+        .hero-grid.search-active { grid-template-columns: 1fr !important; }
+        
+        /* 2. SMART CSS: If the engine-container contains car results, force 1 column */
+        /* This works in Safari/Chrome on your M4 Mac without needing a click! */
+        .hero-grid:has(.ct-results-container), 
+        .hero-grid:has(.ct-engine-step-2) { 
+            grid-template-columns: 1fr !important; 
         }
 
-        /* --- THE MAGIC FIX: SEARCH ACTIVE STATE --- */
-        /* We use !important here to ensure it overrides the 1.2fr 0.8fr grid */
-        .hero-grid.search-active {
-            grid-template-columns: 1fr !important;
-        }
-
+        /* Hide text when the results are active */
+        .hero-grid:has(.ct-results-container) .hero-text,
+        .hero-grid:has(.ct-engine-step-2) .hero-text,
         .hero-grid.search-active .hero-text {
             display: none !important;
         }
 
-        /* Mobile Menu Panel */
+        /* Text Styling */
+        .hero-text { color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .hero-text h1 { font-size: 3.5rem; color: white; margin: 0 0 10px 0; line-height: 1.1; }
+        .hero-text p { font-size: 1.3rem; margin-bottom: 20px; }
+        .hero-bullets { list-style: none; padding: 0; font-weight: bold; }
+        .hero-bullets li { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+
+        /* Engine Box */
+        .engine-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            width: 100%;
+            min-height: 480px;
+        }
+
+        /* Mobile Menu */
         #mobile-panel { position: fixed; top: 0; left: -100%; width: 250px; height: 100%; background: #333; transition: 0.3s; z-index: 1000; padding: 20px; }
         #mobile-panel.open { left: 0; }
         #mobile-panel a { display: block; color: white; padding: 15px 0; text-decoration: none; border-bottom: 1px solid #444; }
@@ -90,7 +94,7 @@
 
         @media (max-width: 900px) {
             .hero-grid { grid-template-columns: 1fr !important; }
-            .hero-text { text-align: center; margin-bottom: 40px; }
+            .hero-text { text-align: center; margin-bottom: 30px; }
             .hero-text h1 { font-size: 2.5rem; }
             .mobile-toggle { display: block; }
             .nav-flex { display: none; }
@@ -128,12 +132,12 @@
     <section class="hero-wrapper">
         <div class="container hero-grid" id="main-hero-grid">
             <div class="hero-text">
-                <h1>Premium Car & Van Hire</h1>
-                <p>Compare 800+ suppliers in 30,000 locations worldwide.</p>
+                <h1>Mediterranean Car Hire</h1>
+                <p>The best prices from 800 suppliers in 30,000 locations.</p>
                 <ul class="hero-bullets">
-                    <li>✓ Free Cancellation</li>
-                    <li>✓ No Hidden Fees</li>
-                    <li>✓ 24/7 Global Support</li>
+                    <li>✓ Local Support</li>
+                    <li>✓ No Hidden Charges</li>
+                    <li>✓ All Inclusive Rates</li>
                 </ul>
             </div>
 
@@ -150,7 +154,7 @@
     </footer>
 
     <script is:inline>
-        /* --- 1. CARTRAWLER V5 --- */
+        /* --- CARTRAWLER V5 --- */
         var isMobile = window.innerWidth <= 768;
         var CT = { ABE: { Settings: { clientID: '315556' } } };
         if (isMobile) { CT.ABE.Settings.type = 'mobile'; }
@@ -164,21 +168,20 @@
             s.parentNode.insertBefore(cts, s);
         })();
 
-        /* --- 2. LAYOUT SWITCHER --- */
-        // We use a more aggressive listener for V5 buttons
-        document.addEventListener('click', function (e) {
-            // Check for the search button ID or the text 'Search'
-            if (e.target && (e.target.id === 'ct-search-btn' || e.target.innerText === 'Search' || e.target.closest('#ct-search-btn'))) {
+        /* --- ROBUST LAYOUT SWITCHER --- */
+        // We check every 500ms if the engine has moved to search results
+        setInterval(function() {
+            const results = document.querySelector('.ct-results-container, .ct-engine-step-2');
+            if (results) {
                 const grid = document.getElementById('main-hero-grid');
-                if (grid) {
+                if (grid && !grid.classList.contains('search-active')) {
                     grid.classList.add('search-active');
-                    console.log("Layout expanded to full width");
                     window.scrollTo({ top: 100, behavior: 'smooth' });
                 }
             }
-        });
+        }, 500);
 
-        /* --- 3. MOBILE MENU --- */
+        /* --- MOBILE MENU --- */
         const menuBtn = document.getElementById('menu-btn');
         const closeBtn = document.getElementById('close-btn');
         const panel = document.getElementById('mobile-panel');
