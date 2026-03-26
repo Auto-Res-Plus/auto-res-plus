@@ -1,5 +1,5 @@
 ---
-// Auto Reservation Plus - Centered Stack Layout
+// Auto Reservation Plus - Robust Stack Build
 ---
 <html lang="en">
 <head>
@@ -23,60 +23,61 @@
         .logo-area h2 { margin:0; color: var(--brand-blue); letter-spacing: -1px; font-size: 1.5rem; }
         .phone { font-weight: bold; color: var(--brand-blue); }
 
-        /* Nav */
+        /* Nav & Hover Fix */
         nav.main-nav { background: #333; color: white; position: sticky; top: 0; z-index: 100; }
         .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; }
-        .nav-flex li a { display: block; padding: 15px 20px; color: white; text-decoration: none; font-size: 14px; font-weight: bold; }
+        .nav-flex li a { display: block; padding: 15px 20px; color: white; text-decoration: none; font-size: 14px; font-weight: bold; transition: 0.2s; }
+        .nav-flex li a:hover { background: var(--brand-blue) !important; color: white !important; }
+
         .mobile-toggle { display: none; background: none; border: none; color: white; font-size: 24px; padding: 10px; cursor: pointer; }
 
-        /* --- HERO SECTION (CENTRE STACK) --- */
+        /* --- HERO SECTION --- */
         .hero-wrapper {
             width: 100%;
             min-height: 700px;
-            background-color: #222; /* Fallback color */
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                              url('https://images.unsplash.com/photo-1519003722824-191d44fbd50d?auto=format&fit=crop&q=80&w=2000');
+            /* Direct Link Mediterranean Car Image */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://images.unsplash.com/photo-1471174617910-3e9c04f58ff5?auto=format&fit=crop&q=80&w=2000') no-repeat center center;
             background-size: cover;
-            background-position: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 80px 20px;
+            padding: 60px 20px;
         }
 
-        .hero-text { color: white; margin-bottom: 40px; }
-        .hero-text h1 { font-size: 4rem; color: white; margin: 0; text-shadow: 0 2px 15px rgba(0,0,0,0.5); }
-        .hero-text p { font-size: 1.4rem; opacity: 0.9; margin-top: 10px; }
+        .hero-text { color: white; margin-bottom: 30px; }
+        .hero-text h1 { font-size: 3.5rem; color: white; margin: 0; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .hero-text p { font-size: 1.3rem; opacity: 0.9; margin-top: 10px; }
 
-        /* Centered Engine Container */
+        /* Centered Engine Box */
         .engine-container {
             background: white;
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             width: 100%;
-            max-width: 850px; /* Centered but not full width */
-            transition: max-width 0.5s ease;
+            max-width: 850px; /* Initial width */
             margin: 0 auto;
-            min-height: 450px;
+            min-height: 480px;
+            transition: max-width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* Expand the engine to full container width when results load */
+        /* Expansion Class */
         .engine-container.expanded {
-            max-width: 1200px;
+            max-width: 1200px !important;
         }
 
         /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .hero-text h1 { font-size: 2.5rem; }
+            .hero-text h1 { font-size: 2.2rem; }
             .mobile-toggle { display: block; }
             .nav-flex { display: none; }
-            .hero-wrapper { min-height: 600px; padding: 40px 15px; }
+            .hero-wrapper { min-height: 550px; }
         }
 
-        /* Mobile Panel */
+        /* Mobile Flyout */
         #mobile-panel { position: fixed; top: 0; left: -100%; width: 250px; height: 100%; background: #333; transition: 0.3s; z-index: 1000; padding: 20px; }
         #mobile-panel.open { left: 0; }
         #mobile-panel a { display: block; color: white; padding: 15px 0; text-decoration: none; border-bottom: 1px solid #444; }
@@ -113,9 +114,9 @@
     </nav>
 
     <section class="hero-wrapper">
-        <div class="hero-text">
+        <div class="hero-text" id="hero-strapline">
             <h1>Holiday Car Rentals</h1>
-            <p>Quality car hire at over 30,000 locations worldwide</p>
+            <p>Compare 800+ suppliers in 30,000 locations worldwide</p>
         </div>
 
         <div class="engine-container" id="engine-box">
@@ -130,7 +131,7 @@
     </footer>
 
     <script is:inline>
-        /* --- 1. CARTRAWLER V5 --- */
+        /* --- 1. CARTRAWLER V5 LOADER --- */
         var isMobile = window.innerWidth <= 768;
         var CT = { ABE: { Settings: { clientID: '315556' } } };
         if (isMobile) { CT.ABE.Settings.type = 'mobile'; }
@@ -144,19 +145,23 @@
             s.parentNode.insertBefore(cts, s);
         })();
 
-        /* --- 2. ENGINE OBSERVER (Expansion) --- */
-        // Watches the engine box. If results appear, it expands the white box.
-        const targetNode = document.getElementById('engine-box');
-        const observer = new MutationObserver(function() {
-            if (document.querySelector('.ct-results-container, .ct-engine-step-2')) {
-                targetNode.classList.add('expanded');
-                // Optional: hide the strapline once results show to save space
-                document.querySelector('.hero-text').style.display = 'none';
-                window.scrollTo({ top: 100, behavior: 'smooth' });
-                observer.disconnect();
+        /* --- 2. ROBUST EXPANSION PULSE --- */
+        // We check every 800ms for results. If found, we expand.
+        const expansionCheck = setInterval(function() {
+            const engineBox = document.getElementById('engine-box');
+            const strapline = document.getElementById('hero-strapline');
+            
+            // Check for common CarTrawler result indicators
+            const hasResults = document.querySelector('.ct-results-container, .ct-engine-step-2, .ct-car-list, .ct-loading-container');
+            
+            if (hasResults && engineBox) {
+                engineBox.classList.add('expanded');
+                if (strapline) strapline.style.display = 'none';
+                // Once we expand, we can stop the timer
+                clearInterval(expansionCheck);
+                console.log("Layout expanded to 1200px");
             }
-        });
-        observer.observe(targetNode, { childList: true, subtree: true });
+        }, 800);
 
         /* --- 3. MOBILE MENU --- */
         const menuBtn = document.getElementById('menu-btn');
