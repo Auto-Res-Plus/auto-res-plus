@@ -40,7 +40,13 @@
         h1 { color: var(--brand-blue); margin-top: 0; }
         
         /* Engine Placeholder */
-        .engine-container { padding: 10px 0; margin: 20px 0; width: 100%; }
+        .engine-container {
+        background: white;
+        padding: 15px; /* Reduced padding to give the engine more internal space */
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        width: 100%;
+        }
         
         /* Info Section */
         .info-section { margin-top: 40px; border-top: 1px solid #eee; padding-top: 30px; }
@@ -65,6 +71,58 @@
             .mobile-toggle { display: block; }
             .top-flex { flex-direction: column; text-align: center; gap: 10px; }
         }
+        /* Full-width wrapper for the background image */
+.hero-wrapper {
+    width: 100%;
+    min-height: 650px;
+    /* This uses the coastal road car image with a 50% dark tint */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('http://googleusercontent.com/image_collection/image_retrieval/9592816336075553256_0');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Creates a nice parallax effect on scroll */
+    display: flex;
+    align-items: center;
+    padding: 60px 0;
+}
+
+/* The Grid Container */
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 50/50 split */
+    gap: 40px;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+
+/* The "Search Mode" state - we will trigger this with JS */
+.hero-grid.search-active {
+    grid-template-columns: 1fr; /* Collapse to single column */
+}
+
+.hero-grid.search-active .hero-text {
+    display: none; /* Hide the text when results show */
+}
+
+/* Text Styling */
+.hero-text { color: white; }
+.hero-text h1 { font-size: 3rem; color: white; margin-bottom: 10px; }
+.hero-bullets { list-style: none; padding: 0; margin-top: 20px; }
+.hero-bullets li { margin-bottom: 8px; font-weight: bold; }
+
+/* Engine Box Styling */
+.engine-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-text { text-align: center; }
+}
     </style>
 </head>
 <body>
@@ -95,65 +153,33 @@
         </div>
     </nav>
 
-    <main class="container">
-        <div class="main-content">
-            <h1>Car Hire, Van Hire and Exotic Car Rental in 3 Steps</h1>
-            
-            <div class="engine-container">
-                <div ct-app>
-                    <noscript>YOUR BROWSER DOES NOT SUPPORT JAVASCRIPT</noscript>
-                </div>
-            </div>
-
-            <section class="info-section">
-                <h3>3 Step Booking Process</h3>
-                <p>For <strong>car hire, van hire, exotic car rental</strong> in destinations <strong>Worldwide</strong>. Our system compares the best prices from 800 suppliers in over 30,000 locations.</p>
-                
-                <div class="steps-box">
-                    <p><strong>1st Step - What you need to do...</strong></p>
-                    <ul style="list-style: none; padding-left: 0;">
-                        <li><b>Choose</b> Location either Airport, City, Railway Station, Sea Port, Town.</li>
-                        <li><b>Select</b> Rental Period for both Pick Up and Drop Off.</li>
-                        <li><b>Confirm</b> Driver's Age to establish any age restrictions.</li>
-                        <li><b>Choose</b> Car Group range from Mini-Economy, Economy to Luxury and Exotic...including Vans.</li>
-                        <li><b>Click</b> Search!</li>
-                    </ul>
-                </div>
-
-                <p class="inclusive-note">
-                    <strong>Inclusive Rates:</strong> Most of our rates are fully inclusive, however some countries do not provide inclusive rates. All-inclusive offers do not apply to North American residents or domestic bookings made within North American Countries. Click 'rate details' on Step 2 of the booking process to see what your rate includes...
-                </p>
-            </section>
+    <section class="hero-wrapper">
+    <div class="container hero-grid">
+        <div class="hero-text">
+            <h1>Premium Car & Van Hire</h1>
+            <p>Compare 800+ suppliers in 30,000 locations worldwide. Simple, fast, and inclusive pricing.</p>
+            <ul class="hero-bullets">
+                <li>✓ Free Cancellation</li>
+                <li>✓ No Hidden Fees</li>
+                <li>✓ 24/7 Support</li>
+            </ul>
         </div>
-    </main>
+
+        <div class="engine-container" id="engine-box">
+            <div ct-app>
+                <noscript>YOUR BROWSER DOES NOT SUPPORT JAVASCRIPT</noscript>
+            </div>
+        </div>
+    </div>
+    </section>
 
     <footer style="text-align: center; padding: 40px; color: #999; font-size: 13px;">
         &copy; 2026 Auto Reservation Plus Limited
     </footer>
 
     <script is:inline>
-        const menuBtn = document.getElementById('menu-btn');
-        const closeBtn = document.getElementById('close-btn');
-        const panel = document.getElementById('mobile-panel');
-        const overlay = document.getElementById('overlay');
-
-        menuBtn.addEventListener('click', () => {
-            panel.classList.add('open');
-            overlay.classList.add('active');
-        });
-
-        const closeMenu = () => {
-            panel.classList.remove('open');
-            overlay.classList.remove('active');
-        };
-
-        closeBtn.addEventListener('click', closeMenu);
-        overlay.addEventListener('click', closeMenu);
-    </script>
-
-    <script is:inline>
+    /* --- 1. CARTRAWLER V5 CONFIGURATION --- */
     var isMobile = window.innerWidth <= 768;
-
     var CT = {
         ABE: {
             Settings: {
@@ -164,27 +190,57 @@
 
     if (isMobile) {
         CT.ABE.Settings.type = 'mobile';
-        // CT.ABE.Settings.logo = '/path-to-logo.png'; // You can add logo path later if the mobile layout looks bare without it
     }
 
-    // The CarTrawler Loader
+    /* --- 2. THE CARTRAWLER LOADER --- */
     (function() {
         CT.ABE.Settings.version = '5.0';
         var cts = document.createElement('script'); 
         cts.type = 'text/javascript'; 
         cts.async = true;
-        
         cts.src = 'https://ajaxgeo.cartrawler.com/abe' + CT.ABE.Settings.version + '/ct_loader.js?' + new Date().getTime();
-        
         var s = document.getElementsByTagName('script')[0]; 
-        
-        // Failsafe in case there are no other scripts on the page
         if (s && s.parentNode) {
             s.parentNode.insertBefore(cts, s);
         } else {
             document.head.appendChild(cts);
         }
     })();
+
+    /* --- 3. LAYOUT SWITCHER (Hero Grid Expansion) --- */
+    document.addEventListener('click', function (e) {
+        // This looks for the CarTrawler Search button click
+        // It checks for the specific CarTrawler ID or the button text
+        if (e.target && (e.target.id === 'ct-search-btn' || e.target.innerText === 'Search')) {
+            const grid = document.querySelector('.hero-grid');
+            if (grid) {
+                grid.classList.add('search-active');
+                // Smooth scroll to the top of the results so the user doesn't get lost
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    });
+
+    /* --- 4. MOBILE MENU LOGIC --- */
+    const menuBtn = document.getElementById('menu-btn');
+    const closeBtn = document.getElementById('close-btn');
+    const panel = document.getElementById('mobile-panel');
+    const overlay = document.getElementById('overlay');
+
+    if (menuBtn && panel && overlay) {
+        menuBtn.addEventListener('click', () => {
+            panel.classList.add('open');
+            overlay.classList.add('active');
+        });
+
+        const closeMenu = () => {
+            panel.classList.remove('open');
+            overlay.classList.remove('active');
+        };
+
+        if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+    }
 </script>
 </body>
 </html>
