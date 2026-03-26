@@ -11,6 +11,7 @@
         :root { 
             --brand-blue: #2BA6CB; 
             --brand-green: #99CC00;
+            --brand-orange: #ff6600;
             --dark-text: #333; 
             --light-bg: #f4f4f4; 
         }
@@ -74,17 +75,12 @@
             height: auto !important;
         }
 
-        /* Nuclear Color Fix for Button */
-        .ct-btn-search, button.ct-btn-search {
-            background-color: #2BA6CB !important;
-            background-image: none !important;
-            border: none !important;
-            color: white !important;
-            box-shadow: 0 4px 0 #1e7a96 !important; /* Adds a little "clicky" depth */
+        .ct-btn-p {
+    background: var(--brand-orange) !important;
         }
 
-        .ct-btn-p {
-    background: var(--brand-blue) !important;
+        .ct-btn-p:hover {
+    background: #FF7E29 !important;
         }
 
         @media (max-width: 992px) {
