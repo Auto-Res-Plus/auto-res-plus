@@ -1,5 +1,5 @@
 ---
-// Auto Reservation Plus - Refined Grid & Padding Fix
+// Auto Reservation Plus - Amalfi Edition
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -10,86 +10,106 @@
     <style is:global>
         :root { 
             --brand-blue: #2BA6CB; 
-            --brand-green: #99CC00;
             --dark-text: #333; 
             --light-bg: #f4f4f4; 
         }
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--light-bg); line-height: 1.5; }
+        body { margin: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: var(--light-bg); line-height: 1.6; color: var(--dark-text); }
         
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
+        /* Header & Nav */
         header { background: white; padding: 15px 0; border-bottom: 1px solid #eee; }
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
-        .logo-area h2 { margin:0; color: var(--brand-blue); text-transform: uppercase; font-size: 1.4rem; }
-        .phone { font-weight: bold; color: var(--brand-blue); }
+        .logo-area h2 { margin:0; color: var(--brand-blue); text-transform: uppercase; font-size: 1.3rem; letter-spacing: 1px; }
+        .phone { font-weight: bold; color: var(--brand-blue); font-size: 0.9rem; }
         
         nav { background: #333; position: sticky; top: 0; z-index: 1000; }
         .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; }
-        .nav-flex li a { display: block; padding: 15px 25px; color: white; text-decoration: none; font-weight: bold; font-size: 14px; }
+        .nav-flex li a { display: block; padding: 12px 20px; color: white; text-decoration: none; font-weight: 600; font-size: 14px; }
+        nav .nav-flex li a:hover { background-color: var(--brand-blue) !important; }
 
-        /* --- THE HERO GRID --- */
+        /* --- THE GRID HERO --- */
         .hero-grid-wrapper {
             width: 100%;
-            min-height: 550px;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                        url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&q=80&w=2000');
+            min-height: 600px;
+            /* AMALFI COAST GEN IMAGE */
+            background-color: #222;
+            background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), 
+                              url('/amalfi-rental-v2.webp');
             background-size: cover;
             background-position: center;
             display: flex;
             align-items: center;
-        }
-        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; padding: 40px 0; }
-        
-        .hero-left-text { color: white; }
-        /* Reduced H1 Size */
-        .hero-left-text h1 { font-size: 3.2rem; margin: 0; line-height: 1.1; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        
-        .check-list { list-style: none; padding: 0; margin: 25px 0 0 0; }
-        .check-list li { font-size: 1.15rem; margin-bottom: 10px; display: flex; align-items: center; font-weight: 500; }
-        .check-list li::before {
-            content: '✓'; display: inline-block; width: 22px; height: 22px; background: var(--brand-green);
-            color: white; border-radius: 50%; text-align: center; line-height: 22px; margin-right: 12px; font-weight: bold; font-size: 12px;
+            justify-content: center;
+            padding: 40px 20px;
         }
 
-        /* --- THE SEARCH BOX FIX --- */
+        .hero-grid { 
+            display: grid; 
+            grid-template-columns: 1.3fr 0.7fr; /* Slight wider left side */
+            gap: 60px; 
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .hero-left-text { color: white; }
+        .hero-left-text h1 { font-size: 3.5rem; margin: 0; line-height: 1; font-weight: 800; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+        
+        .check-list { list-style: none; padding: 0; margin: 30px 0 0 0; }
+        .check-list li { font-size: 1.3rem; margin-bottom: 12px; display: flex; align-items: center; text-shadow: 0 1px 10px rgba(0,0,0,0.5); }
+        .check-list li::before {
+            content: '✓'; display: inline-block; width: 28px; height: 28px; background: var(--brand-blue);
+            color: white; border-radius: 50%; text-align: center; line-height: 28px; margin-right: 15px; font-weight: bold; font-size: 16px;
+        }
+
+        /* --- THE CLEAN SEARCH BOX --- */
         .engine-card {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            /* Internal padding so fields don't touch the card edges */
-            padding: 25px; 
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            padding: 10px; /* Internal buffer */
             width: 100%;
             max-width: 420px;
             margin-left: auto;
             position: relative;
         }
 
-        /* Kill the extra gap below the button by forcing the CT container to collapse */
-        [ct-app], .ct-step-1-container, .ct-search-container {
-            background: transparent !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            height: auto !important;
+        /* Forces the widget background to be white/transparent */
+        div[ct-app] .ct-step-1-container,
+        div[ct-app] .ct-search-container,
+        div[ct-app] .ct-engine-step-1 { 
+            background: #ffffff !important; 
+            border: none !important; 
+            box-shadow: none !important;
+            border-radius: 8px !important;
         }
 
-        /* Nuclear Color Fix for Button */
-        .ct-btn-search, button.ct-btn-search {
-            background-color: #2BA6CB !important;
-            background-image: none !important;
+        /* FORCES THE SEARCH BUTTON TO BRAND BLUE */
+        div[ct-app] .ct-btn-search,
+        div[ct-app] button.ct-btn-search,
+        div[ct-app] .ct-search-button-container button {
+            background: var(--brand-blue) !important;
+            background-color: var(--brand-blue) !important;
+            color: #ffffff !important;
             border: none !important;
-            color: white !important;
-            box-shadow: 0 4px 0 #1e7a96 !important; /* Adds a little "clicky" depth */
+            text-transform: uppercase !important;
+            font-weight: bold !important;
+            background-image: none !important; /* Removes default gradients */
+            height: 55px !important;
+            border-radius: 4px !important;
         }
 
         @media (max-width: 992px) {
-            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-grid { grid-template-columns: 1fr; padding: 20px 0; text-align: center; }
+            .hero-left-text h1 { font-size: 2.8rem; }
             .engine-card { margin: 20px auto 0; }
-            .hero-left-text h1 { font-size: 2.5rem; }
+            .check-list { display: inline-block; text-align: left; margin: 30px auto; }
         }
     </style>
 </head>
-<body>
+<body id="main-body">
 
     <header>
         <div class="container top-flex">
@@ -109,37 +129,36 @@
     </nav>
 
     <section class="hero-grid-wrapper">
-        <div class="container">
-            <div class="hero-grid">
-                <div class="hero-left-text">
-                    <h1>Holiday Car Rentals</h1>
-                    <ul class="check-list">
-                        <li>Free Cancellation</li>
-                        <li>No Hidden Charges</li>
-                        <li>800+ Suppliers Worldwide</li>
-                        <li>24/7 Customer Support</li>
-                    </ul>
-                </div>
-                <div class="hero-right-engine">
-                    <div class="engine-card">
-                        <div ct-app id="ct-mount-point">
-                            </div>
-                    </div>
+        <div class="hero-grid">
+            <div class="hero-left-text">
+                <h1>Holiday Car Rentals</h1>
+                <ul class="check-list">
+                    <li>Free Cancellation</li>
+                    <li>No Hidden Charges</li>
+                    <li>800+ Suppliers Worldwide</li>
+                    <li>24/7 Global Support</li>
+                </ul>
+            </div>
+            <div class="hero-right-engine">
+                <div class="engine-card">
+                    <div ct-app id="ct-mount-point">
+                        </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 40px; color: #999; font-size: 13px;">
+    <footer style="text-align: center; padding: 60px; color: #999; font-size: 13px;">
         &copy; 2026 Auto Reservation Plus Limited
     </footer>
 
     <script is:inline>
+        /* --- CARTRAWLER CONFIG --- */
         var CT = {
           ABE: {
             Settings: {
               clientID: '315556',
-              type: window.innerWidth < 800 ? 'mobile' : 'desktop',
+              type: window.innerWidth < 992 ? 'mobile' : 'desktop',
               step1: {
                 deeplinkURL: 'https://book.cartrawler.com/?clientID=315556',
                 showAvailNewWindow: false
@@ -157,23 +176,14 @@
           s.parentNode.insertBefore(cts, s);
         })();
 
-        /* --- THE COLOR AND PADDING POLICE --- */
-        const tidyUp = setInterval(() => {
+        /* --- THE STUBBORN COLOR FIXER --- */
+        // Force the button color one last time with Javascript
+        const colorFixer = setInterval(() => {
             const btn = document.querySelector('.ct-btn-search');
-            const ctContainer = document.querySelector('.ct-search-container');
-            
             if (btn) {
-                // Force button color
                 btn.style.setProperty('background-color', '#2BA6CB', 'important');
                 btn.style.setProperty('background-image', 'none', 'important');
-                
-                // Kill internal CT margins that cause the "edge-to-edge" issue
-                if (ctContainer) {
-                    ctContainer.style.setProperty('margin', '0', 'important');
-                    ctContainer.style.setProperty('padding', '0', 'important');
-                }
-                
-                clearInterval(tidyUp);
+                clearInterval(colorFixer);
             }
         }, 300);
     </script>
