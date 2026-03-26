@@ -1,11 +1,12 @@
 ---
-// Auto Reservation Plus - Force Styles & Same-Tab Redirect
+// Auto Reservation Plus - Precision 2-Column Build
 ---
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Auto Reservation Plus | Holiday Car Rentals</title>
+    <title>Holiday Car Rentals | Auto Reservation Plus</title>
     <style is:global>
         :root { 
             --brand-blue: #2BA6CB; 
@@ -13,25 +14,26 @@
             --light-bg: #f4f4f4; 
         }
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--light-bg); }
+        body { margin: 0; font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--light-bg); line-height: 1.5; }
         
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
-        /* Header & Nav */
+        /* Header */
         header { background: white; padding: 15px 0; border-bottom: 1px solid #eee; }
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
         .logo-area h2 { margin:0; color: var(--brand-blue); text-transform: uppercase; font-size: 1.4rem; }
         .phone { font-weight: bold; color: var(--brand-blue); }
         
+        /* Navigation */
         nav { background: #333; position: sticky; top: 0; z-index: 1000; }
         .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; }
-        .nav-flex li a { display: block; padding: 15px 25px; color: white; text-decoration: none; font-weight: bold; }
+        .nav-flex li a { display: block; padding: 15px 25px; color: white; text-decoration: none; font-weight: bold; font-size: 14px; }
         nav .nav-flex li a:hover { background-color: var(--brand-blue) !important; }
 
-        /* --- THE GRID HERO --- */
+        /* Hero Grid */
         .hero-grid-wrapper {
             width: 100%;
-            min-height: 650px;
+            min-height: 600px;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
                         url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&q=80&w=2000');
             background-size: cover;
@@ -39,57 +41,54 @@
             display: flex;
             align-items: center;
         }
-        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center; }
-        .hero-left-text { color: white; }
-        .hero-left-text h1 { font-size: 4.2rem; margin: 0; line-height: 1; font-weight: 800; }
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: start; padding: 40px 0; }
+        
+        .hero-left-text { color: white; padding-top: 20px; }
+        .hero-left-text h1 { font-size: 4rem; margin: 0; line-height: 1; font-weight: 800; }
         
         .check-list { list-style: none; padding: 0; margin: 30px 0 0 0; }
-        .check-list li { font-size: 1.3rem; margin-bottom: 15px; display: flex; align-items: center; }
+        .check-list li { font-size: 1.2rem; margin-bottom: 12px; display: flex; align-items: center; font-weight: 500; }
         .check-list li::before {
-            content: '✓'; display: inline-block; width: 28px; height: 28px; background: var(--brand-blue);
-            color: white; border-radius: 50%; text-align: center; line-height: 28px; margin-right: 15px; font-weight: bold;
+            content: '✓'; display: inline-block; width: 24px; height: 24px; background: var(--brand-blue);
+            color: white; border-radius: 50%; text-align: center; line-height: 24px; margin-right: 12px; font-weight: bold; font-size: 14px;
         }
 
-        /* --- THE SEARCH BOX (RIGHT SIDE) --- */
-        .engine-container {
+        /* --- THE SEARCH BOX FIX --- */
+        .engine-card {
             background: white;
-            padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
-            min-height: 450px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            overflow: hidden; /* Clips any "unwanted extra padding" from the engine */
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
         }
 
-        /* --- NUCLEAR CSS OVERRIDES FOR CARTRAWLER --- */
-        /* 1. Kill the grey background */
-        div[ct-app] .ct-step-1-container,
-        div[ct-app] .ct-search-container,
-        div[ct-app] .ct-engine-step-1 {
-            background: #ffffff !important;
+        /* Force Remove Internal Widget Backgrounds */
+        #ct-mount-point, .ct-step-1-container, .ct-search-container {
             background-color: #ffffff !important;
-            border: none !important;
-            box-shadow: none !important;
+            background: #ffffff !important;
+            padding: 0 !important;
         }
 
-        /* 2. Force the Search Button to Brand Blue */
-        div[ct-app] .ct-btn-search,
-        div[ct-app] button.ct-btn-search,
-        div[ct-app] .ct-search-button-container button {
+        /* FORCE THE BUTTON COLOR (Targets multiple possible V5 classes) */
+        button.ct-btn-search, 
+        .ct-btn-search,
+        .ct-btn-search-container button,
+        [type="submit"].ct-btn-search {
             background: var(--brand-blue) !important;
             background-color: var(--brand-blue) !important;
-            color: #ffffff !important;
+            background-image: none !important;
             border: none !important;
-            text-transform: uppercase !important;
-            font-weight: bold !important;
-            background-image: none !important; /* Removes default gradients */
-        }
-
-        div[ct-app] .ct-btn-search:hover {
-            filter: brightness(1.1);
+            color: white !important;
+            height: 50px !important;
+            border-radius: 4px !important;
         }
 
         @media (max-width: 992px) {
-            .hero-grid { grid-template-columns: 1fr; padding: 40px 0; }
-            .hero-left-text { text-align: center; }
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .engine-card { margin: 0 auto; }
+            .check-list { display: inline-block; text-align: left; }
         }
     </style>
 </head>
@@ -125,16 +124,17 @@
                     </ul>
                 </div>
                 <div class="hero-right-engine">
-                    <div class="engine-container">
-                        <div ct-app id="ct-target">
-                            </div>
+                    <div class="engine-card">
+                        <div style="height: 410px; overflow: hidden;">
+                            <div ct-app id="ct-mount-point"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 60px; color: #999; font-size: 13px;">
+    <footer style="text-align: center; padding: 40px; color: #999; font-size: 13px;">
         &copy; 2026 Auto Reservation Plus Limited
     </footer>
 
@@ -144,11 +144,11 @@
           ABE: {
             Settings: {
               clientID: '315556',
-              type: window.innerWidth < 992 ? 'mobile' : 'desktop',
+              // Force detection logic from FAQ
+              type: window.innerWidth < 800 ? 'mobile' : 'desktop',
               step1: {
-                // Pointing to your specific whitelabel
-                deeplinkURL: 'https://partner-whitelabel.cartrawler.com/?clientID=315556',
-                showAvailNewWindow: false // Keeps the initial search in the same tab
+                deeplinkURL: 'https://book.cartrawler.com/?clientID=315556',
+                showAvailNewWindow: false
               }
             }
           }
@@ -162,6 +162,18 @@
           var s = document.getElementsByTagName('script')[0]; 
           s.parentNode.insertBefore(cts, s);
         })();
+
+        /* --- THE STUBBORN COLOR FIXER --- */
+        // This script waits for the engine to load, then forces the button color one last time
+        const colorFixer = setInterval(() => {
+            const btn = document.querySelector('.ct-btn-search');
+            if (btn) {
+                btn.style.backgroundColor = '#2BA6CB';
+                btn.style.backgroundImage = 'none';
+                // Once we find it and fix it, we stop looking
+                clearInterval(colorFixer);
+            }
+        }, 500);
     </script>
 </body>
 </html>
