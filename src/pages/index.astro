@@ -1,5 +1,5 @@
 ---
-// Auto Reservation Plus - HolidayAutos Style Layout
+// Auto Reservation Plus - Results-Only Mode Build
 ---
 <html lang="en">
 <head>
@@ -23,31 +23,17 @@
         .logo-area h2 { margin:0; color: var(--brand-blue); letter-spacing: -1px; font-size: 1.5rem; }
         .phone { font-weight: bold; color: var(--brand-blue); }
 
-        /* Navigation - Hover Fix */
+        /* Navigation */
         nav.main-nav { background: #333; color: white; position: sticky; top: 0; z-index: 100; }
         .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; }
-        .nav-flex li a { 
-            display: block; 
-            padding: 15px 25px; 
-            color: white; 
-            text-decoration: none; 
-            font-size: 14px; 
-            font-weight: bold; 
-            transition: all 0.2s ease; 
-        }
-        /* Using high specificity to ensure hover works */
-        nav.main-nav .nav-flex li a:hover { 
-            background-color: var(--brand-blue) !important; 
-            color: #ffffff !important; 
-        }
+        .nav-flex li a { display: block; padding: 15px 25px; color: white; text-decoration: none; font-size: 14px; font-weight: bold; }
+        nav.main-nav .nav-flex li a:hover { background-color: var(--brand-blue) !important; }
 
-        .mobile-toggle { display: none; background: none; border: none; color: white; font-size: 24px; padding: 10px; cursor: pointer; }
-
-        /* --- HERO SECTION (HORIZONTAL SEARCH) --- */
+        /* --- HERO WRAPPER --- */
         .hero-wrapper {
             width: 100%;
-            min-height: 600px;
-            /* Bright, Sunny Mediterranean Coastal Image */
+            min-height: 550px;
+            /* Your Mediterranean Image */
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
                         url('https://images.unsplash.com/photo-1501179691627-eeaa65ea017c?q=80&w=2000&auto=format&fit=crop') no-repeat center center;
             background-size: cover;
@@ -55,47 +41,54 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 60px 20px;
+            padding: 60px 0;
+            transition: all 0.3s ease;
         }
 
-        .hero-text { color: white; text-align: center; margin-bottom: 40px; }
-        .hero-text h1 { font-size: 4rem; color: white; margin: 0; text-shadow: 0 4px 15px rgba(0,0,0,0.4); }
-        .hero-text p { font-size: 1.5rem; margin-top: 10px; font-weight: 300; }
+        .hero-text { color: white; text-align: center; margin-bottom: 30px; transition: opacity 0.3s; }
+        .hero-text h1 { font-size: 3.5rem; color: white; margin: 0; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
-        /* Full-Width HolidayAutos Style Search Bar */
+        /* --- THE ENGINE CONTAINER --- */
         .engine-container {
-            background: rgba(255, 255, 255, 0.95); /* Semi-transparent white */
-            padding: 10px;
+            background: white;
+            padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             width: 100%;
-            max-width: 1200px; /* Force wide room for horizontal fields */
+            max-width: 1200px;
             margin: 0 auto;
-            min-height: 120px; /* Slimmer for the horizontal look */
         }
 
-        /* Responsive Tweaks */
-        @media (max-width: 1024px) {
-            .hero-text h1 { font-size: 2.8rem; }
-            .hero-text p { font-size: 1.2rem; }
+        /* --- THE SWITCH: WHEN RESULTS LOAD --- */
+        body.results-filled .hero-wrapper {
+            background: var(--light-bg); /* Remove image, use clean gray */
+            min-height: auto;
+            padding: 20px 0;
         }
 
-        @media (max-width: 768px) {
-            .mobile-toggle { display: block; }
-            .nav-flex { display: none; }
-            .hero-wrapper { min-height: 500px; padding: 40px 15px; }
-            .hero-text h1 { font-size: 2.2rem; }
+        body.results-filled .hero-text {
+            display: none; /* Hide "Holiday Car Rentals" so results move to top */
         }
 
-        /* Mobile Flyout */
+        body.results-filled .engine-container {
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
+
+        /* Mobile Menu */
         #mobile-panel { position: fixed; top: 0; left: -100%; width: 250px; height: 100%; background: #333; transition: 0.3s; z-index: 1000; padding: 20px; }
         #mobile-panel.open { left: 0; }
         #mobile-panel a { display: block; color: white; padding: 15px 0; text-decoration: none; border-bottom: 1px solid #444; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 999; }
         .overlay.active { display: block; }
+
+        @media (max-width: 768px) {
+            .nav-flex { display: none; }
+            .hero-text h1 { font-size: 2.2rem; }
+        }
     </style>
 </head>
-<body>
+<body id="page-body">
 
     <div id="mobile-panel">
         <button id="close-btn" style="color: white; background: none; border: none; font-size: 30px; cursor: pointer;">&times;</button>
@@ -114,7 +107,7 @@
 
     <nav class="main-nav">
         <div class="container">
-            <button class="mobile-toggle" id="menu-btn">☰</button>
+            <button class="mobile-toggle" id="menu-btn" style="display:none;">☰</button>
             <ul class="nav-flex">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Manage Booking</a></li>
@@ -157,23 +150,29 @@
             s.parentNode.insertBefore(cts, s);
         })();
 
-        /* --- 2. MOBILE MENU --- */
-        const menuBtn = document.getElementById('menu-btn');
-        const closeBtn = document.getElementById('close-btn');
-        const panel = document.getElementById('mobile-panel');
-        const overlay = document.getElementById('overlay');
+        /* --- 2. THE "DISAPPEARING ACT" SCRIPT --- */
+        const checkResults = setInterval(function() {
+            // We look for any element that only exists on the results page
+            const resultsLoaded = document.querySelector('.ct-results-container, .ct-car-list, .ct-loading-container');
+            
+            if (resultsLoaded) {
+                document.getElementById('page-body').classList.add('results-filled');
+                // Optional: Scroll to top of results
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // Stop checking once we've switched modes
+                clearInterval(checkResults);
+            }
+        }, 1000);
 
-        if (menuBtn) {
+        /* --- 3. MOBILE MENU --- */
+        const menuBtn = document.getElementById('menu-btn');
+        const overlay = document.getElementById('overlay');
+        const panel = document.getElementById('mobile-panel');
+        if (menuBtn && panel) {
             menuBtn.addEventListener('click', () => {
                 panel.classList.add('open');
                 overlay.classList.add('active');
             });
-            const closeMenu = () => {
-                panel.classList.remove('open');
-                overlay.classList.remove('active');
-            };
-            if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-            overlay.addEventListener('click', closeMenu);
         }
     </script>
 </body>
