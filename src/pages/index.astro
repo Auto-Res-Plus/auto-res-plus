@@ -1,5 +1,5 @@
 ---
-// Auto Reservation Plus - Force-Hide Background Build
+// Auto Reservation Plus - Horizontal & Auto-Hide Fix
 ---
 <html lang="en">
 <head>
@@ -7,90 +7,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Staging | Auto Reservation Plus</title>
     <style>
-        :root { 
-            --brand-blue: #2BA6CB; 
-            --dark-text: #333;
-            --light-bg: #f4f4f4;
-        }
+        :root { --brand-blue: #2BA6CB; --dark-text: #333; --light-bg: #f4f4f4; }
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; background: var(--light-bg); color: var(--dark-text); line-height: 1.6; }
+        body { margin: 0; font-family: Arial, sans-serif; background: var(--light-bg); color: var(--dark-text); }
         
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
         /* Header & Nav */
-        .top-bar { background: white; padding: 20px 0; border-bottom: 1px solid #eee; }
+        .top-bar { background: white; padding: 15px 0; border-bottom: 1px solid #eee; }
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
-        .logo-area h2 { margin:0; color: var(--brand-blue); letter-spacing: -1px; font-size: 1.5rem; }
+        .logo-area h2 { margin:0; color: var(--brand-blue); font-size: 1.5rem; }
         .phone { font-weight: bold; color: var(--brand-blue); }
-        nav.main-nav { background: #333; color: white; position: sticky; top: 0; z-index: 100; }
+        nav.main-nav { background: #333; position: sticky; top: 0; z-index: 100; }
         .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; }
-        .nav-flex li a { display: block; padding: 15px 25px; color: white; text-decoration: none; font-size: 14px; font-weight: bold; }
+        .nav-flex li a { display: block; padding: 15px 25px; color: white; text-decoration: none; font-weight: bold; }
         nav.main-nav .nav-flex li a:hover { background-color: var(--brand-blue) !important; }
 
-        /* --- HERO WRAPPER --- */
-        .hero-wrapper {
+        /* --- THE HERO (Visible by default) --- */
+        #hero-section {
             width: 100%;
-            min-height: 550px;
-            /* Initial Sunny Background */
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                        url('https://images.unsplash.com/photo-1501179691627-eeaa65ea017c?q=80&w=2000&auto=format&fit=crop') no-repeat center center;
+            min-height: 500px;
+            /* Bright Sunny Mediterranean Coast */
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                        url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&q=80&w=2000');
             background-size: cover;
+            background-position: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 60px 0;
-            transition: all 0.4s ease;
+            transition: opacity 0.4s ease;
         }
 
         .hero-text { color: white; text-align: center; margin-bottom: 30px; }
-        .hero-text h1 { font-size: 3.5rem; color: white; margin: 0; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .hero-text h1 { font-size: 3.5rem; margin: 0; text-shadow: 0 2px 10px rgba(0,0,0,0.4); }
 
+        /* --- SEARCH BOX (Horizontal) --- */
+        .engine-outer { width: 100%; padding: 20px 0; background: transparent; transition: background 0.3s; }
         .engine-container {
-            background: white;
-            padding: 15px;
+            background: rgba(255,255,255,0.95);
+            padding: 0; /* REMOVED padding to force horizontal engine layout */
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
+            overflow: hidden;
         }
 
-        /* --- THE CRITICAL FIX: HIDE BACKGROUND --- */
-        /* We add this class via JavaScript when results load */
-        body.is-searching .hero-wrapper {
-            background: #f4f4f4 !important; /* Force background to light gray */
-            background-image: none !important; /* Kill the image */
-            min-height: auto !important; /* Shrink the header height */
-            padding: 20px 0 !important;
+        /* --- THE "SEARCHING" STATE --- */
+        body.is-searching #hero-section {
+            display: none !important; /* Completely remove image and text */
+        }
+        body.is-searching .engine-outer {
+            background: var(--light-bg);
+            padding-top: 40px;
+        }
+        body.is-searching .engine-container {
+            background: white;
+            box-shadow: none;
+            border: 1px solid #ddd;
         }
 
-        body.is-searching .hero-text {
-            display: none !important; /* Kill the text */
-        }
-
-        /* Mobile Menu */
-        #mobile-panel { position: fixed; top: 0; left: -100%; width: 250px; height: 100%; background: #333; transition: 0.3s; z-index: 1000; padding: 20px; }
-        #mobile-panel.open { left: 0; }
-        #mobile-panel a { display: block; color: white; padding: 15px 0; text-decoration: none; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 999; }
-        .overlay.active { display: block; }
-
-        @media (max-width: 768px) {
-            .nav-flex { display: none; }
-            .hero-text h1 { font-size: 2.2rem; }
+        @media (max-width: 1024px) {
+            .hero-text h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body id="main-body">
-
-    <div id="mobile-panel">
-        <button id="close-btn" style="color: white; background: none; border: none; font-size: 30px; cursor: pointer;">&times;</button>
-        <a href="#">Home</a>
-        <a href="#">Manage Booking</a>
-        <a href="#">Contact Us</a>
-    </div>
-    <div class="overlay" id="overlay"></div>
 
     <header class="top-bar">
         <div class="container top-flex">
@@ -102,37 +86,37 @@
     <nav class="main-nav">
         <div class="container">
             <ul class="nav-flex">
-                <li><a href="#">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="#">Manage Booking</a></li>
                 <li><a href="#">Contact Us</a></li>
             </ul>
         </div>
     </nav>
 
-    <section class="hero-wrapper">
-        <div class="hero-text" id="strapline">
+    <div id="hero-section">
+        <div class="hero-text">
             <h1>Holiday Car Rentals</h1>
             <p>Quality car hire at over 30,000 locations worldwide</p>
         </div>
+    </div>
 
+    <div class="engine-outer">
         <div class="container">
             <div class="engine-container" id="engine-box">
                 <div ct-app>
-                    <noscript>YOUR BROWSER DOES NOT SUPPORT JAVASCRIPT</noscript>
+                    <noscript>JavaScript is required for our search engine.</noscript>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <footer style="text-align: center; padding: 40px; color: #999; font-size: 13px;">
+    <footer style="text-align: center; padding: 60px 40px; color: #999; font-size: 13px;">
         &copy; 2026 Auto Reservation Plus Limited
     </footer>
 
     <script is:inline>
-        /* --- 1. CARTRAWLER LOADER --- */
+        /* --- 1. CARTRAWLER --- */
         var CT = { ABE: { Settings: { clientID: '315556' } } };
-        if (window.innerWidth <= 768) { CT.ABE.Settings.type = 'mobile'; }
-
         (function() {
             CT.ABE.Settings.version = '5.0';
             var cts = document.createElement('script'); 
@@ -141,32 +125,18 @@
             document.getElementsByTagName('script')[0].parentNode.insertBefore(cts, document.getElementsByTagName('script')[0]);
         })();
 
-        /* --- 2. THE FORCE-HIDE OBSERVER --- */
-        // This is much faster than a timer. It watches for ANY change in the engine box.
-        const engineBox = document.getElementById('engine-box');
-        const bodyTag = document.getElementById('main-body');
-
-        const observer = new MutationObserver(function() {
-            // If we see the results container OR the loading spinner, switch modes
-            if (document.querySelector('.ct-results-container, .ct-loading-container, .ct-car-list, .ct-engine-step-2')) {
-                bodyTag.classList.add('is-searching');
-                // Optional: scroll to show the results nicely
-                window.scrollTo({ top: 120, behavior: 'smooth' });
+        /* --- 2. THE ULTIMATE FIX FOR HIDING IMAGE --- */
+        // We use a broader observer that triggers on ANY significant CarTrawler change
+        const observer = new MutationObserver(function(mutations) {
+            const body = document.getElementById('main-body');
+            // If we see the results list OR the loading bar/overlay, hide the hero
+            if (document.querySelector('.ct-results-container, .ct-loading-container, .ct-busy, .ct-car-list')) {
+                body.classList.add('is-searching');
+                window.scrollTo(0,0);
             }
         });
 
-        // Start watching the engine box for results arriving
-        observer.observe(engineBox, { childList: true, subtree: true });
-
-        /* --- 3. OVERLAY/PANEL LOGIC --- */
-        const overlay = document.getElementById('overlay');
-        const panel = document.getElementById('mobile-panel');
-        if (overlay && panel) {
-            overlay.addEventListener('click', () => {
-                panel.classList.remove('open');
-                overlay.classList.remove('active');
-            });
-        }
+        observer.observe(document.body, { childList: true, subtree: true });
     </script>
 </body>
 </html>
