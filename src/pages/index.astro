@@ -1,5 +1,5 @@
 ---
-// Auto Reservation Plus - Staging Page
+// Auto Reservation Plus - Production Staging
 ---
 <html lang="en">
 <head>
@@ -12,117 +12,89 @@
             --dark-text: #333;
             --light-bg: #f4f4f4;
         }
-        * {
-        box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
         body { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; background: var(--light-bg); color: var(--dark-text); line-height: 1.6; }
         
-        /* Layout Containers */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
-        /* Header & Logo */
+        /* Header */
         .top-bar { background: white; padding: 20px 0; border-bottom: 1px solid #eee; }
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
         .logo-area h2 { margin:0; color: var(--brand-blue); letter-spacing: -1px; font-size: 1.5rem; }
         .phone { font-weight: bold; color: var(--brand-blue); }
 
-        /* Navigation */
+        /* Nav */
         nav.main-nav { background: #333; color: white; position: sticky; top: 0; z-index: 100; }
         .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; }
         .nav-flex li a { display: block; padding: 15px 20px; color: white; text-decoration: none; font-size: 14px; font-weight: bold; transition: background 0.2s; }
         .nav-flex li a:hover { background: var(--brand-blue); }
 
-        /* Mobile Nav Toggle */
         .mobile-toggle { display: none; background: none; border: none; color: white; font-size: 24px; padding: 10px; cursor: pointer; }
 
-        /* Content Area */
-        .main-content { background: white; padding: 30px; margin-top: 30px; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { color: var(--brand-blue); margin-top: 0; }
-        
-        /* Engine Placeholder */
-        .engine-container {
-        background: white;
-        padding: 15px; /* Reduced padding to give the engine more internal space */
-        border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        width: 100%;
+        /* --- HERO SECTION --- */
+        .hero-wrapper {
+            width: 100%;
+            min-height: 600px;
+            /* High-res Unsplash image with a 60% dark tint for readability */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 60px 0;
+            transition: min-height 0.5s ease;
         }
-        
-        /* Info Section */
-        .info-section { margin-top: 40px; border-top: 1px solid #eee; padding-top: 30px; }
-        .steps-box { background: #f9f9f9; padding: 20px; border-left: 5px solid var(--brand-blue); margin: 20px 0; }
-        .steps-box b { color: var(--brand-blue); }
-        .inclusive-note { font-size: 0.9rem; color: #666; font-style: italic; }
 
-        /* Flyout Panel (Mobile) */
-        #mobile-panel { 
-            position: fixed; top: 0; left: -100%; width: 250px; height: 100%; 
-            background: #333; transition: 0.3s; z-index: 1000; padding: 20px; 
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr; /* Slightly wider left side for text */
+            gap: 40px;
+            align-items: start;
+            width: 100%;
         }
+
+        /* The Hero Text */
+        .hero-text { color: white; }
+        .hero-text h1 { font-size: 3.5rem; color: white; margin: 0 0 20px 0; line-height: 1.1; }
+        .hero-text p { font-size: 1.2rem; margin-bottom: 30px; }
+        .hero-bullets { list-style: none; padding: 0; }
+        .hero-bullets li { margin-bottom: 12px; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+
+        /* The Engine Container */
+        .engine-container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            width: 100%;
+            min-height: 450px; /* Prevents layout jump */
+        }
+
+        /* --- THE MAGIC FIX: SEARCH ACTIVE STATE --- */
+        /* We use !important here to ensure it overrides the 1.2fr 0.8fr grid */
+        .hero-grid.search-active {
+            grid-template-columns: 1fr !important;
+        }
+
+        .hero-grid.search-active .hero-text {
+            display: none !important;
+        }
+
+        /* Mobile Menu Panel */
+        #mobile-panel { position: fixed; top: 0; left: -100%; width: 250px; height: 100%; background: #333; transition: 0.3s; z-index: 1000; padding: 20px; }
         #mobile-panel.open { left: 0; }
         #mobile-panel a { display: block; color: white; padding: 15px 0; text-decoration: none; border-bottom: 1px solid #444; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 999; }
         .overlay.active { display: block; }
 
-        /* Responsiveness */
-        @media (max-width: 768px) {
-            .container { width: 100%; }
-            .nav-flex { display: none; }
+        @media (max-width: 900px) {
+            .hero-grid { grid-template-columns: 1fr !important; }
+            .hero-text { text-align: center; margin-bottom: 40px; }
+            .hero-text h1 { font-size: 2.5rem; }
             .mobile-toggle { display: block; }
-            .top-flex { flex-direction: column; text-align: center; gap: 10px; }
+            .nav-flex { display: none; }
         }
-        /* Full-width wrapper for the background image */
-.hero-wrapper {
-    width: 100%;
-    min-height: 650px;
-    /* This uses the coastal road car image with a 50% dark tint */
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                url('http://googleusercontent.com/image_collection/image_retrieval/9592816336075553256_0');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Creates a nice parallax effect on scroll */
-    display: flex;
-    align-items: center;
-    padding: 60px 0;
-}
-
-/* The Grid Container */
-.hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* 50/50 split */
-    gap: 40px;
-    align-items: center;
-    transition: all 0.5s ease;
-}
-
-/* The "Search Mode" state - we will trigger this with JS */
-.hero-grid.search-active {
-    grid-template-columns: 1fr; /* Collapse to single column */
-}
-
-.hero-grid.search-active .hero-text {
-    display: none; /* Hide the text when results show */
-}
-
-/* Text Styling */
-.hero-text { color: white; }
-.hero-text h1 { font-size: 3rem; color: white; margin-bottom: 10px; }
-.hero-bullets { list-style: none; padding: 0; margin-top: 20px; }
-.hero-bullets li { margin-bottom: 8px; font-weight: bold; }
-
-/* Engine Box Styling */
-.engine-container {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 900px) {
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-text { text-align: center; }
-}
     </style>
 </head>
 <body>
@@ -154,23 +126,23 @@
     </nav>
 
     <section class="hero-wrapper">
-    <div class="container hero-grid">
-        <div class="hero-text">
-            <h1>Premium Car & Van Hire</h1>
-            <p>Compare 800+ suppliers in 30,000 locations worldwide. Simple, fast, and inclusive pricing.</p>
-            <ul class="hero-bullets">
-                <li>✓ Free Cancellation</li>
-                <li>✓ No Hidden Fees</li>
-                <li>✓ 24/7 Support</li>
-            </ul>
-        </div>
+        <div class="container hero-grid" id="main-hero-grid">
+            <div class="hero-text">
+                <h1>Premium Car & Van Hire</h1>
+                <p>Compare 800+ suppliers in 30,000 locations worldwide.</p>
+                <ul class="hero-bullets">
+                    <li>✓ Free Cancellation</li>
+                    <li>✓ No Hidden Fees</li>
+                    <li>✓ 24/7 Global Support</li>
+                </ul>
+            </div>
 
-        <div class="engine-container" id="engine-box">
-            <div ct-app>
-                <noscript>YOUR BROWSER DOES NOT SUPPORT JAVASCRIPT</noscript>
+            <div class="engine-container">
+                <div ct-app>
+                    <noscript>YOUR BROWSER DOES NOT SUPPORT JAVASCRIPT</noscript>
+                </div>
             </div>
         </div>
-    </div>
     </section>
 
     <footer style="text-align: center; padding: 40px; color: #999; font-size: 13px;">
@@ -178,69 +150,52 @@
     </footer>
 
     <script is:inline>
-    /* --- 1. CARTRAWLER V5 CONFIGURATION --- */
-    var isMobile = window.innerWidth <= 768;
-    var CT = {
-        ABE: {
-            Settings: {
-                clientID: '315556' 
-            }
-        }
-    };
+        /* --- 1. CARTRAWLER V5 --- */
+        var isMobile = window.innerWidth <= 768;
+        var CT = { ABE: { Settings: { clientID: '315556' } } };
+        if (isMobile) { CT.ABE.Settings.type = 'mobile'; }
 
-    if (isMobile) {
-        CT.ABE.Settings.type = 'mobile';
-    }
-
-    /* --- 2. THE CARTRAWLER LOADER --- */
-    (function() {
-        CT.ABE.Settings.version = '5.0';
-        var cts = document.createElement('script'); 
-        cts.type = 'text/javascript'; 
-        cts.async = true;
-        cts.src = 'https://ajaxgeo.cartrawler.com/abe' + CT.ABE.Settings.version + '/ct_loader.js?' + new Date().getTime();
-        var s = document.getElementsByTagName('script')[0]; 
-        if (s && s.parentNode) {
+        (function() {
+            CT.ABE.Settings.version = '5.0';
+            var cts = document.createElement('script'); 
+            cts.type = 'text/javascript'; cts.async = true;
+            cts.src = 'https://ajaxgeo.cartrawler.com/abe5.0/ct_loader.js?' + new Date().getTime();
+            var s = document.getElementsByTagName('script')[0]; 
             s.parentNode.insertBefore(cts, s);
-        } else {
-            document.head.appendChild(cts);
-        }
-    })();
+        })();
 
-    /* --- 3. LAYOUT SWITCHER (Hero Grid Expansion) --- */
-    document.addEventListener('click', function (e) {
-        // This looks for the CarTrawler Search button click
-        // It checks for the specific CarTrawler ID or the button text
-        if (e.target && (e.target.id === 'ct-search-btn' || e.target.innerText === 'Search')) {
-            const grid = document.querySelector('.hero-grid');
-            if (grid) {
-                grid.classList.add('search-active');
-                // Smooth scroll to the top of the results so the user doesn't get lost
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* --- 2. LAYOUT SWITCHER --- */
+        // We use a more aggressive listener for V5 buttons
+        document.addEventListener('click', function (e) {
+            // Check for the search button ID or the text 'Search'
+            if (e.target && (e.target.id === 'ct-search-btn' || e.target.innerText === 'Search' || e.target.closest('#ct-search-btn'))) {
+                const grid = document.getElementById('main-hero-grid');
+                if (grid) {
+                    grid.classList.add('search-active');
+                    console.log("Layout expanded to full width");
+                    window.scrollTo({ top: 100, behavior: 'smooth' });
+                }
             }
-        }
-    });
-
-    /* --- 4. MOBILE MENU LOGIC --- */
-    const menuBtn = document.getElementById('menu-btn');
-    const closeBtn = document.getElementById('close-btn');
-    const panel = document.getElementById('mobile-panel');
-    const overlay = document.getElementById('overlay');
-
-    if (menuBtn && panel && overlay) {
-        menuBtn.addEventListener('click', () => {
-            panel.classList.add('open');
-            overlay.classList.add('active');
         });
 
-        const closeMenu = () => {
-            panel.classList.remove('open');
-            overlay.classList.remove('active');
-        };
+        /* --- 3. MOBILE MENU --- */
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const panel = document.getElementById('mobile-panel');
+        const overlay = document.getElementById('overlay');
 
-        if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-        overlay.addEventListener('click', closeMenu);
-    }
-</script>
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                panel.classList.add('open');
+                overlay.classList.add('active');
+            });
+            const closeMenu = () => {
+                panel.classList.remove('open');
+                overlay.classList.remove('active');
+            };
+            closeBtn.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', closeMenu);
+        }
+    </script>
 </body>
 </html>
