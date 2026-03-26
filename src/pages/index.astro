@@ -1,5 +1,5 @@
 ---
-// Auto Reservation Plus - Results-Only Mode Build
+// Auto Reservation Plus - Force-Hide Background Build
 ---
 <html lang="en">
 <head>
@@ -17,13 +17,11 @@
         
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
-        /* Header */
+        /* Header & Nav */
         .top-bar { background: white; padding: 20px 0; border-bottom: 1px solid #eee; }
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
         .logo-area h2 { margin:0; color: var(--brand-blue); letter-spacing: -1px; font-size: 1.5rem; }
         .phone { font-weight: bold; color: var(--brand-blue); }
-
-        /* Navigation */
         nav.main-nav { background: #333; color: white; position: sticky; top: 0; z-index: 100; }
         .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; }
         .nav-flex li a { display: block; padding: 15px 25px; color: white; text-decoration: none; font-size: 14px; font-weight: bold; }
@@ -33,7 +31,7 @@
         .hero-wrapper {
             width: 100%;
             min-height: 550px;
-            /* Your Mediterranean Image */
+            /* Initial Sunny Background */
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
                         url('https://images.unsplash.com/photo-1501179691627-eeaa65ea017c?q=80&w=2000&auto=format&fit=crop') no-repeat center center;
             background-size: cover;
@@ -42,13 +40,12 @@
             align-items: center;
             justify-content: center;
             padding: 60px 0;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
         }
 
-        .hero-text { color: white; text-align: center; margin-bottom: 30px; transition: opacity 0.3s; }
+        .hero-text { color: white; text-align: center; margin-bottom: 30px; }
         .hero-text h1 { font-size: 3.5rem; color: white; margin: 0; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
-        /* --- THE ENGINE CONTAINER --- */
         .engine-container {
             background: white;
             padding: 15px;
@@ -59,26 +56,23 @@
             margin: 0 auto;
         }
 
-        /* --- THE SWITCH: WHEN RESULTS LOAD --- */
-        body.results-filled .hero-wrapper {
-            background: var(--light-bg); /* Remove image, use clean gray */
-            min-height: auto;
-            padding: 20px 0;
+        /* --- THE CRITICAL FIX: HIDE BACKGROUND --- */
+        /* We add this class via JavaScript when results load */
+        body.is-searching .hero-wrapper {
+            background: #f4f4f4 !important; /* Force background to light gray */
+            background-image: none !important; /* Kill the image */
+            min-height: auto !important; /* Shrink the header height */
+            padding: 20px 0 !important;
         }
 
-        body.results-filled .hero-text {
-            display: none; /* Hide "Holiday Car Rentals" so results move to top */
-        }
-
-        body.results-filled .engine-container {
-            box-shadow: none;
-            border: 1px solid #ddd;
+        body.is-searching .hero-text {
+            display: none !important; /* Kill the text */
         }
 
         /* Mobile Menu */
         #mobile-panel { position: fixed; top: 0; left: -100%; width: 250px; height: 100%; background: #333; transition: 0.3s; z-index: 1000; padding: 20px; }
         #mobile-panel.open { left: 0; }
-        #mobile-panel a { display: block; color: white; padding: 15px 0; text-decoration: none; border-bottom: 1px solid #444; }
+        #mobile-panel a { display: block; color: white; padding: 15px 0; text-decoration: none; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 999; }
         .overlay.active { display: block; }
 
@@ -88,7 +82,7 @@
         }
     </style>
 </head>
-<body id="page-body">
+<body id="main-body">
 
     <div id="mobile-panel">
         <button id="close-btn" style="color: white; background: none; border: none; font-size: 30px; cursor: pointer;">&times;</button>
@@ -107,7 +101,6 @@
 
     <nav class="main-nav">
         <div class="container">
-            <button class="mobile-toggle" id="menu-btn" style="display:none;">☰</button>
             <ul class="nav-flex">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Manage Booking</a></li>
@@ -117,13 +110,13 @@
     </nav>
 
     <section class="hero-wrapper">
-        <div class="hero-text">
+        <div class="hero-text" id="strapline">
             <h1>Holiday Car Rentals</h1>
             <p>Quality car hire at over 30,000 locations worldwide</p>
         </div>
 
         <div class="container">
-            <div class="engine-container">
+            <div class="engine-container" id="engine-box">
                 <div ct-app>
                     <noscript>YOUR BROWSER DOES NOT SUPPORT JAVASCRIPT</noscript>
                 </div>
@@ -136,42 +129,42 @@
     </footer>
 
     <script is:inline>
-        /* --- 1. CARTRAWLER V5 --- */
-        var isMobile = window.innerWidth <= 768;
+        /* --- 1. CARTRAWLER LOADER --- */
         var CT = { ABE: { Settings: { clientID: '315556' } } };
-        if (isMobile) { CT.ABE.Settings.type = 'mobile'; }
+        if (window.innerWidth <= 768) { CT.ABE.Settings.type = 'mobile'; }
 
         (function() {
             CT.ABE.Settings.version = '5.0';
             var cts = document.createElement('script'); 
             cts.type = 'text/javascript'; cts.async = true;
             cts.src = 'https://ajaxgeo.cartrawler.com/abe5.0/ct_loader.js?' + new Date().getTime();
-            var s = document.getElementsByTagName('script')[0]; 
-            s.parentNode.insertBefore(cts, s);
+            document.getElementsByTagName('script')[0].parentNode.insertBefore(cts, document.getElementsByTagName('script')[0]);
         })();
 
-        /* --- 2. THE "DISAPPEARING ACT" SCRIPT --- */
-        const checkResults = setInterval(function() {
-            // We look for any element that only exists on the results page
-            const resultsLoaded = document.querySelector('.ct-results-container, .ct-car-list, .ct-loading-container');
-            
-            if (resultsLoaded) {
-                document.getElementById('page-body').classList.add('results-filled');
-                // Optional: Scroll to top of results
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                // Stop checking once we've switched modes
-                clearInterval(checkResults);
-            }
-        }, 1000);
+        /* --- 2. THE FORCE-HIDE OBSERVER --- */
+        // This is much faster than a timer. It watches for ANY change in the engine box.
+        const engineBox = document.getElementById('engine-box');
+        const bodyTag = document.getElementById('main-body');
 
-        /* --- 3. MOBILE MENU --- */
-        const menuBtn = document.getElementById('menu-btn');
+        const observer = new MutationObserver(function() {
+            // If we see the results container OR the loading spinner, switch modes
+            if (document.querySelector('.ct-results-container, .ct-loading-container, .ct-car-list, .ct-engine-step-2')) {
+                bodyTag.classList.add('is-searching');
+                // Optional: scroll to show the results nicely
+                window.scrollTo({ top: 120, behavior: 'smooth' });
+            }
+        });
+
+        // Start watching the engine box for results arriving
+        observer.observe(engineBox, { childList: true, subtree: true });
+
+        /* --- 3. OVERLAY/PANEL LOGIC --- */
         const overlay = document.getElementById('overlay');
         const panel = document.getElementById('mobile-panel');
-        if (menuBtn && panel) {
-            menuBtn.addEventListener('click', () => {
-                panel.classList.add('open');
-                overlay.classList.add('active');
+        if (overlay && panel) {
+            overlay.addEventListener('click', () => {
+                panel.classList.remove('open');
+                overlay.classList.remove('active');
             });
         }
     </script>
