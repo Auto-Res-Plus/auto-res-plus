@@ -100,8 +100,8 @@
             <h1>Car Hire, Van Hire and Exotic Car Rental in 3 Steps</h1>
             
             <div class="engine-container">
-                <div id="ct-booking-engine">
-                    <p><strong>[ New CarTrawler Engine ]</strong></p>
+                <div ct-app>
+                    <noscript>YOUR BROWSER DOES NOT SUPPORT JAVASCRIPT</noscript>
                 </div>
             </div>
 
@@ -150,5 +150,41 @@
         closeBtn.addEventListener('click', closeMenu);
         overlay.addEventListener('click', closeMenu);
     </script>
+
+    <script is:inline>
+    var isMobile = window.innerWidth <= 768;
+
+    var CT = {
+        ABE: {
+            Settings: {
+                clientID: '315556' 
+            }
+        }
+    };
+
+    if (isMobile) {
+        CT.ABE.Settings.type = 'mobile';
+        // CT.ABE.Settings.logo = '/path-to-logo.png'; // You can add logo path later if the mobile layout looks bare without it
+    }
+
+    // The CarTrawler Loader
+    (function() {
+        CT.ABE.Settings.version = '5.0';
+        var cts = document.createElement('script'); 
+        cts.type = 'text/javascript'; 
+        cts.async = true;
+        
+        cts.src = 'https://ajaxgeo.cartrawler.com/abe' + CT.ABE.Settings.version + '/ct_loader.js?' + new Date().getTime();
+        
+        var s = document.getElementsByTagName('script')[0]; 
+        
+        // Failsafe in case there are no other scripts on the page
+        if (s && s.parentNode) {
+            s.parentNode.insertBefore(cts, s);
+        } else {
+            document.head.appendChild(cts);
+        }
+    })();
+</script>
 </body>
 </html>
