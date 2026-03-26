@@ -1,5 +1,5 @@
 ---
-// Auto Reservation Plus - Horizontal & Auto-Hide Fix
+// Auto Reservation Plus - Final Horizontal & Auto-Clear Build
 ---
 <html lang="en">
 <head>
@@ -9,25 +9,25 @@
     <style>
         :root { --brand-blue: #2BA6CB; --dark-text: #333; --light-bg: #f4f4f4; }
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: Arial, sans-serif; background: var(--light-bg); color: var(--dark-text); }
+        body { margin: 0; font-family: Arial, sans-serif; background: var(--light-bg); color: var(--dark-text); overflow-x: hidden; }
         
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
         /* Header & Nav */
-        .top-bar { background: white; padding: 15px 0; border-bottom: 1px solid #eee; }
+        header { background: white; padding: 15px 0; }
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
-        .logo-area h2 { margin:0; color: var(--brand-blue); font-size: 1.5rem; }
+        .logo-area h2 { margin:0; color: var(--brand-blue); font-size: 1.5rem; text-transform: uppercase; }
         .phone { font-weight: bold; color: var(--brand-blue); }
-        nav.main-nav { background: #333; position: sticky; top: 0; z-index: 100; }
+        
+        nav { background: #333; position: sticky; top: 0; z-index: 1000; }
         .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; }
-        .nav-flex li a { display: block; padding: 15px 25px; color: white; text-decoration: none; font-weight: bold; }
-        nav.main-nav .nav-flex li a:hover { background-color: var(--brand-blue) !important; }
+        .nav-flex li a { display: block; padding: 15px 25px; color: white; text-decoration: none; font-weight: bold; font-size: 14px; }
+        nav .nav-flex li a:hover { background-color: var(--brand-blue) !important; }
 
-        /* --- THE HERO (Visible by default) --- */
+        /* --- THE HERO SECTION --- */
         #hero-section {
             width: 100%;
-            min-height: 500px;
-            /* Bright Sunny Mediterranean Coast */
+            height: 450px;
             background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
                         url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&q=80&w=2000');
             background-size: cover;
@@ -36,54 +36,50 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.4s ease;
         }
+        .hero-text { color: white; text-align: center; }
+        .hero-text h1 { font-size: 4rem; margin: 0; text-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+        .hero-text p { font-size: 1.4rem; }
 
-        .hero-text { color: white; text-align: center; margin-bottom: 30px; }
-        .hero-text h1 { font-size: 3.5rem; margin: 0; text-shadow: 0 2px 10px rgba(0,0,0,0.4); }
-
-        /* --- SEARCH BOX (Horizontal) --- */
-        .engine-outer { width: 100%; padding: 20px 0; background: transparent; transition: background 0.3s; }
+        /* --- THE SEARCH BOX (MANDATORY HORIZONTAL) --- */
+        .engine-outer { 
+            width: 100%; 
+            margin-top: -50px; /* Overlap the hero slightly */
+            position: relative;
+            z-index: 10;
+        }
         .engine-container {
-            background: rgba(255,255,255,0.95);
-            padding: 0; /* REMOVED padding to force horizontal engine layout */
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: white;
+            padding: 5px; /* Minimal padding to force row layout */
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            overflow: hidden;
         }
 
-        /* --- THE "SEARCHING" STATE --- */
-        body.is-searching #hero-section {
-            display: none !important; /* Completely remove image and text */
-        }
-        body.is-searching .engine-outer {
-            background: var(--light-bg);
-            padding-top: 40px;
-        }
-        body.is-searching .engine-container {
-            background: white;
-            box-shadow: none;
-            border: 1px solid #ddd;
-        }
+        /* --- RESULTS PAGE OVERRIDES --- */
+        body.searching #hero-section { display: none !important; }
+        body.searching .engine-outer { margin-top: 20px; }
+        body.searching .engine-container { box-shadow: none; border: 1px solid #ccc; }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
             .hero-text h1 { font-size: 2.5rem; }
+            #hero-section { height: 350px; }
+            .engine-outer { margin-top: 0; }
         }
     </style>
 </head>
 <body id="main-body">
 
-    <header class="top-bar">
+    <header>
         <div class="container top-flex">
-            <div class="logo-area"><h2>AUTO RESERVATION PLUS</h2></div>
+            <div class="logo-area"><h2>Auto Reservation Plus</h2></div>
             <div class="phone">Tel: +44(0)1622 631146</div>
         </div>
     </header>
 
-    <nav class="main-nav">
+    <nav>
         <div class="container">
             <ul class="nav-flex">
                 <li><a href="/">Home</a></li>
@@ -96,26 +92,25 @@
     <div id="hero-section">
         <div class="hero-text">
             <h1>Holiday Car Rentals</h1>
-            <p>Quality car hire at over 30,000 locations worldwide</p>
+            <p>Quality car hire worldwide</p>
         </div>
     </div>
 
     <div class="engine-outer">
         <div class="container">
-            <div class="engine-container" id="engine-box">
-                <div ct-app>
-                    <noscript>JavaScript is required for our search engine.</noscript>
-                </div>
+            <div class="engine-container">
+                <div ct-app id="ct-mount-point">
+                    </div>
             </div>
         </div>
     </div>
 
-    <footer style="text-align: center; padding: 60px 40px; color: #999; font-size: 13px;">
+    <footer style="text-align: center; padding: 100px 20px; color: #999; font-size: 13px;">
         &copy; 2026 Auto Reservation Plus Limited
     </footer>
 
     <script is:inline>
-        /* --- 1. CARTRAWLER --- */
+        /* --- 1. CARTRAWLER SETUP --- */
         var CT = { ABE: { Settings: { clientID: '315556' } } };
         (function() {
             CT.ABE.Settings.version = '5.0';
@@ -125,17 +120,18 @@
             document.getElementsByTagName('script')[0].parentNode.insertBefore(cts, document.getElementsByTagName('script')[0]);
         })();
 
-        /* --- 2. THE ULTIMATE FIX FOR HIDING IMAGE --- */
-        // We use a broader observer that triggers on ANY significant CarTrawler change
-        const observer = new MutationObserver(function(mutations) {
-            const body = document.getElementById('main-body');
-            // If we see the results list OR the loading bar/overlay, hide the hero
-            if (document.querySelector('.ct-results-container, .ct-loading-container, .ct-busy, .ct-car-list')) {
-                body.classList.add('is-searching');
-                window.scrollTo(0,0);
+        /* --- 2. THE NUCLEAR REMOVAL SCRIPT --- */
+        // We use a MutationObserver to watch for ANY loading state or car list
+        const body = document.getElementById('main-body');
+        const observer = new MutationObserver(function() {
+            const hasResults = document.querySelector('.ct-results-container, .ct-busy, .ct-loading-container, .ct-engine-step-2');
+            if (hasResults) {
+                body.classList.add('searching');
+                // Scroll to top of the search engine
+                window.scrollTo(0, 0);
             }
         });
-
+        
         observer.observe(document.body, { childList: true, subtree: true });
     </script>
 </body>
