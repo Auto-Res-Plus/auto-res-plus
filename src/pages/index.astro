@@ -1,33 +1,33 @@
 ---
-// Auto Reservation Plus - Final Horizontal & Auto-Clear Build
+// Auto Reservation Plus - Option 1: Step 1 Redirect Build
 ---
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Staging | Auto Reservation Plus</title>
+    <title>Holiday Car Rentals | Auto Reservation Plus</title>
     <style>
         :root { --brand-blue: #2BA6CB; --dark-text: #333; --light-bg: #f4f4f4; }
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: Arial, sans-serif; background: var(--light-bg); color: var(--dark-text); overflow-x: hidden; }
+        body { margin: 0; font-family: Arial, sans-serif; background: var(--light-bg); color: var(--dark-text); }
         
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
         /* Header & Nav */
-        header { background: white; padding: 15px 0; }
+        header { background: white; padding: 15px 0; border-bottom: 1px solid #eee; }
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
-        .logo-area h2 { margin:0; color: var(--brand-blue); font-size: 1.5rem; text-transform: uppercase; }
+        .logo-area h2 { margin:0; color: var(--brand-blue); text-transform: uppercase; font-size: 1.5rem; }
         .phone { font-weight: bold; color: var(--brand-blue); }
         
-        nav { background: #333; position: sticky; top: 0; z-index: 1000; }
+        nav { background: #333; }
         .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; }
-        .nav-flex li a { display: block; padding: 15px 25px; color: white; text-decoration: none; font-weight: bold; font-size: 14px; }
+        .nav-flex li a { display: block; padding: 15px 25px; color: white; text-decoration: none; font-weight: bold; }
         nav .nav-flex li a:hover { background-color: var(--brand-blue) !important; }
 
-        /* --- THE HERO SECTION --- */
-        #hero-section {
+        /* --- HERO SECTION --- */
+        .hero-wrapper {
             width: 100%;
-            height: 450px;
+            height: 500px;
             background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
                         url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&q=80&w=2000');
             background-size: cover;
@@ -37,40 +37,32 @@
             align-items: center;
             justify-content: center;
         }
-        .hero-text { color: white; text-align: center; }
-        .hero-text h1 { font-size: 4rem; margin: 0; text-shadow: 0 2px 20px rgba(0,0,0,0.5); }
-        .hero-text p { font-size: 1.4rem; }
+        .hero-text { color: white; text-align: center; margin-bottom: 30px; }
+        .hero-text h1 { font-size: 3.5rem; margin: 0; text-shadow: 0 2px 15px rgba(0,0,0,0.4); }
 
-        /* --- THE SEARCH BOX (MANDATORY HORIZONTAL) --- */
-        .engine-outer { 
-            width: 100%; 
-            margin-top: -50px; /* Overlap the hero slightly */
-            position: relative;
-            z-index: 10;
+        /* --- HORIZONTAL SEARCH BAR --- */
+        .search-row {
+            width: 100%;
+            margin-top: -60px; /* Pulls it up into the hero */
         }
         .engine-container {
             background: white;
-            padding: 5px; /* Minimal padding to force row layout */
-            border-radius: 4px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            padding: 10px 5px; /* Extremely tight padding to force horizontal */
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
+            min-height: 80px;
         }
 
-        /* --- RESULTS PAGE OVERRIDES --- */
-        body.searching #hero-section { display: none !important; }
-        body.searching .engine-outer { margin-top: 20px; }
-        body.searching .engine-container { box-shadow: none; border: 1px solid #ccc; }
-
-        @media (max-width: 768px) {
-            .hero-text h1 { font-size: 2.5rem; }
-            #hero-section { height: 350px; }
-            .engine-outer { margin-top: 0; }
+        @media (max-width: 900px) {
+            .hero-text h1 { font-size: 2.2rem; }
+            .search-row { margin-top: 0; padding: 20px 0; }
         }
     </style>
 </head>
-<body id="main-body">
+<body>
 
     <header>
         <div class="container top-flex">
@@ -89,50 +81,51 @@
         </div>
     </nav>
 
-    <div id="hero-section">
+    <div class="hero-wrapper">
         <div class="hero-text">
             <h1>Holiday Car Rentals</h1>
-            <p>Quality car hire worldwide</p>
+            <p>Quality car hire at over 30,000 locations worldwide</p>
         </div>
     </div>
 
-    <div class="engine-outer">
+    <div class="search-row">
         <div class="container">
             <div class="engine-container">
-                <div ct-app id="ct-mount-point">
+                <div ct-app>
                     </div>
             </div>
         </div>
     </div>
 
-    <footer style="text-align: center; padding: 100px 20px; color: #999; font-size: 13px;">
+    <footer style="text-align: center; padding: 80px 20px; color: #999; font-size: 12px;">
         &copy; 2026 Auto Reservation Plus Limited
     </footer>
 
     <script is:inline>
-        /* --- 1. CARTRAWLER SETUP --- */
-        var CT = { ABE: { Settings: { clientID: '315556' } } };
-        (function() {
-            CT.ABE.Settings.version = '5.0';
-            var cts = document.createElement('script'); 
-            cts.type = 'text/javascript'; cts.async = true;
-            cts.src = 'https://ajaxgeo.cartrawler.com/abe5.0/ct_loader.js?' + new Date().getTime();
-            document.getElementsByTagName('script')[0].parentNode.insertBefore(cts, document.getElementsByTagName('script')[0]);
-        })();
-
-        /* --- 2. THE NUCLEAR REMOVAL SCRIPT --- */
-        // We use a MutationObserver to watch for ANY loading state or car list
-        const body = document.getElementById('main-body');
-        const observer = new MutationObserver(function() {
-            const hasResults = document.querySelector('.ct-results-container, .ct-busy, .ct-loading-container, .ct-engine-step-2');
-            if (hasResults) {
-                body.classList.add('searching');
-                // Scroll to top of the search engine
-                window.scrollTo(0, 0);
+        /* --- MERGED CARTRAWLER OPTION 1 CONFIG --- */
+        var CT = {
+          ABE: {
+            Settings: {
+              clientID: '315556',
+              // This handles the mobile detection mentioned in Option 5
+              type: window.innerWidth < 768 ? 'mobile' : 'desktop',
+              step1: {
+                // Redirects to the full results page on their secure server
+                deeplinkURL: 'https://book.cartrawler.com/?clientID=315556',
+                showAvailNewWindow: false // Set to true if you want a popup instead
+              }
             }
-        });
-        
-        observer.observe(document.body, { childList: true, subtree: true });
+          }
+        };
+
+        (function() {
+          CT.ABE.Settings.version = '5.0';
+          var cts = document.createElement('script'); 
+          cts.type = 'text/javascript'; cts.async = true;
+          cts.src = 'https://ajaxgeo.cartrawler.com/abe5.0/ct_loader.js?' + new Date().getTime();
+          var s = document.getElementsByTagName('script')[0]; 
+          s.parentNode.insertBefore(cts, s);
+        })();
     </script>
 </body>
 </html>
