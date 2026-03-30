@@ -280,30 +280,32 @@
         })();
 
         /* --- OFF-CANVAS NAV --- */
-        const hamburger = document.getElementById('hamburger');
-        const offCanvas = document.getElementById('off-canvas');
-        const overlay = document.getElementById('nav-overlay');
-        const closeBtn = document.getElementById('off-canvas-close');
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger');
+            const offCanvas = document.getElementById('off-canvas');
+            const overlay = document.getElementById('nav-overlay');
+            const closeBtn = document.getElementById('off-canvas-close');
 
-        function openMenu() {
-            hamburger.classList.add('is-open');
-            offCanvas.classList.add('is-open');
-            overlay.classList.add('is-open');
-            offCanvas.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeMenu() {
-            hamburger.classList.remove('is-open');
-            offCanvas.classList.remove('is-open');
-            overlay.classList.remove('is-open');
-            offCanvas.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
-        }
+            function openMenu() {
+                hamburger.classList.add('is-open');
+                offCanvas.classList.add('is-open');
+                overlay.classList.add('is-open');
+                offCanvas.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeMenu() {
+                hamburger.classList.remove('is-open');
+                offCanvas.classList.remove('is-open');
+                overlay.classList.remove('is-open');
+                offCanvas.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
 
-        hamburger.addEventListener('click', openMenu);
-        closeBtn.addEventListener('click', closeMenu);
-        overlay.addEventListener('click', closeMenu);
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+            hamburger.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', closeMenu);
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+        });
 
         /* --- THE COLOR AND PADDING POLICE --- */
         const tidyUp = setInterval(() => {
