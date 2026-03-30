@@ -31,7 +31,7 @@
         .nav-flex li a:hover { color: var(--brand-orange); }
 
         /* --- HAMBURGER & OFF-CANVAS --- */
-        .hamburger {
+        .nav-toggle {
             display: none;
             flex-direction: column;
             justify-content: center;
@@ -42,7 +42,7 @@
             padding: 8px;
             margin-left: auto;
         }
-        .hamburger span {
+        .nav-toggle span {
             display: block;
             width: 24px;
             height: 2px;
@@ -51,9 +51,9 @@
             transition: transform 0.3s ease, opacity 0.3s ease;
             transform-origin: center;
         }
-        .hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .hamburger.is-open span:nth-child(2) { opacity: 0; }
-        .hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .nav-toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-toggle.is-open span:nth-child(2) { opacity: 0; }
+        .nav-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
         .nav-overlay {
             display: none;
@@ -129,7 +129,7 @@
         @media (max-width: 900px) {
             .nav-flex { display: none; }
             .phone { display: none; }
-            .hamburger { display: flex; }
+            .nav-toggle { display: flex; }
             .logo-area img { max-width: 200px; }
             .nav-overlay { display: block; }
         }
@@ -224,7 +224,7 @@
                 </ul>
             </nav>
             <div class="phone">Tel: +44 (0)7377 753990</div>
-            <button class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="off-canvas">
+            <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-controls="off-canvas">
                 <span></span><span></span><span></span>
             </button>
         </div>
@@ -280,32 +280,32 @@
         })();
 
         /* --- OFF-CANVAS NAV --- */
-        document.addEventListener('DOMContentLoaded', function() {
-            const hamburger = document.getElementById('hamburger');
-            const offCanvas = document.getElementById('off-canvas');
-            const overlay = document.getElementById('nav-overlay');
-            const closeBtn = document.getElementById('off-canvas-close');
+        (function() {
+            var toggle = document.getElementById('nav-toggle');
+            var offCanvas = document.getElementById('off-canvas');
+            var overlay = document.getElementById('nav-overlay');
+            var closeBtn = document.getElementById('off-canvas-close');
 
             function openMenu() {
-                hamburger.classList.add('is-open');
+                toggle.classList.add('is-open');
                 offCanvas.classList.add('is-open');
                 overlay.classList.add('is-open');
                 offCanvas.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
             }
             function closeMenu() {
-                hamburger.classList.remove('is-open');
+                toggle.classList.remove('is-open');
                 offCanvas.classList.remove('is-open');
                 overlay.classList.remove('is-open');
                 offCanvas.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
             }
 
-            hamburger.addEventListener('click', openMenu);
+            toggle.addEventListener('click', openMenu);
             closeBtn.addEventListener('click', closeMenu);
             overlay.addEventListener('click', closeMenu);
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
-        });
+            document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
+        })();
 
         /* --- THE COLOR AND PADDING POLICE --- */
         const tidyUp = setInterval(() => {
