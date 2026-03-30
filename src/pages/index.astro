@@ -56,15 +56,15 @@
         .nav-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
         .nav-overlay {
-            display: none;
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.4);
             z-index: 900;
             opacity: 0;
+            pointer-events: none;
             transition: opacity 0.3s ease;
         }
-        .nav-overlay.is-open { opacity: 1; }
+        .nav-overlay.is-open { opacity: 1; pointer-events: auto; }
 
         .off-canvas {
             position: fixed;
@@ -131,7 +131,6 @@
             .phone { display: none; }
             .nav-toggle { display: flex; }
             .logo-area img { max-width: 200px; }
-            .nav-overlay { display: block; }
         }
 
         /* --- THE HERO GRID --- */
