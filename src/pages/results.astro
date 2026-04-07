@@ -31,7 +31,9 @@ import MainLayout from '../layouts/MainLayout.astro';
         var CT = {
           ABE: {
             Settings: {
-              clientID: '315556'
+              clientID: '315556',
+              type: window.innerWidth < 800 ? 'mobile' : 'desktop',
+              logo: '/images/logo.png'
             }
           }
         };
