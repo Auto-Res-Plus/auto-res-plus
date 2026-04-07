@@ -1,138 +1,8 @@
 ---
-// Auto Reservation Plus - Refined Grid & Padding Fix
+import MainLayout from '../layouts/MainLayout.astro';
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Holiday Car Rentals | Auto Reservation Plus</title>
+<MainLayout>
     <style is:global>
-        :root {
-            --brand-blue: #2BA6CB;
-            --brand-green: #99CC00;
-            --brand-orange: #ff6600;
-            --dark-text: #333;
-            --light-bg: #f4f4f4;
-        }
-        * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--light-bg); line-height: 1.5; }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
-
-        header { background: white; border-bottom: 1px solid #eee; padding-block: 0.5rem; }
-        .top-flex { display: flex; justify-content: space-between; align-items: center; }
-        .logo-area { line-height: 0; padding: 10px 0; }
-        .logo-area img { max-width: 260px; }
-        .phone { font-weight: bold; color: var(--brand-blue); white-space: nowrap; }
-
-        .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; flex: 1; }
-        .nav-flex li a { display: block; padding: 0 20px; color: var(--brand-blue); text-decoration: none; font-weight: bold; font-size: 14px; line-height: 60px; transition: color 0.2s ease; }
-        .nav-flex li a:hover { color: var(--brand-orange); }
-
-        /* --- HAMBURGER & OFF-CANVAS --- */
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            margin-left: auto;
-        }
-        .nav-toggle span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--brand-blue);
-            border-radius: 2px;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            transform-origin: center;
-        }
-        .nav-toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .nav-toggle.is-open span:nth-child(2) { opacity: 0; }
-        .nav-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-        .nav-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 900;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .nav-overlay.is-open { opacity: 1; pointer-events: auto; }
-
-        .off-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 280px;
-            height: 100%;
-            background: white;
-            z-index: 1000;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-        }
-        .off-canvas.is-open { transform: translateX(0); }
-
-        .off-canvas-header {
-            padding: 16px 20px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .off-canvas-header img { max-width: 160px; }
-        .off-canvas-close {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #999;
-            line-height: 1;
-            padding: 4px;
-        }
-        .off-canvas-close:hover { color: var(--brand-orange); }
-
-        .off-canvas-nav { list-style: none; margin: 0; padding: 12px 0; }
-        .off-canvas-nav li a {
-            display: block;
-            padding: 14px 24px;
-            color: var(--dark-text);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            border-left: 3px solid transparent;
-            transition: color 0.2s ease, border-color 0.2s ease;
-        }
-        .off-canvas-nav li a:hover {
-            color: var(--brand-orange);
-            border-left-color: var(--brand-orange);
-        }
-
-        .off-canvas-phone {
-            margin-top: auto;
-            padding: 20px 24px;
-            border-top: 1px solid #eee;
-            font-weight: bold;
-            color: var(--brand-blue);
-            font-size: 14px;
-        }
-
-        @media (max-width: 900px) {
-            .nav-flex { display: none; }
-            .phone { display: none; }
-            .nav-toggle { display: flex; }
-            .logo-area img { max-width: 200px; }
-        }
-
         /* --- THE HERO GRID --- */
         .hero-grid-wrapper {
             width: 100%;
@@ -151,9 +21,9 @@
             gap: 20px 40px;
             padding: 40px 0;
         }
-        .hero-headline     { grid-column: 2; grid-row: 1; align-self: end; }
-        .hero-left-engine  { grid-column: 1; grid-row: 1 / 3; align-self: center; }
-        .hero-checklist    { grid-column: 2; grid-row: 2; align-self: start; }
+        .hero-headline    { grid-column: 2; grid-row: 1; align-self: end; }
+        .hero-left-engine { grid-column: 1; grid-row: 1 / 3; align-self: center; }
+        .hero-checklist   { grid-column: 2; grid-row: 2; align-self: start; }
 
         .hero-headline h1 { color: white; font-size: 3.2rem; margin: 0; line-height: 1.1; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
 
@@ -164,7 +34,30 @@
             color: white; border-radius: 50%; text-align: center; line-height: 22px; margin-right: 12px; font-weight: bold; font-size: 12px;
         }
 
+        /* --- THE SEARCH BOX --- */
+        .engine-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            padding: 25px;
+            width: 100%;
+            max-width: 420px;
+            margin-right: auto;
+            position: relative;
+        }
+
+        [ct-app], .ct-step-1-container, .ct-search-container {
+            background: transparent !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            height: auto !important;
+        }
+
+        .ct-btn-p { background: var(--brand-orange) !important; }
+        .ct-btn-p:hover { background: #FF7E29 !important; }
+
         @media (max-width: 992px) {
+            .hero-grid-wrapper { min-height: 0; }
             .hero-grid {
                 display: flex;
                 flex-direction: column;
@@ -173,7 +66,6 @@
             }
             .hero-headline { width: 100%; text-align: center; }
             .hero-headline h1 { font-size: 2rem; }
-            .hero-grid-wrapper { min-height: 0; }
             .engine-card { max-width: 100%; margin: 10px auto; padding: 15px 15px 10px; }
             [ct-app], .ct-step-1-container, .ct-search-container { min-height: 0 !important; padding-bottom: 0 !important; }
             [ct-app] svg:not(.ctc-icon), [ct-app] img:not([class*="ctc-icon"]) { display: none !important; }
@@ -181,73 +73,7 @@
             .check-list { display: inline-block; text-align: left; }
             .check-list li { justify-content: flex-start; }
         }
-
-        /* --- THE SEARCH BOX FIX --- */
-        .engine-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            /* Internal padding so fields don't touch the card edges */
-            padding: 25px;
-            width: 100%;
-            max-width: 420px;
-            margin-right: auto;
-            position: relative;
-        }
-
-        /* Kill the extra gap below the button by forcing the CT container to collapse */
-        [ct-app], .ct-step-1-container, .ct-search-container {
-            background: transparent !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            height: auto !important;
-        }
-
-        .ct-btn-p {
-    background: var(--brand-orange) !important;
-        }
-
-        .ct-btn-p:hover {
-    background: #FF7E29 !important;
-        }
-
     </style>
-</head>
-<body>
-
-    <!-- Off-canvas overlay -->
-    <div class="nav-overlay" id="nav-overlay"></div>
-
-    <!-- Off-canvas drawer -->
-    <div class="off-canvas" id="off-canvas" aria-hidden="true">
-        <div class="off-canvas-header">
-            <img src="/images/logo.png" alt="Auto Reservation Plus logo">
-            <button class="off-canvas-close" id="off-canvas-close" aria-label="Close menu">&times;</button>
-        </div>
-        <ul class="off-canvas-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="#">Manage Booking</a></li>
-            <li><a href="#">Contact Us</a></li>
-        </ul>
-        <div class="off-canvas-phone">Tel: +44 (0)7377 753990</div>
-    </div>
-
-    <header>
-        <div class="container top-flex">
-            <div class="logo-area"><img src="/images/logo.png" alt="Auto Reservation Plus logo"></div>
-            <nav>
-                <ul class="nav-flex">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="#">Manage Booking</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </nav>
-            <div class="phone">Tel: +44 (0)7377 753990</div>
-            <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-controls="off-canvas">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </header>
 
     <section class="hero-grid-wrapper">
         <div class="container">
@@ -257,8 +83,7 @@
                 </div>
                 <div class="hero-left-engine">
                     <div class="engine-card">
-                        <div ct-app id="ct-mount-point">
-                            </div>
+                        <div ct-app id="ct-mount-point"></div>
                     </div>
                 </div>
                 <div class="hero-checklist">
@@ -272,10 +97,6 @@
             </div>
         </div>
     </section>
-
-    <footer style="text-align: center; padding: 40px; color: #999; font-size: 13px;">
-        &copy; 2026 - Auto Reservation Plus Limited
-    </footer>
 
     <script is:inline>
         var CT = {
@@ -300,45 +121,15 @@
           s.parentNode.insertBefore(cts, s);
         })();
 
-        /* --- OFF-CANVAS NAV --- */
-        (function() {
-            var toggle = document.getElementById('nav-toggle');
-            var offCanvas = document.getElementById('off-canvas');
-            var overlay = document.getElementById('nav-overlay');
-            var closeBtn = document.getElementById('off-canvas-close');
-
-            function openMenu() {
-                toggle.classList.add('is-open');
-                offCanvas.classList.add('is-open');
-                overlay.classList.add('is-open');
-                offCanvas.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden';
-            }
-            function closeMenu() {
-                toggle.classList.remove('is-open');
-                offCanvas.classList.remove('is-open');
-                overlay.classList.remove('is-open');
-                offCanvas.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = '';
-            }
-
-            toggle.addEventListener('click', openMenu);
-            closeBtn.addEventListener('click', closeMenu);
-            overlay.addEventListener('click', closeMenu);
-            document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
-        })();
-
         /* --- THE COLOR AND PADDING POLICE --- */
         const tidyUp = setInterval(() => {
             const btn = document.querySelector('.ct-btn-search');
             const ctContainer = document.querySelector('.ct-search-container');
 
             if (btn) {
-                // Force button color
                 btn.style.setProperty('background-color', '#2BA6CB', 'important');
                 btn.style.setProperty('background-image', 'none', 'important');
 
-                // Kill internal CT margins that cause the "edge-to-edge" issue
                 if (ctContainer) {
                     ctContainer.style.setProperty('margin', '0', 'important');
                     ctContainer.style.setProperty('padding', '0', 'important');
@@ -348,5 +139,4 @@
             }
         }, 300);
     </script>
-</body>
-</html>
+</MainLayout>
