@@ -8,7 +8,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             width: 100%;
             min-height: 550px;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
-                        url('/images/hero-bg.webp');
+                        url('/images/hero-bg.webp'); /* Ensure your path is correct here */
             background-size: cover;
             background-position: center;
             display: flex;
@@ -30,7 +30,7 @@ import MainLayout from '../layouts/MainLayout.astro';
         .check-list { list-style: none; padding: 0; margin: 0; }
         .check-list li { color: white; font-size: 1.15rem; margin-bottom: 10px; display: flex; align-items: center; font-weight: 500; }
         .check-list li::before {
-            content: '✓'; display: inline-block; width: 22px; height: 22px; background: var(--brand-green);
+            content: '✓'; display: inline-block; width: 22px; height: 22px; background: #2BA6CB; /* Updated to brand blue */
             color: white; border-radius: 50%; text-align: center; line-height: 22px; margin-right: 12px; font-weight: bold; font-size: 12px;
         }
 
@@ -44,6 +44,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             max-width: 420px;
             margin-right: auto;
             position: relative;
+            overflow: hidden; /* Contains the engine if it tries to bleed out */
         }
 
         [ct-app], .ct-step-1-container, .ct-search-container {
@@ -53,9 +54,16 @@ import MainLayout from '../layouts/MainLayout.astro';
             height: auto !important;
         }
 
-        .ct-btn-p { background: var(--brand-orange) !important; }
+        /* Keep your Orange Button working across Desktop AND Mobile */
+        .ct-btn-p, button.ct-btn-search, [ct-app] .ct-btn-primary { 
+            background: #ff6a00 !important; 
+            border: none !important;
+            background-image: none !important; /* Kills default gradients */
+            color: white !important;
+        }
         .ct-btn-p:hover { background: #FF7E29 !important; }
 
+        /* --- HOLIDAY AUTOS MOBILE SIMPLIFICATION OVERRIDES --- */
         @media (max-width: 992px) {
             .hero-grid-wrapper { min-height: 0; }
             .hero-grid {
@@ -65,13 +73,32 @@ import MainLayout from '../layouts/MainLayout.astro';
                 gap: 20px;
             }
             .hero-headline { width: 100%; text-align: center; }
-            .hero-headline h1 { font-size: 2rem; }
-            .engine-card { max-width: 100%; margin: 10px auto; padding: 15px 15px 10px; }
-            [ct-app], .ct-step-1-container, .ct-search-container { min-height: 0 !important; padding-bottom: 0 !important; }
-            [ct-app] svg:not(.ctc-icon), [ct-app] img:not([class*="ctc-icon"]) { display: none !important; }
+            .hero-headline h1 { font-size: 2.2rem; }
+            .engine-card { max-width: 100%; margin: 10px auto; padding: 15px; }
             .hero-checklist { text-align: center; }
             .check-list { display: inline-block; text-align: left; }
             .check-list li { justify-content: flex-start; }
+
+            /* 1. Kill the forced full-screen heights so the white card shrinks to fit */
+            .ct-mwa-container, .ct-mwa-view, .ct-wrapper, .ct-app-container, .ct-mwa {
+                height: auto !important;
+                min-height: 0 !important;
+                position: static !important;
+            }
+
+            /* 2. Hide CarTrawler Mobile Headers, Footers, and extra UI junk */
+            .ct-mwa-header, .ct-header, .ct-mobile-header, .ct-nav-container, 
+            .ct-footer, .ct-mwa-footer, .ct-logo-container {
+                display: none !important;
+            }
+
+            /* 3. Strip internal grey backgrounds so it sits cleanly on your white card */
+            .ct-mwa-content, .ct-mobile-step-1, .ct-search-form {
+                background: transparent !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+            }
         }
     </style>
 
@@ -103,7 +130,8 @@ import MainLayout from '../layouts/MainLayout.astro';
           ABE: {
             Settings: {
               clientID: '315556',
-              type: window.innerWidth < 800 ? 'mobile' : 'desktop',
+              // Restore Mobile detection for native touch UX
+              type: window.innerWidth < 800 ? 'mobile' : 'desktop', 
               step1: {
                 deeplinkURL: window.location.origin + '/results',
                 showAvailNewWindow: false
@@ -121,20 +149,12 @@ import MainLayout from '../layouts/MainLayout.astro';
           s.parentNode.insertBefore(cts, s);
         })();
 
-        /* --- THE COLOR AND PADDING POLICE --- */
+        /* --- THE PADDING POLICE --- */
         const tidyUp = setInterval(() => {
-            const btn = document.querySelector('.ct-btn-search');
-            const ctContainer = document.querySelector('.ct-search-container');
-
-            if (btn) {
-                btn.style.setProperty('background-color', '#2BA6CB', 'important');
-                btn.style.setProperty('background-image', 'none', 'important');
-
-                if (ctContainer) {
-                    ctContainer.style.setProperty('margin', '0', 'important');
-                    ctContainer.style.setProperty('padding', '0', 'important');
-                }
-
+            const ctContainer = document.querySelector('.ct-search-container') || document.querySelector('.ct-mwa-content');
+            if (ctContainer) {
+                ctContainer.style.setProperty('margin', '0', 'important');
+                ctContainer.style.setProperty('padding', '0', 'important');
                 clearInterval(tidyUp);
             }
         }, 300);
