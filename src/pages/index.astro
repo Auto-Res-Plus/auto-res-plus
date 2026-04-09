@@ -56,6 +56,169 @@ import MainLayout from '../layouts/MainLayout.astro';
         .ct-btn-p { background: var(--brand-orange) !important; }
         .ct-btn-p:hover { background: #FF7E29 !important; }
 
+        /* --- LOGO TICKER --- */
+        .logo-ticker-section {
+            background: #fff;
+            border-top: 1px solid #e8e8e8;
+            padding-block: 4rem;
+        }
+        .ticker-track {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            mask-image: linear-gradient(
+                to right,
+                transparent 0%,
+                black 12%,
+                black 88%,
+                transparent 100%
+            );
+            -webkit-mask-image: linear-gradient(
+                to right,
+                transparent 0%,
+                black 12%,
+                black 88%,
+                transparent 100%
+            );
+        }
+        .ticker-inner {
+            display: flex;
+            align-items: center;
+            width: max-content;
+            animation: ticker-scroll 32s linear infinite;
+        }
+        .ticker-inner img {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            flex-shrink: 0;
+            padding-right: 60px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .ticker-inner img:hover {
+            opacity: 1;
+        }
+        @keyframes ticker-scroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- POPULAR LOCATIONS --- */
+        .locations-section {
+            background: white;
+            padding-block: 4rem;
+        }
+        .locations-section h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--dark-text);
+            margin: 0 0 1.75rem;
+        }
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 240px);
+            gap: 20px;
+        }
+        .location-card {
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .location-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(0,0,0,0.25);
+        }
+        .location-card-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.4s ease;
+        }
+        .location-card:hover .location-card-bg {
+            transform: scale(1.05);
+        }
+        /* City SVG images */
+        .loc-paris .location-card-bg {
+            background-image: url('/images/locations/paris.webp');
+        }
+        .loc-berlin .location-card-bg {
+            background-image: url('/images/locations/berlin.webp');
+        }
+        .loc-madrid .location-card-bg {
+            background-image: url('/images/locations/madrid.webp');
+        }
+        .loc-rome .location-card-bg {
+            background-image: url('/images/locations/rome.webp');
+        }
+        .loc-london .location-card-bg {
+            background-image: url('/images/locations/london.webp');
+        }
+        .loc-lisbon .location-card-bg {
+            background-image: url('/images/locations/lisbon.webp');
+        }
+        /* Overlay: gradient darkening at bottom for text legibility */
+        .location-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.45) 0%,
+                rgba(0,0,0,0.2) 40%,
+                rgba(0,0,0,0.6) 100%
+            );
+            transition: opacity 0.4s ease;
+        }
+        .location-card:hover .location-card-overlay {
+            opacity: 0.2;
+        }
+        .location-card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 16px 18px;
+        }
+        .location-card-name {
+            display: block;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 0.01em;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+            margin-bottom: 4px;
+        }
+        .location-card-price {
+            display: inline-block;
+            background: var(--brand-orange);
+            color: #fff;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.02em;
+        }
+
+        @media (max-width: 992px) {
+            .locations-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: none;
+            }
+            .location-card { aspect-ratio: 16 / 9; }
+        }
+        @media (max-width: 560px) {
+            .locations-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: none;
+            }
+            .location-card { aspect-ratio: 16 / 9; }
+        }
+
         @media (max-width: 992px) {
             .hero-grid-wrapper { min-height: 0; }
             .hero-grid {
@@ -94,6 +257,103 @@ import MainLayout from '../layouts/MainLayout.astro';
                         <li>24/7 Customer Support</li>
                     </ul>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOGO TICKER -->
+    <section class="logo-ticker-section">
+        <div class="container">
+            <div class="ticker-track">
+                <div class="ticker-inner">
+                    <img src="/images/rental-logos/blue-logos/alamo-blue.svg" alt="Alamo">
+                    <img src="/images/rental-logos/blue-logos/avis-blue.svg" alt="Avis">
+                    <img src="/images/rental-logos/blue-logos/budget-blue.svg" alt="Budget">
+                    <img src="/images/rental-logos/blue-logos/enterprise-blue.svg" alt="Enterprise">
+                    <img src="/images/rental-logos/blue-logos/europcar-blue.svg" alt="Europcar">
+                    <img src="/images/rental-logos/blue-logos/goldcar-blue.svg" alt="Goldcar">
+                    <img src="/images/rental-logos/blue-logos/hertz-blue.svg" alt="Hertz">
+                    <img src="/images/rental-logos/blue-logos/national-blue.svg" alt="National">
+                    <img src="/images/rental-logos/blue-logos/payless-blue.svg" alt="Payless">
+                    <img src="/images/rental-logos/blue-logos/sixt-blue.svg" alt="Sixt">
+                    <img src="/images/rental-logos/blue-logos/thrifty-blue.svg" alt="Thrifty">
+                    <!-- duplicate set for seamless loop -->
+                    <img src="/images/rental-logos/blue-logos/alamo-blue.svg" alt="Alamo">
+                    <img src="/images/rental-logos/blue-logos/avis-blue.svg" alt="Avis">
+                    <img src="/images/rental-logos/blue-logos/budget-blue.svg" alt="Budget">
+                    <img src="/images/rental-logos/blue-logos/enterprise-blue.svg" alt="Enterprise">
+                    <img src="/images/rental-logos/blue-logos/europcar-blue.svg" alt="Europcar">
+                    <img src="/images/rental-logos/blue-logos/goldcar-blue.svg" alt="Goldcar">
+                    <img src="/images/rental-logos/blue-logos/hertz-blue.svg" alt="Hertz">
+                    <img src="/images/rental-logos/blue-logos/national-blue.svg" alt="National">
+                    <img src="/images/rental-logos/blue-logos/payless-blue.svg" alt="Payless">
+                    <img src="/images/rental-logos/blue-logos/sixt-blue.svg" alt="Sixt">
+                    <img src="/images/rental-logos/blue-logos/thrifty-blue.svg" alt="Thrifty">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POPULAR LOCATIONS -->
+    <section class="locations-section">
+        <div class="container">
+            <h2>Popular Rental Locations</h2>
+            <div class="locations-grid">
+
+                <div class="location-card loc-paris">
+                    <div class="location-card-bg"></div>
+                    <div class="location-card-overlay"></div>
+                    <div class="location-card-content">
+                        <span class="location-card-name">Paris</span>
+                        <span class="location-card-price">from £35 per day</span>
+                    </div>
+                </div>
+
+                <div class="location-card loc-berlin">
+                    <div class="location-card-bg"></div>
+                    <div class="location-card-overlay"></div>
+                    <div class="location-card-content">
+                        <span class="location-card-name">Berlin</span>
+                        <span class="location-card-price">from £28 per day</span>
+                    </div>
+                </div>
+
+                <div class="location-card loc-madrid">
+                    <div class="location-card-bg"></div>
+                    <div class="location-card-overlay"></div>
+                    <div class="location-card-content">
+                        <span class="location-card-name">Madrid</span>
+                        <span class="location-card-price">from £22 per day</span>
+                    </div>
+                </div>
+
+                <div class="location-card loc-rome">
+                    <div class="location-card-bg"></div>
+                    <div class="location-card-overlay"></div>
+                    <div class="location-card-content">
+                        <span class="location-card-name">Rome</span>
+                        <span class="location-card-price">from £30 per day</span>
+                    </div>
+                </div>
+
+                <div class="location-card loc-london">
+                    <div class="location-card-bg"></div>
+                    <div class="location-card-overlay"></div>
+                    <div class="location-card-content">
+                        <span class="location-card-name">London</span>
+                        <span class="location-card-price">from £45 per day</span>
+                    </div>
+                </div>
+
+                <div class="location-card loc-lisbon">
+                    <div class="location-card-bg"></div>
+                    <div class="location-card-overlay"></div>
+                    <div class="location-card-content">
+                        <span class="location-card-name">Lisbon</span>
+                        <span class="location-card-price">from £19 per day</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

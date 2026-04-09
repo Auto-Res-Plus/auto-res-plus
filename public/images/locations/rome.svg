@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8a060"/>
+      <stop offset="45%" stop-color="#f0c080"/>
+      <stop offset="100%" stop-color="#d87840"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8a870"/>
+      <stop offset="100%" stop-color="#a07040"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="500" fill="url(#sky)"/>
+
+  <!-- Sun low on horizon -->
+  <circle cx="700" cy="230" r="55" fill="#ffe080" opacity="0.7" filter="url(#glow)"/>
+  <circle cx="700" cy="230" r="38" fill="#fff0a0" opacity="0.9"/>
+
+  <!-- Clouds tinted warm -->
+  <ellipse cx="150" cy="100" rx="110" ry="28" fill="rgba(255,220,160,0.55)"/>
+  <ellipse cx="200" cy="88" rx="85" ry="22" fill="rgba(255,230,180,0.5)"/>
+  <ellipse cx="500" cy="75" rx="90" ry="22" fill="rgba(255,220,160,0.4)"/>
+
+  <!-- Background hills of Rome -->
+  <ellipse cx="80" cy="330" rx="180" ry="60" fill="#8a6a40" opacity="0.5"/>
+  <ellipse cx="720" cy="320" rx="200" ry="70" fill="#8a6a40" opacity="0.4"/>
+
+  <!-- Colosseum — center -->
+  <!-- Shadow / base -->
+  <ellipse cx="400" cy="375" rx="200" ry="18" fill="rgba(0,0,0,0.3)"/>
+  <!-- Main outer wall -->
+  <rect x="190" y="220" width="420" height="160" fill="#c8a870" rx="4"/>
+  <!-- Outer wall arch row 1 (ground level) -->
+  <rect x="200" y="295" width="28" height="50" fill="#a07848" rx="2"/>
+  <rect x="238" y="295" width="28" height="50" fill="#a07848" rx="2"/>
+  <rect x="276" y="295" width="28" height="50" fill="#a07848" rx="2"/>
+  <rect x="314" y="295" width="28" height="50" fill="#a07848" rx="2"/>
+  <rect x="352" y="295" width="28" height="50" fill="#a07848" rx="2"/>
+  <rect x="390" y="295" width="28" height="50" fill="#a07848" rx="2"/>
+  <rect x="428" y="295" width="28" height="50" fill="#a07848" rx="2"/>
+  <rect x="466" y="295" width="28" height="50" fill="#a07848" rx="2"/>
+  <rect x="504" y="295" width="28" height="50" fill="#a07848" rx="2"/>
+  <rect x="542" y="295" width="28" height="50" fill="#a07848" rx="2"/>
+  <!-- Arch tops (arched) -->
+  <path d="M200,295 Q214,278 228,295" fill="#a07848"/>
+  <path d="M238,295 Q252,278 266,295" fill="#a07848"/>
+  <path d="M276,295 Q290,278 304,295" fill="#a07848"/>
+  <path d="M314,295 Q328,278 342,295" fill="#a07848"/>
+  <path d="M352,295 Q366,278 380,295" fill="#a07848"/>
+  <path d="M390,295 Q404,278 418,295" fill="#a07848"/>
+  <path d="M428,295 Q442,278 456,295" fill="#a07848"/>
+  <path d="M466,295 Q480,278 494,295" fill="#a07848"/>
+  <path d="M504,295 Q518,278 532,295" fill="#a07848"/>
+  <path d="M542,295 Q556,278 570,295" fill="#a07848"/>
+
+  <!-- Arch row 2 -->
+  <rect x="205" y="250" width="24" height="38" fill="#b09060" rx="2"/>
+  <rect x="241" y="250" width="24" height="38" fill="#b09060" rx="2"/>
+  <rect x="277" y="250" width="24" height="38" fill="#b09060" rx="2"/>
+  <rect x="313" y="250" width="24" height="38" fill="#b09060" rx="2"/>
+  <rect x="349" y="250" width="24" height="38" fill="#b09060" rx="2"/>
+  <rect x="385" y="250" width="24" height="38" fill="#b09060" rx="2"/>
+  <rect x="421" y="250" width="24" height="38" fill="#b09060" rx="2"/>
+  <rect x="457" y="250" width="24" height="38" fill="#b09060" rx="2"/>
+  <rect x="493" y="250" width="24" height="38" fill="#b09060" rx="2"/>
+  <rect x="529" y="250" width="24" height="38" fill="#b09060" rx="2"/>
+  <path d="M205,250 Q217,236 229,250" fill="#b09060"/>
+  <path d="M241,250 Q253,236 265,250" fill="#b09060"/>
+  <path d="M277,250 Q289,236 301,250" fill="#b09060"/>
+  <path d="M313,250 Q325,236 337,250" fill="#b09060"/>
+  <path d="M349,250 Q361,236 373,250" fill="#b09060"/>
+  <path d="M385,250 Q397,236 409,250" fill="#b09060"/>
+  <path d="M421,250 Q433,236 445,250" fill="#b09060"/>
+  <path d="M457,250 Q469,236 481,250" fill="#b09060"/>
+  <path d="M493,250 Q505,236 517,250" fill="#b09060"/>
+  <path d="M529,250 Q541,236 553,250" fill="#b09060"/>
+
+  <!-- Top level (attic) -->
+  <rect x="195" y="220" width="410" height="30" fill="#d8b880"/>
+  <!-- Small rectangular openings on attic -->
+  <rect x="210" y="224" width="14" height="18" fill="#a07848" opacity="0.7"/>
+  <rect x="246" y="224" width="14" height="18" fill="#a07848" opacity="0.7"/>
+  <rect x="282" y="224" width="14" height="18" fill="#a07848" opacity="0.7"/>
+  <rect x="318" y="224" width="14" height="18" fill="#a07848" opacity="0.7"/>
+  <rect x="354" y="224" width="14" height="18" fill="#a07848" opacity="0.7"/>
+  <rect x="390" y="224" width="14" height="18" fill="#a07848" opacity="0.7"/>
+  <rect x="426" y="224" width="14" height="18" fill="#a07848" opacity="0.7"/>
+  <rect x="462" y="224" width="14" height="18" fill="#a07848" opacity="0.7"/>
+  <rect x="498" y="224" width="14" height="18" fill="#a07848" opacity="0.7"/>
+  <rect x="534" y="224" width="14" height="18" fill="#a07848" opacity="0.7"/>
+  <rect x="570" y="224" width="14" height="18" fill="#a07848" opacity="0.7"/>
+
+  <!-- Ruined section (broken top right) -->
+  <polygon points="560,220 610,220 610,265 590,220" fill="#c8a870"/>
+  <rect x="610" y="250" width="40" height="130" fill="#c8a870"/>
+  <!-- gap in top right -->
+  <rect x="560" y="215" width="90" height="10" fill="#c8a870"/>
+
+  <!-- Pine trees typical of Rome -->
+  <rect x="130" y="315" width="8" height="65" fill="#5a3a20"/>
+  <ellipse cx="134" cy="295" rx="20" ry="35" fill="#2a5a20"/>
+  <rect x="650" y="310" width="8" height="70" fill="#5a3a20"/>
+  <ellipse cx="654" cy="288" rx="20" ry="35" fill="#2a5a20"/>
+  <rect x="690" y="320" width="7" height="60" fill="#5a3a20"/>
+  <ellipse cx="693" cy="302" rx="17" ry="30" fill="#2a5a20"/>
+
+  <!-- Ground -->
+  <rect x="0" y="375" width="800" height="125" fill="url(#ground)"/>
+  <!-- Ancient road stones -->
+  <rect x="300" y="380" width="200" height="8" fill="#b09068" opacity="0.6"/>
+  <line x1="320" y1="380" x2="320" y2="388" stroke="#a08058" stroke-width="1"/>
+  <line x1="350" y1="380" x2="350" y2="388" stroke="#a08058" stroke-width="1"/>
+  <line x1="380" y1="380" x2="380" y2="388" stroke="#a08058" stroke-width="1"/>
+  <line x1="410" y1="380" x2="410" y2="388" stroke="#a08058" stroke-width="1"/>
+  <line x1="440" y1="380" x2="440" y2="388" stroke="#a08058" stroke-width="1"/>
+  <line x1="470" y1="380" x2="470" y2="388" stroke="#a08058" stroke-width="1"/>
+</svg>

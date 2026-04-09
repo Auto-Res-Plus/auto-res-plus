@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a6fa8"/>
+      <stop offset="60%" stop-color="#4aa0d8"/>
+      <stop offset="100%" stop-color="#80c4e8"/>
+    </linearGradient>
+    <linearGradient id="palace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0e8d0"/>
+      <stop offset="100%" stop-color="#d8c8a0"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8a870"/>
+      <stop offset="100%" stop-color="#a88850"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="500" fill="url(#sky)"/>
+
+  <!-- Sun -->
+  <circle cx="680" cy="90" r="50" fill="#ffe066" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="680" cy="90" r="35" fill="#fff0a0"/>
+
+  <!-- Clouds -->
+  <ellipse cx="200" cy="80" rx="100" ry="28" fill="white" opacity="0.85"/>
+  <ellipse cx="250" cy="68" rx="80" ry="24" fill="white" opacity="0.9"/>
+  <ellipse cx="160" cy="85" rx="60" ry="20" fill="white" opacity="0.7"/>
+  <ellipse cx="500" cy="60" rx="90" ry="22" fill="white" opacity="0.7"/>
+  <ellipse cx="545" cy="50" rx="70" ry="18" fill="white" opacity="0.8"/>
+
+  <!-- Background hills -->
+  <ellipse cx="100" cy="310" rx="200" ry="80" fill="#8a9a70" opacity="0.5"/>
+  <ellipse cx="700" cy="300" rx="220" ry="90" fill="#8a9a70" opacity="0.4"/>
+
+  <!-- Royal Palace of Madrid — center -->
+  <!-- Main body -->
+  <rect x="150" y="200" width="500" height="180" fill="url(#palace)"/>
+  <!-- Roof balustrade -->
+  <rect x="145" y="192" width="510" height="14" fill="#e0d0a8"/>
+  <!-- Balustrade posts -->
+  <rect x="152" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="166" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="180" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="194" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="208" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="222" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="236" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="250" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="264" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="278" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="292" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="306" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="320" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="334" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="348" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="362" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="376" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="390" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="404" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="418" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="432" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="446" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="460" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="474" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="488" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="502" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="516" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="530" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="544" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="558" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="572" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="586" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="600" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="614" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="628" y="186" width="6" height="12" fill="#c8b888"/>
+  <rect x="642" y="186" width="6" height="12" fill="#c8b888"/>
+
+  <!-- Palace pilasters (vertical divisions) -->
+  <rect x="150" y="200" width="10" height="180" fill="#c8b888" opacity="0.5"/>
+  <rect x="250" y="200" width="8" height="180" fill="#c8b888" opacity="0.4"/>
+  <rect x="350" y="200" width="8" height="180" fill="#c8b888" opacity="0.4"/>
+  <rect x="450" y="200" width="8" height="180" fill="#c8b888" opacity="0.4"/>
+  <rect x="550" y="200" width="8" height="180" fill="#c8b888" opacity="0.4"/>
+  <rect x="640" y="200" width="10" height="180" fill="#c8b888" opacity="0.5"/>
+
+  <!-- Windows row 1 -->
+  <rect x="170" y="215" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="210" y="215" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="265" y="215" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="305" y="215" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="365" y="215" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="405" y="215" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="465" y="215" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="505" y="215" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="565" y="215" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="605" y="215" width="28" height="38" fill="#7ab8d8" rx="3"/>
+
+  <!-- Windows row 2 -->
+  <rect x="170" y="270" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="210" y="270" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="265" y="270" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="305" y="270" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="365" y="270" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="405" y="270" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="465" y="270" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="505" y="270" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="565" y="270" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="605" y="270" width="28" height="38" fill="#7ab8d8" rx="3"/>
+
+  <!-- Windows row 3 -->
+  <rect x="170" y="325" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="210" y="325" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="265" y="325" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="305" y="325" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="365" y="325" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="405" y="325" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="465" y="325" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="505" y="325" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="565" y="325" width="28" height="38" fill="#7ab8d8" rx="3"/>
+  <rect x="605" y="325" width="28" height="38" fill="#7ab8d8" rx="3"/>
+
+  <!-- Central entrance -->
+  <rect x="350" y="310" width="100" height="70" fill="#c8b888"/>
+  <path d="M350,310 Q400,285 450,310" fill="#d8c8a0"/>
+  <rect x="360" y="325" width="35" height="55" fill="#5a7a90" rx="2"/>
+  <rect x="405" y="325" width="35" height="55" fill="#5a7a90" rx="2"/>
+
+  <!-- Corner towers / slight projection -->
+  <rect x="140" y="185" width="30" height="195" fill="#e8d8b0"/>
+  <rect x="630" y="185" width="30" height="195" fill="#e8d8b0"/>
+
+  <!-- Ground plaza -->
+  <rect x="0" y="380" width="800" height="120" fill="url(#ground)"/>
+  <!-- Plaza tiles -->
+  <line x1="0" y1="395" x2="800" y2="395" stroke="#b89860" stroke-width="1" opacity="0.4"/>
+  <line x1="0" y1="410" x2="800" y2="410" stroke="#b89860" stroke-width="1" opacity="0.4"/>
+  <line x1="0" y1="425" x2="800" y2="425" stroke="#b89860" stroke-width="1" opacity="0.4"/>
+
+  <!-- Fountain -->
+  <ellipse cx="400" cy="410" rx="60" ry="18" fill="#7ab8d8" opacity="0.6"/>
+  <ellipse cx="400" cy="406" rx="40" ry="10" fill="#a0d0e8" opacity="0.5"/>
+  <rect x="396" y="385" width="8" height="22" fill="#d8c8a0"/>
+  <!-- water spray -->
+  <path d="M400,385 Q390,370 385,360" stroke="#a0d0e8" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M400,385 Q410,370 415,360" stroke="#a0d0e8" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M400,385 Q400,365 400,355" stroke="#a0d0e8" stroke-width="2" fill="none" opacity="0.6"/>
+
+  <!-- Lamp posts -->
+  <rect x="245" y="350" width="4" height="35" fill="#8a7850"/>
+  <circle cx="247" cy="347" r="6" fill="#ffe066" opacity="0.8" filter="url(#glow)"/>
+  <rect x="550" y="350" width="4" height="35" fill="#8a7850"/>
+  <circle cx="552" cy="347" r="6" fill="#ffe066" opacity="0.8" filter="url(#glow)"/>
+
+  <!-- Flag on top center -->
+  <rect x="398" y="162" width="3" height="28" fill="#888"/>
+  <rect x="401" y="162" width="22" height="14" fill="#c60b1e"/>
+  <rect x="401" y="169" width="22" height="5" fill="#ffc400"/>
+</svg>

@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a6a8a"/>
+      <stop offset="60%" stop-color="#7a9ab8"/>
+      <stop offset="100%" stop-color="#a0b8c8"/>
+    </linearGradient>
+    <linearGradient id="thames" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a6878"/>
+      <stop offset="100%" stop-color="#2a4858"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="fog">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="500" fill="url(#sky)"/>
+
+  <!-- Overcast light glow -->
+  <ellipse cx="400" cy="80" rx="300" ry="100" fill="rgba(255,255,255,0.12)" filter="url(#fog)"/>
+
+  <!-- Distant fog/haze layer -->
+  <rect x="0" y="220" width="800" height="60" fill="rgba(200,220,240,0.2)" filter="url(#fog)"/>
+
+  <!-- Background city: Shard, gherkin, etc -->
+  <rect x="580" y="120" width="40" height="220" fill="#5a7080" opacity="0.7"/>
+  <polygon points="580,120 600,60 620,120" fill="#5a7080" opacity="0.7"/>
+  <rect x="630" y="170" width="32" height="170" fill="#6a8090" opacity="0.6"/>
+  <rect x="670" y="195" width="28" height="145" fill="#5a7080" opacity="0.6"/>
+  <rect x="705" y="210" width="35" height="130" fill="#6a8090" opacity="0.5"/>
+  <rect x="748" y="230" width="52" height="110" fill="#5a7080" opacity="0.5"/>
+
+  <!-- Gherkin (30 St Mary Axe) -->
+  <path d="M620,170 Q635,150 650,130 Q658,110 655,90 Q650,110 643,130 Q638,150 630,170 Z" fill="#6a9080" opacity="0.75"/>
+
+  <!-- Thames River -->
+  <rect x="0" y="340" width="800" height="70" fill="url(#thames)"/>
+  <!-- Thames ripples -->
+  <ellipse cx="150" cy="360" rx="80" ry="5" fill="rgba(255,255,255,0.08)"/>
+  <ellipse cx="550" cy="368" rx="100" ry="5" fill="rgba(255,255,255,0.07)"/>
+
+  <!-- Tower Bridge — center-left -->
+  <!-- Left tower -->
+  <rect x="200" y="240" width="60" height="100" fill="#8a7870"/>
+  <rect x="195" y="235" width="70" height="12" fill="#9a8880"/>
+  <rect x="200" y="195" width="60" height="50" fill="#8a7870"/>
+  <rect x="195" y="190" width="70" height="10" fill="#9a8880"/>
+  <!-- Left tower top battlements -->
+  <rect x="200" y="175" width="12" height="22" fill="#8a7870"/>
+  <rect x="220" y="175" width="12" height="22" fill="#8a7870"/>
+  <rect x="240" y="175" width="12" height="22" fill="#8a7870"/>
+  <!-- Corner turrets left -->
+  <rect x="198" y="200" width="16" height="45" fill="#9a8880"/>
+  <polygon points="198,200 206,188 214,200" fill="#7a6860"/>
+  <rect x="246" y="200" width="16" height="45" fill="#9a8880"/>
+  <polygon points="246,200 254,188 262,200" fill="#7a6860"/>
+  <!-- Left tower windows -->
+  <rect x="210" y="248" width="14" height="20" fill="#a0b8c8" rx="1"/>
+  <rect x="234" y="248" width="14" height="20" fill="#a0b8c8" rx="1"/>
+  <rect x="210" y="278" width="14" height="20" fill="#a0b8c8" rx="1"/>
+  <rect x="234" y="278" width="14" height="20" fill="#a0b8c8" rx="1"/>
+  <rect x="210" y="205" width="14" height="18" fill="#a0b8c8" rx="1"/>
+  <rect x="234" y="205" width="14" height="18" fill="#a0b8c8" rx="1"/>
+
+  <!-- Right tower -->
+  <rect x="540" y="240" width="60" height="100" fill="#8a7870"/>
+  <rect x="535" y="235" width="70" height="12" fill="#9a8880"/>
+  <rect x="540" y="195" width="60" height="50" fill="#8a7870"/>
+  <rect x="535" y="190" width="70" height="10" fill="#9a8880"/>
+  <rect x="540" y="175" width="12" height="22" fill="#8a7870"/>
+  <rect x="560" y="175" width="12" height="22" fill="#8a7870"/>
+  <rect x="580" y="175" width="12" height="22" fill="#8a7870"/>
+  <rect x="538" y="200" width="16" height="45" fill="#9a8880"/>
+  <polygon points="538,200 546,188 554,200" fill="#7a6860"/>
+  <rect x="586" y="200" width="16" height="45" fill="#9a8880"/>
+  <polygon points="586,200 594,188 602,200" fill="#7a6860"/>
+  <rect x="550" y="248" width="14" height="20" fill="#a0b8c8" rx="1"/>
+  <rect x="574" y="248" width="14" height="20" fill="#a0b8c8" rx="1"/>
+  <rect x="550" y="278" width="14" height="20" fill="#a0b8c8" rx="1"/>
+  <rect x="574" y="278" width="14" height="20" fill="#a0b8c8" rx="1"/>
+  <rect x="550" y="205" width="14" height="18" fill="#a0b8c8" rx="1"/>
+  <rect x="574" y="205" width="14" height="18" fill="#a0b8c8" rx="1"/>
+
+  <!-- Bridge road deck -->
+  <rect x="130" y="328" width="540" height="16" fill="#7a7068"/>
+  <!-- Bridge walkway (upper) -->
+  <rect x="260" y="255" width="280" height="16" fill="#7a7068"/>
+  <!-- Suspension cables -->
+  <line x1="260" y1="200" x2="260" y2="260" stroke="#6a6058" stroke-width="3"/>
+  <line x1="540" y1="200" x2="540" y2="260" stroke="#6a6058" stroke-width="3"/>
+  <!-- Diagonal cables -->
+  <line x1="260" y1="200" x2="200" y2="255" stroke="#8a8078" stroke-width="2.5"/>
+  <line x1="260" y1="200" x2="350" y2="263" stroke="#8a8078" stroke-width="2"/>
+  <line x1="540" y1="200" x2="600" y2="255" stroke="#8a8078" stroke-width="2.5"/>
+  <line x1="540" y1="200" x2="450" y2="263" stroke="#8a8078" stroke-width="2"/>
+
+  <!-- Approach road left -->
+  <rect x="0" y="328" width="130" height="16" fill="#7a7068"/>
+  <rect x="0" y="330" width="130" height="4" fill="#888"/>
+  <!-- Approach road right -->
+  <rect x="670" y="328" width="130" height="16" fill="#7a7068"/>
+
+  <!-- Embankment / ground -->
+  <rect x="0" y="340" width="800" height="160" fill="#3a4a3a"/>
+  <!-- Embankment wall -->
+  <rect x="0" y="340" width="200" height="12" fill="#5a5a50"/>
+  <rect x="600" y="340" width="200" height="12" fill="#5a5a50"/>
+
+  <!-- Red double-decker bus on bridge -->
+  <rect x="340" y="310" width="70" height="32" fill="#c8102e" rx="3"/>
+  <rect x="348" y="304" width="55" height="20" fill="#c8102e" rx="2"/>
+  <!-- Bus windows -->
+  <rect x="352" y="307" width="10" height="8" fill="#d8e8f0" rx="1"/>
+  <rect x="366" y="307" width="10" height="8" fill="#d8e8f0" rx="1"/>
+  <rect x="380" y="307" width="10" height="8" fill="#d8e8f0" rx="1"/>
+  <rect x="345" y="317" width="10" height="8" fill="#d8e8f0" rx="1"/>
+  <rect x="360" y="317" width="10" height="8" fill="#d8e8f0" rx="1"/>
+  <rect x="375" y="317" width="10" height="8" fill="#d8e8f0" rx="1"/>
+  <rect x="392" y="317" width="10" height="8" fill="#d8e8f0" rx="1"/>
+
+  <!-- Big Ben / Palace of Westminster — far left -->
+  <rect x="20" y="220" width="50" height="130" fill="#7a8070"/>
+  <!-- Clock tower -->
+  <rect x="28" y="155" width="34" height="70" fill="#8a8878"/>
+  <rect x="24" y="150" width="42" height="10" fill="#9a9888"/>
+  <!-- Belfry -->
+  <rect x="26" y="128" width="38" height="26" fill="#8a8878"/>
+  <!-- Spire -->
+  <polygon points="28,128 45,90 62,128" fill="#6a7060"/>
+  <!-- Clock faces -->
+  <circle cx="45" cy="185" r="12" fill="#d8d0b0"/>
+  <circle cx="45" cy="185" r="10" fill="#e8e0c0"/>
+  <!-- Clock hands -->
+  <line x1="45" y1="185" x2="45" y2="177" stroke="#2a2a2a" stroke-width="2"/>
+  <line x1="45" y1="185" x2="52" y2="189" stroke="#2a2a2a" stroke-width="1.5"/>
+  <!-- Westminster body details -->
+  <rect x="22" y="285" width="14" height="65" fill="#8a8878"/>
+  <rect x="54" y="285" width="14" height="65" fill="#8a8878"/>
+  <!-- Battlements -->
+  <rect x="20" y="218" width="8" height="8" fill="#7a8070"/>
+  <rect x="32" y="218" width="8" height="8" fill="#7a8070"/>
+  <rect x="44" y="218" width="8" height="8" fill="#7a8070"/>
+  <rect x="56" y="218" width="8" height="8" fill="#7a8070"/>
+
+  <!-- Lamp posts on embankment -->
+  <rect x="165" y="310" width="3" height="42" fill="#5a5048"/>
+  <path d="M165,310 Q175,300 182,305" stroke="#5a5048" stroke-width="3" fill="none"/>
+  <circle cx="183" cy="304" r="5" fill="#ffe080" opacity="0.85" filter="url(#glow)"/>
+  <rect x="625" y="310" width="3" height="42" fill="#5a5048"/>
+  <path d="M625,310 Q615,300 608,305" stroke="#5a5048" stroke-width="3" fill="none"/>
+  <circle cx="607" cy="304" r="5" fill="#ffe080" opacity="0.85" filter="url(#glow)"/>
+</svg>
