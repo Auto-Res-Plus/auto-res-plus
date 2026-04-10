@@ -71,44 +71,43 @@ import MainLayout from '../layouts/MainLayout.astro';
             overflow: hidden;
             width: 100%;
             position: relative;
-            mask-image: linear-gradient(
-                to right,
-                transparent 0%,
-                black 12%,
-                black 88%,
-                transparent 100%
-            );
-            -webkit-mask-image: linear-gradient(
-                to right,
-                transparent 0%,
-                black 12%,
-                black 88%,
-                transparent 100%
-            );
+        }
+        .ticker-track::before,
+        .ticker-track::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 12%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .ticker-track::before {
+            left: 0;
+            background: linear-gradient(to right, #fff, transparent);
+        }
+        .ticker-track::after {
+            right: 0;
+            background: linear-gradient(to left, #fff, transparent);
         }
         .ticker-inner {
             display: flex;
             align-items: center;
             width: max-content;
-            animation: ticker-scroll 32s linear infinite;
+            will-change: transform;
         }
         .ticker-inner img {
-            height: 36px;
+            height: 30px;
             width: auto;
             object-fit: contain;
             flex-shrink: 0;
-            padding-right: 60px;
+            padding-right: 76px;
             opacity: 0.7;
             transition: opacity 0.2s;
         }
         .ticker-inner img:hover {
             opacity: 1;
         }
-        @keyframes ticker-scroll {
-            0%   { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
         /* --- POPULAR LOCATIONS --- */
         .locations-section {
             background: white;
@@ -379,6 +378,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                 background: white;
                 padding: 0;
                 width: 100%;
+                min-height: 230px;
             }
             .engine-card {
                 box-shadow: none;
@@ -651,6 +651,22 @@ import MainLayout from '../layouts/MainLayout.astro';
             }
             setFaqImageHeight();
             window.addEventListener('resize', setFaqImageHeight);
+        })();
+
+        /* --- LOGO TICKER --- */
+        (function() {
+            var inner = document.querySelector('.ticker-inner');
+            if (!inner) return;
+            var x = 0;
+            var speed = 1; // px per frame (~60px/s at 60fps)
+            function tick() {
+                var halfWidth = inner.scrollWidth / 2;
+                x -= speed;
+                if (x <= -halfWidth) x += halfWidth;
+                inner.style.transform = 'translateX(' + x + 'px)';
+                requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
         })();
 
         /* --- FAQ ACCORDION --- */
