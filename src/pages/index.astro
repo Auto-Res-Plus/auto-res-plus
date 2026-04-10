@@ -369,18 +369,32 @@ import MainLayout from '../layouts/MainLayout.astro';
                 width: calc(100% + 40px);
                 gap: 16px;
             }
+            /* Left-align headline and checklist so they share the same left edge */
+            .hero-headline { text-align: left; }
+            .hero-headline h1 { font-size: 1.75rem; }
+            .hero-checklist { text-align: left; }
+            .check-list { display: block; width: 100%; }
             /* Engine card sits below on a plain white surface */
             .hero-left-engine {
                 background: white;
-                padding: 24px 0 16px;
+                padding: 16px 0;
+                width: 100%;
             }
             .engine-card {
-                box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+                box-shadow: none;
                 margin-left: -20px;
                 margin-right: -20px;
                 width: calc(100% + 40px);
                 max-width: none;
                 border-radius: 0;
+                padding: 16px 20px 10px;
+            }
+            /* Hide CT decorative images/illustrations — they inflate card height on mobile */
+            [ct-app] img, [ct-app] svg:not(.ctc-icon) { display: none !important; }
+            [ct-app], .ct-step-1-container, .ct-search-container {
+                min-height: 0 !important;
+                height: auto !important;
+                padding-bottom: 0 !important;
             }
         }
     </style>
