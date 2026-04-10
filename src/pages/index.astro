@@ -346,6 +346,37 @@ import MainLayout from '../layouts/MainLayout.astro';
             .check-list { display: inline-block; text-align: left; }
             .check-list li { justify-content: flex-start; }
         }
+
+        @media (max-width: 767px) {
+            /* Strip the bg image from the wrapper — it now lives on hero-right */
+            .hero-grid-wrapper {
+                background: white;
+            }
+            .hero-grid {
+                padding: 0;
+                gap: 0;
+            }
+            /* Hero image block: full-bleed, headline + checklist overlaid */
+            .hero-right {
+                order: -1;
+                background:
+                    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+                    url('/images/hero-bg.webp') center / cover no-repeat;
+                padding: 44px 20px 40px;
+                /* break out of .container's 20px side padding */
+                margin-left: -20px;
+                margin-right: -20px;
+                gap: 16px;
+            }
+            /* Engine card sits below on a plain white surface */
+            .hero-left-engine {
+                background: white;
+                padding: 24px 0 16px;
+            }
+            .engine-card {
+                box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            }
+        }
     </style>
 
     <section class="hero-grid-wrapper">
