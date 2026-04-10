@@ -392,6 +392,8 @@ import MainLayout from '../layouts/MainLayout.astro';
             }
             /* Hide CT decorative images/illustrations — they inflate card height on mobile */
             [ct-app] img, [ct-app] svg:not(.ctc-icon) { display: none !important; }
+            .ct-usps__main { display: none !important; }
+            .ct-container-search-cars { min-height: 0 !important; padding-bottom: 2rem !important; }
             [ct-app], .ct-step-1-container, .ct-search-container {
                 min-height: 0 !important;
                 height: auto !important;
