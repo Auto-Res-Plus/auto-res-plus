@@ -86,25 +86,14 @@ const { title = 'Holiday Car Rentals | Auto Reservation Plus' } = Astro.props;
         .off-canvas.is-open { transform: translateX(0); }
 
         .off-canvas-header {
-            padding: 18px 20px;
+            padding: 18px 20px 17px;
             border-bottom: 1px solid #eee;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
         .off-canvas-header img { max-width: 200px; }
-        .off-canvas-close {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #999;
-            line-height: 1;
-            padding: 4px;
-        }
-        .off-canvas-close:hover { color: var(--brand-orange); }
-
-        .off-canvas-nav { list-style: none; margin: 0; padding: 12px 0; }
+.off-canvas-nav { list-style: none; margin: 0; padding: 12px 0; }
         .off-canvas-nav li a {
             display: block;
             padding: 14px 24px;
@@ -148,7 +137,6 @@ const { title = 'Holiday Car Rentals | Auto Reservation Plus' } = Astro.props;
     <div class="off-canvas" id="off-canvas" aria-hidden="true">
         <div class="off-canvas-header">
             <img src="/images/logo.png" alt="Auto Reservation Plus logo">
-            <button class="off-canvas-close" id="off-canvas-close" aria-label="Close menu">&times;</button>
         </div>
         <ul class="off-canvas-nav">
             <li><a href="/">Home</a></li>
@@ -188,8 +176,6 @@ const { title = 'Holiday Car Rentals | Auto Reservation Plus' } = Astro.props;
             var toggle = document.getElementById('nav-toggle');
             var offCanvas = document.getElementById('off-canvas');
             var overlay = document.getElementById('nav-overlay');
-            var closeBtn = document.getElementById('off-canvas-close');
-
             function openMenu() {
                 toggle.classList.add('is-open');
                 offCanvas.classList.add('is-open');
@@ -206,7 +192,6 @@ const { title = 'Holiday Car Rentals | Auto Reservation Plus' } = Astro.props;
             }
 
             toggle.addEventListener('click', openMenu);
-            closeBtn.addEventListener('click', closeMenu);
             overlay.addEventListener('click', closeMenu);
             document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
         })();
