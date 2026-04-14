@@ -28,11 +28,16 @@ import MainLayout from '../layouts/MainLayout.astro';
     </section>
 
     <script is:inline>
+        var _lang     = window.ARP.getLang();
+        var _currency = window.ARP.getCurrency();
+
         var CT = {
           ABE: {
             Settings: {
               clientID: '315556',
               type: window.innerWidth < 800 ? 'mobile' : 'desktop',
+              locale: window.ARP.ctLocales[_lang] || 'en_GB',
+              currency: _currency,
               logo: '/images/logo.png'
             }
           }

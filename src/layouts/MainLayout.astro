@@ -5,9 +5,10 @@ interface Props {
 const { title = 'Holiday Car Rentals | Auto Reservation Plus' } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
     <meta charset="utf-8" />
+    <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <style is:global>
@@ -27,139 +28,355 @@ const { title = 'Holiday Car Rentals | Auto Reservation Plus' } = Astro.props;
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
         .logo-area { line-height: 0; padding: 10px 0; }
         .logo-area img { max-width: 260px; }
-        .phone { font-weight: bold; color: var(--brand-blue); white-space: nowrap; }
 
-        .nav-flex { display: flex; list-style: none; margin: 0; padding: 0; flex: 1; }
-        .nav-flex li a { display: block; padding: 0 20px; color: var(--brand-blue); text-decoration: none; font-weight: bold; font-size: 14px; line-height: 60px; transition: color 0.2s ease; }
-        .nav-flex li a:hover { color: var(--brand-orange); }
-
-        /* --- HAMBURGER & OFF-CANVAS --- */
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            margin-left: auto;
-        }
-        .nav-toggle span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--brand-blue);
-            border-radius: 2px;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            transform-origin: center;
-        }
-        .nav-toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .nav-toggle.is-open span:nth-child(2) { opacity: 0; }
-        .nav-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-        .nav-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 900;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .nav-overlay.is-open { opacity: 1; pointer-events: auto; }
-
-        .off-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 280px;
-            height: 100%;
-            background: white;
-            z-index: 1000;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-        }
-        .off-canvas.is-open { transform: translateX(0); }
-
-        .off-canvas-header {
-            padding: 18px 20px 17px;
-            border-bottom: 1px solid #eee;
-            display: flex;
+        /* --- LANGUAGE & CURRENCY SWITCHERS --- */
+        .switchers { display: flex; gap: 8px; align-items: center; }
+        .switcher { position: relative; }
+        .switcher-btn {
+            display: inline-flex;
             align-items: center;
-            justify-content: space-between;
-        }
-        .off-canvas-header img { max-width: 200px; }
-.off-canvas-nav { list-style: none; margin: 0; padding: 12px 0; }
-        .off-canvas-nav li a {
-            display: block;
-            padding: 14px 24px;
-            color: var(--dark-text);
-            text-decoration: none;
+            gap: 5px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 13px;
             font-weight: 600;
-            font-size: 15px;
-            border-left: 3px solid transparent;
-            transition: color 0.2s ease, border-color 0.2s ease;
+            color: var(--dark-text);
+            font-family: inherit;
+            white-space: nowrap;
+            transition: border-color 0.2s, background 0.2s;
         }
-        .off-canvas-nav li a:hover {
-            color: var(--brand-orange);
-            border-left-color: var(--brand-orange);
+        .switcher-btn:hover { border-color: var(--brand-blue); background: #fff; }
+        .switcher-btn svg { flex-shrink: 0; }
+        .switcher-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            list-style: none;
+            margin: 0;
+            padding: 6px 0;
+            min-width: 145px;
+            z-index: 500;
+            display: none;
         }
+        .switcher-dropdown.is-open { display: block; }
+        .switcher-dropdown li {
+            padding: 9px 16px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--dark-text);
+            transition: background 0.15s;
+        }
+        .switcher-dropdown li:hover { background: #f5f5f5; }
+        .switcher-dropdown li.is-active { color: var(--brand-blue); font-weight: 700; }
 
-        .off-canvas-phone {
-            margin-top: auto;
-            padding: 20px 24px;
-            border-top: 1px solid #eee;
-            font-weight: bold;
-            color: var(--brand-blue);
-            font-size: 14px;
-        }
-
-        @media (max-width: 900px) {
-            .nav-flex { display: none; }
-            .phone { display: none; }
-            .nav-toggle { display: flex; }
+        @media (max-width: 400px) {
             .logo-area img { max-width: 200px; }
+            .switcher-btn { padding: 6px 9px; font-size: 12px; gap: 3px; }
         }
 
-        footer { text-align: center; padding: 40px; color: #999; font-size: 13px; background: white; }
+        footer { background: white; color: #999; font-size: 13px; }
+        .footer-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            padding: 40px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .footer-col-1 { display: flex; gap: 16px; align-items: center; justify-content: flex-start; }
+        .footer-col-2 { display: flex; justify-content: center; }
+        .payment-icons { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: center; }
+        .pay-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 28px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            font-size: 11px;
+            font-weight: 900;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .pay-visa  { background: #1A1F71; color: white; font-style: italic; font-size: 13px; border-color: #1A1F71; }
+        .pay-amex  { background: #2E77BC; color: white; font-size: 9px; letter-spacing: 0.3px; border-color: #2E77BC; }
+        .pay-paypal { background: white; color: #003087; font-size: 8.5px; letter-spacing: 0; }
+        .pay-mc svg { display: block; }
+        .pay-applepay { background: black; border-color: black; padding: 7px 6px; overflow: hidden; }
+        .pay-applepay svg { width: 100%; height: 100%; }
+        .pay-googlepay { background: white; font-size: 8px; letter-spacing: 0; gap: 1px; padding-inline: 2px; }
+        .footer-col-3 { display: flex; justify-content: flex-end; }
+        .footer-social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            color: #555;
+            transition: background 0.2s, color 0.2s;
+        }
+        .footer-social-link:hover { background: var(--brand-blue); color: white; }
+        .footer-social-link svg { flex-shrink: 0; }
+        .footer-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: background 0.2s ease;
+        }
+        .footer-whatsapp:hover { background: #1ebe5d; }
+        .footer-whatsapp svg { flex-shrink: 0; }
+        .footer-bottom {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            padding: 16px 0;
+            font-size: 12px;
+            color: #bbb;
+        }
+        .footer-bottom-center { text-align: center; }
+        .footer-bottom-right {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+        }
+        .footer-bottom-right a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-bottom-right a:hover { color: var(--brand-blue); }
+        @media (max-width: 600px) {
+            .footer-bottom {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                text-align: center;
+            }
+            .footer-bottom-center { text-align: center; }
+            .footer-bottom-right { justify-content: center; }
+        }
+        @media (max-width: 600px) {
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 30px 0;
+                text-align: center;
+            }
+            .footer-col-1 { justify-content: center; }
+            .footer-col-3 { justify-content: center; }
+        }
     </style>
+
+    <script is:inline>
+        window.ARP = window.ARP || {};
+
+        window.ARP.ctLocales = {
+            en: 'en_GB', fr: 'fr_FR', de: 'de_DE', es: 'es_ES', it: 'it_IT'
+        };
+
+        window.ARP.prices = {
+            GBP: { paris:'£35', berlin:'£28', madrid:'£22', rome:'£30', london:'£45', lisbon:'£19' },
+            EUR: { paris:'€40', berlin:'€32', madrid:'€25', rome:'€34', london:'€52', lisbon:'€22' },
+            USD: { paris:'$44', berlin:'$36', madrid:'$28', rome:'$38', london:'$57', lisbon:'$24' }
+        };
+
+        window.ARP.translations = {
+            en: {
+                hero_headline:   'Holiday Car Rentals',
+                check_1: 'Free Cancellation',
+                check_2: 'No Hidden Charges',
+                check_3: '800+ Suppliers Worldwide',
+                check_4: '24/7 Customer Support',
+                locations_heading: 'Popular Rental Locations',
+                price_template: 'from {0} per day',
+                faq_heading: 'Frequently Asked Questions',
+                faq_q1: 'What documents do I need to hire a car?',
+                faq_a1: "You'll need a valid full driving licence, a passport or national ID card, and a credit card in the main driver's name for the security deposit. Some destinations may require an International Driving Permit — we'll flag this during the booking process.",
+                faq_q2: 'Is there a minimum age to rent a car?',
+                faq_a2: 'The minimum age is typically 21, though this varies by supplier and country. Drivers under 25 may incur a young driver surcharge. Some premium or specialist vehicle categories require a minimum age of 25.',
+                faq_q3: 'Can I cancel or modify my booking?',
+                faq_a3: 'Yes — most bookings include free cancellation up to 48 hours before pick-up. Amendments can be made by contacting our support team. Terms vary by rate type, so check your booking confirmation for full details.',
+                faq_q4: 'What insurance is included?',
+                faq_a4: 'All rentals include Collision Damage Waiver (CDW) and Theft Protection as standard, reducing your liability in the event of an accident or theft. A refundable excess may still apply. We also offer full excess protection upgrades for complete peace of mind.',
+                faq_q5: 'Can I add an additional driver?',
+                faq_a5: 'Yes, additional drivers can be added at the rental desk for a small daily fee. They must be present at pick-up with their driving licence and passport. Some suppliers include one additional driver free of charge — this will be shown on your voucher if applicable.',
+                faq_q6: 'What happens if I return the car late?',
+                faq_a6: 'Suppliers typically allow a grace period of 30–60 minutes. Beyond that, an additional day\'s charge may be applied. If you know you\'ll be late, contact the rental desk directly or call our 24/7 support line as early as possible to avoid extra fees.',
+                whatsapp_cta: 'Contact Us'
+            },
+            fr: {
+                hero_headline:   'Location de voiture en vacances',
+                check_1: 'Annulation gratuite',
+                check_2: 'Sans frais cachés',
+                check_3: '800+ fournisseurs dans le monde',
+                check_4: 'Assistance 24h/24, 7j/7',
+                locations_heading: 'Destinations populaires',
+                price_template: 'à partir de {0} par jour',
+                faq_heading: 'Questions fréquentes',
+                faq_q1: 'Quels documents faut-il pour louer une voiture ?',
+                faq_a1: "Vous aurez besoin d'un permis de conduire valide, d'un passeport ou d'une carte d'identité nationale, et d'une carte de crédit au nom du conducteur principal pour le dépôt de garantie. Certaines destinations peuvent exiger un permis de conduire international — nous vous le signalerons lors de la réservation.",
+                faq_q2: "Y a-t-il un âge minimum pour louer une voiture ?",
+                faq_a2: "L'âge minimum est généralement de 21 ans, bien que cela varie selon le fournisseur et le pays. Les conducteurs de moins de 25 ans peuvent être soumis à une majoration jeune conducteur. Certaines catégories de véhicules premium nécessitent un âge minimum de 25 ans.",
+                faq_q3: 'Puis-je annuler ou modifier ma réservation ?',
+                faq_a3: "Oui — la plupart des réservations incluent l'annulation gratuite jusqu'à 48 heures avant le départ. Les modifications peuvent être effectuées en contactant notre équipe d'assistance. Les conditions varient selon le tarif, consultez votre confirmation de réservation.",
+                faq_q4: "Quelle assurance est incluse ?",
+                faq_a4: "Toutes les locations incluent la Protection contre les Dommages par Collision (CDW) et la protection antivol en standard. Un excédent remboursable peut s'appliquer. Nous proposons également des options de protection complète contre la franchise.",
+                faq_q5: 'Puis-je ajouter un conducteur supplémentaire ?',
+                faq_a5: "Oui, des conducteurs supplémentaires peuvent être ajoutés au comptoir de location moyennant une petite redevance journalière. Ils doivent être présents au moment du départ avec leur permis de conduire et leur passeport. Certains fournisseurs incluent un conducteur supplémentaire gratuit.",
+                faq_q6: 'Que se passe-t-il si je rends la voiture en retard ?',
+                faq_a6: "Les fournisseurs accordent généralement une période de grâce de 30 à 60 minutes. Au-delà, une journée supplémentaire peut être facturée. Si vous savez que vous serez en retard, contactez le comptoir de location directement ou appelez notre assistance 24h/24 dès que possible.",
+                whatsapp_cta: 'Contact Us'
+            },
+            de: {
+                hero_headline:   'Mietwagen für den Urlaub',
+                check_1: 'Kostenlose Stornierung',
+                check_2: 'Keine versteckten Gebühren',
+                check_3: '800+ Anbieter weltweit',
+                check_4: '24/7 Kundendienst',
+                locations_heading: 'Beliebte Mietstandorte',
+                price_template: 'ab {0} pro Tag',
+                faq_heading: 'Häufig gestellte Fragen',
+                faq_q1: 'Welche Dokumente benötige ich für die Automiete?',
+                faq_a1: "Sie benötigen einen gültigen Führerschein, einen Reisepass oder Personalausweis und eine Kreditkarte auf den Namen des Hauptfahrers für die Kaution. Einige Ziele erfordern möglicherweise einen internationalen Führerschein — wir werden Sie während des Buchungsvorgangs darauf hinweisen.",
+                faq_q2: 'Gibt es ein Mindestalter für die Automiete?',
+                faq_a2: "Das Mindestalter beträgt in der Regel 21 Jahre, obwohl dies je nach Anbieter und Land variiert. Fahrer unter 25 Jahren müssen möglicherweise einen Jungfahrerzuschlag entrichten. Einige Premium-Fahrzeugkategorien erfordern ein Mindestalter von 25 Jahren.",
+                faq_q3: 'Kann ich meine Buchung stornieren oder ändern?',
+                faq_a3: "Ja — die meisten Buchungen beinhalten eine kostenlose Stornierung bis zu 48 Stunden vor der Abholung. Änderungen können durch Kontaktaufnahme mit unserem Support-Team vorgenommen werden. Die Bedingungen variieren je nach Tarifart.",
+                faq_q4: 'Welche Versicherung ist inbegriffen?',
+                faq_a4: "Alle Mietwagen umfassen standardmäßig den Kollisionsschadensverzicht (CDW) und Diebstahlschutz. Eine erstattungsfähige Selbstbeteiligung kann weiterhin anfallen. Wir bieten auch vollständige Selbstbeteiligungs-Schutzpakete an.",
+                faq_q5: 'Kann ich einen zusätzlichen Fahrer hinzufügen?',
+                faq_a5: "Ja, zusätzliche Fahrer können an der Mietstation gegen eine kleine Tagesgebühr hinzugefügt werden. Sie müssen bei der Abholung mit ihrem Führerschein und Reisepass anwesend sein. Einige Anbieter schließen einen zusätzlichen Fahrer kostenlos ein.",
+                faq_q6: 'Was passiert, wenn ich das Auto zu spät zurückgebe?',
+                faq_a6: "Anbieter gewähren in der Regel eine Kulanzzeit von 30–60 Minuten. Danach kann ein zusätzlicher Tagessatz berechnet werden. Wenn Sie wissen, dass Sie zu spät kommen, kontaktieren Sie bitte frühzeitig die Mietstation oder unsere 24/7-Helpline.",
+                whatsapp_cta: 'Contact Us'
+            },
+            es: {
+                hero_headline:   'Alquiler de coches de vacaciones',
+                check_1: 'Cancelación gratuita',
+                check_2: 'Sin cargos ocultos',
+                check_3: '800+ proveedores en todo el mundo',
+                check_4: 'Atención al cliente 24/7',
+                locations_heading: 'Destinos de alquiler populares',
+                price_template: 'desde {0} por día',
+                faq_heading: 'Preguntas frecuentes',
+                faq_q1: '¿Qué documentos necesito para alquilar un coche?',
+                faq_a1: "Necesitará un permiso de conducir vigente, un pasaporte o documento nacional de identidad y una tarjeta de crédito a nombre del conductor principal para el depósito de seguridad. Algunos destinos pueden requerir un Permiso de Conducción Internacional — se lo indicaremos durante el proceso de reserva.",
+                faq_q2: '¿Hay una edad mínima para alquilar un coche?',
+                faq_a2: "La edad mínima suele ser 21 años, aunque varía según el proveedor y el país. Los conductores menores de 25 años pueden incurrir en un suplemento por conductor joven. Algunas categorías de vehículos premium requieren una edad mínima de 25 años.",
+                faq_q3: '¿Puedo cancelar o modificar mi reserva?',
+                faq_a3: "Sí — la mayoría de las reservas incluyen cancelación gratuita hasta 48 horas antes de la recogida. Las modificaciones se pueden realizar contactando con nuestro equipo de atención al cliente. Las condiciones varían según el tipo de tarifa.",
+                faq_q4: '¿Qué seguro está incluido?',
+                faq_a4: "Todos los alquileres incluyen de serie la Cobertura por Daños por Colisión (CDW) y Protección contra Robo. Puede seguir aplicándose una franquicia reembolsable. También ofrecemos mejoras de protección total contra franquicia.",
+                faq_q5: '¿Puedo añadir un conductor adicional?',
+                faq_a5: "Sí, se pueden añadir conductores adicionales en el mostrador de alquiler por una pequeña tarifa diaria. Deben estar presentes en la recogida con su permiso de conducir y pasaporte. Algunos proveedores incluyen un conductor adicional de forma gratuita.",
+                faq_q6: '¿Qué ocurre si devuelvo el coche tarde?',
+                faq_a6: "Los proveedores suelen conceder un período de gracia de 30 a 60 minutos. Más allá de eso, se puede aplicar un cargo de un día adicional. Si sabe que llegará tarde, contacte con el mostrador de alquiler directamente o llame a nuestra línea de atención 24/7.",
+                whatsapp_cta: 'Contact Us'
+            },
+            it: {
+                hero_headline:   'Noleggio auto per le vacanze',
+                check_1: 'Cancellazione gratuita',
+                check_2: 'Nessun costo nascosto',
+                check_3: '800+ fornitori in tutto il mondo',
+                check_4: 'Assistenza clienti 24/7',
+                locations_heading: 'Destinazioni di noleggio popolari',
+                price_template: 'a partire da {0} al giorno',
+                faq_heading: 'Domande frequenti',
+                faq_q1: 'Quali documenti sono necessari per noleggiare un\'auto?',
+                faq_a1: "Avrai bisogno di una patente di guida valida, di un passaporto o carta d'identità nazionale e di una carta di credito intestata al conducente principale per il deposito cauzionale. Alcune destinazioni potrebbero richiedere una Patente di Guida Internazionale — te lo segnaleremo durante il processo di prenotazione.",
+                faq_q2: "C'è un'età minima per noleggiare un'auto?",
+                faq_a2: "L'età minima è in genere 21 anni, anche se varia in base al fornitore e al paese. I conducenti di età inferiore ai 25 anni potrebbero incorrere in un supplemento per conducente giovane. Alcune categorie di veicoli premium richiedono un'età minima di 25 anni.",
+                faq_q3: 'Posso cancellare o modificare la mia prenotazione?',
+                faq_a3: "Sì — la maggior parte delle prenotazioni include la cancellazione gratuita fino a 48 ore prima del ritiro. Le modifiche possono essere effettuate contattando il nostro team di supporto. I termini variano in base al tipo di tariffa.",
+                faq_q4: 'Quale assicurazione è inclusa?',
+                faq_a4: "Tutti i noleggi includono come standard la Rinuncia ai Danni da Collisione (CDW) e la Protezione contro il Furto. Potrebbe comunque applicarsi una franchigia rimborsabile. Offriamo anche aggiornamenti di protezione completa contro la franchigia.",
+                faq_q5: 'Posso aggiungere un conducente aggiuntivo?',
+                faq_a5: "Sì, i conducenti aggiuntivi possono essere aggiunti al banco noleggio per una piccola tariffa giornaliera. Devono essere presenti al ritiro con la loro patente di guida e passaporto. Alcuni fornitori includono un conducente aggiuntivo gratuito.",
+                faq_q6: "Cosa succede se restituisco l'auto in ritardo?",
+                faq_a6: "I fornitori di solito concedono un periodo di grazia di 30–60 minuti. Oltre a ciò, potrebbe essere applicato un addebito di un giorno aggiuntivo. Se sai che farai tardi, contatta direttamente il banco noleggio o chiama la nostra linea di assistenza 24/7.",
+                whatsapp_cta: 'Contact Us'
+            }
+        };
+
+        window.ARP.getLang = function() {
+            return localStorage.getItem('arp_lang') || 'en';
+        };
+        window.ARP.getCurrency = function() {
+            return localStorage.getItem('arp_currency') || 'GBP';
+        };
+
+        window.ARP.applyTranslations = function() {
+            var lang     = window.ARP.getLang();
+            var currency = window.ARP.getCurrency();
+            var t = window.ARP.translations[lang] || window.ARP.translations.en;
+            var p = window.ARP.prices[currency]   || window.ARP.prices.GBP;
+
+            document.querySelectorAll('[data-i18n]').forEach(function(el) {
+                var key = el.getAttribute('data-i18n');
+                if (t[key] !== undefined) el.textContent = t[key];
+            });
+
+            document.querySelectorAll('[data-i18n-price]').forEach(function(el) {
+                var city = el.getAttribute('data-i18n-price');
+                if (p[city] && t.price_template) {
+                    el.textContent = t.price_template.replace('{0}', p[city]);
+                }
+            });
+        };
+    </script>
 </head>
 <body>
-
-    <!-- Off-canvas overlay -->
-    <div class="nav-overlay" id="nav-overlay"></div>
-
-    <!-- Off-canvas drawer -->
-    <div class="off-canvas" id="off-canvas" aria-hidden="true">
-        <div class="off-canvas-header">
-            <img src="/images/logo.png" alt="Auto Reservation Plus logo">
-        </div>
-        <ul class="off-canvas-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="/manage-booking">Manage Booking</a></li>
-            <li><a href="#">Contact Us</a></li>
-        </ul>
-        <div class="off-canvas-phone">Tel: +44 (0)7377 753990</div>
-    </div>
 
     <header>
         <div class="container top-flex">
             <div class="logo-area"><a href="/"><img src="/images/logo.png" alt="Auto Reservation Plus logo"></a></div>
-            <nav>
-                <ul class="nav-flex">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/manage-booking">Manage Booking</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </nav>
-            <div class="phone">Tel: +44 (0)7377 753990</div>
-            <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-controls="off-canvas">
-                <span></span><span></span><span></span>
-            </button>
+
+            <div class="switchers">
+                <!-- Language switcher -->
+                <div class="switcher">
+                    <button class="switcher-btn" id="lang-btn" aria-haspopup="listbox" aria-expanded="false">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        <span id="lang-label">EN</span>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <ul class="switcher-dropdown" id="lang-dropdown" role="listbox">
+                        <li data-lang="en">🇬🇧 English</li>
+                        <li data-lang="fr">🇫🇷 Français</li>
+                        <li data-lang="de">🇩🇪 Deutsch</li>
+                        <li data-lang="es">🇪🇸 Español</li>
+                        <li data-lang="it">🇮🇹 Italiano</li>
+                    </ul>
+                </div>
+
+                <!-- Currency switcher -->
+                <div class="switcher">
+                    <button class="switcher-btn" id="currency-btn" aria-haspopup="listbox" aria-expanded="false">
+                        <span id="currency-label">£ GBP</span>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <ul class="switcher-dropdown" id="currency-dropdown" role="listbox">
+                        <li data-currency="GBP">£ GBP</li>
+                        <li data-currency="EUR">€ EUR</li>
+                        <li data-currency="USD">$ USD</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -168,32 +385,132 @@ const { title = 'Holiday Car Rentals | Auto Reservation Plus' } = Astro.props;
     </main>
 
     <footer>
-        &copy; 2026 - Auto Reservation Plus Limited
+        <div class="container">
+            <div class="footer-main">
+                <!-- Col 1: Social icons -->
+                <div class="footer-col-1">
+                    <a href="https://www.facebook.com/AutoResPlus" class="footer-social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/auto_reservation_plus" class="footer-social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    </a>
+                </div>
+
+                <!-- Col 2: Payment icons -->
+                <div class="footer-col-2">
+                    <div class="payment-icons">
+                        <span class="pay-badge pay-visa">VISA</span>
+                        <span class="pay-badge pay-mc">
+                            <svg width="36" height="22" viewBox="0 0 36 22" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="13" cy="11" r="9" fill="#EB001B"/>
+                                <circle cx="23" cy="11" r="9" fill="#F79E1B"/>
+                                <path d="M18 4.3a9 9 0 0 1 0 13.4A9 9 0 0 1 18 4.3z" fill="#FF5F00"/>
+                            </svg>
+                        </span>
+                        <span class="pay-badge pay-amex">AMEX</span>
+                        <span class="pay-badge pay-paypal">PayPal</span>
+                        <span class="pay-badge pay-applepay">
+                            <svg viewBox="0 0 512 210.2" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M93.6,27.1C87.6,34.2,78,39.8,68.4,39c-1.2-9.6,3.5-19.8,9-26.1c6-7.3,16.5-12.5,25-12.9C103.4,10,99.5,19.8,93.6,27.1 M102.3,40.9c-13.9-0.8-25.8,7.9-32.4,7.9c-6.7,0-16.8-7.5-27.8-7.3c-14.3,0.2-27.6,8.3-34.9,21.2c-15,25.8-3.9,64,10.6,85c7.1,10.4,15.6,21.8,26.8,21.4c10.6-0.4,14.8-6.9,27.6-6.9c12.9,0,16.6,6.9,27.8,6.7c11.6-0.2,18.9-10.4,26-20.8c8.1-11.8,11.4-23.3,11.6-23.9c-0.2-0.2-22.4-8.7-22.6-34.3c-0.2-21.4,17.5-31.6,18.3-32.2C123.3,42.9,107.7,41.3,102.3,40.9 M182.6,11.9v155.9h24.2v-53.3h33.5c30.6,0,52.1-21,52.1-51.4c0-30.4-21.1-51.2-51.3-51.2H182.6z M206.8,32.3h27.9c21,0,33,11.2,33,30.9c0,19.7-12,31-33.1,31h-27.8V32.3z M336.6,169c15.2,0,29.3-7.7,35.7-19.9h0.5v18.7h22.4V90.2c0-22.5-18-37-45.7-37c-25.7,0-44.7,14.7-45.4,34.9h21.8c1.8-9.6,10.7-15.9,22.9-15.9c14.8,0,23.1,6.9,23.1,19.6v8.6l-30.2,1.8c-28.1,1.7-43.3,13.2-43.3,33.2C298.4,155.6,314.1,169,336.6,169z M343.1,150.5c-12.9,0-21.1-6.2-21.1-15.7c0-9.8,7.9-15.5,23-16.4l26.9-1.7v8.8C371.9,140.1,359.5,150.5,343.1,150.5z M425.1,210.2c23.6,0,34.7-9,44.4-36.3L512,54.7h-24.6l-28.5,92.1h-0.5l-28.5-92.1h-25.3l41,113.5l-2.2,6.9c-3.7,11.7-9.7,16.2-20.4,16.2c-1.9,0-5.6-0.2-7.1-0.4v18.7C417.3,210,423.3,210.2,425.1,210.2z"/></svg>
+                        </span>
+                        <span class="pay-badge pay-googlepay">
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 38.1" style="height:16px;width:auto;display:block;">
+                                <path fill="#5F6368" d="M37.8,19.7V29h-3V6h7.8c1.9,0,3.7,0.7,5.1,2c1.4,1.2,2.1,3,2.1,4.9c0,1.9-0.7,3.6-2.1,4.9c-1.4,1.3-3.1,2-5.1,2L37.8,19.7L37.8,19.7z M37.8,8.8v8h5c1.1,0,2.2-0.4,2.9-1.2c1.6-1.5,1.6-4,0.1-5.5c0,0-0.1-0.1-0.1-0.1c-0.8-0.8-1.8-1.3-2.9-1.2L37.8,8.8L37.8,8.8z"/>
+                                <path fill="#5F6368" d="M56.7,12.8c2.2,0,3.9,0.6,5.2,1.8s1.9,2.8,1.9,4.8V29H61v-2.2h-0.1c-1.2,1.8-2.9,2.7-4.9,2.7c-1.7,0-3.2-0.5-4.4-1.5c-1.1-1-1.8-2.4-1.8-3.9c0-1.6,0.6-2.9,1.8-3.9c1.2-1,2.9-1.4,4.9-1.4c1.8,0,3.2,0.3,4.3,1v-0.7c0-1-0.4-2-1.2-2.6c-0.8-0.7-1.8-1.1-2.9-1.1c-1.7,0-3,0.7-3.9,2.1l-2.6-1.6C51.8,13.8,53.9,12.8,56.7,12.8z M52.9,24.2c0,0.8,0.4,1.5,1,1.9c0.7,0.5,1.5,0.8,2.3,0.8c1.2,0,2.4-0.5,3.3-1.4c1-0.9,1.5-2,1.5-3.2c-0.9-0.7-2.2-1.1-3.9-1.1c-1.2,0-2.2,0.3-3,0.9C53.3,22.6,52.9,23.3,52.9,24.2z"/>
+                                <path fill="#5F6368" d="M80,13.3l-9.9,22.7h-3l3.7-7.9l-6.5-14.7h3.2l4.7,11.3h0.1l4.6-11.3H80z"/>
+                                <path fill="#4285F4" d="M25.9,17.7c0-0.9-0.1-1.8-0.2-2.7H13.2v5.1h7.1c-0.3,1.6-1.2,3.1-2.6,4v3.3H22C24.5,25.1,25.9,21.7,25.9,17.7z"/>
+                                <path fill="#34A853" d="M13.2,30.6c3.6,0,6.6-1.2,8.8-3.2l-4.3-3.3c-1.2,0.8-2.7,1.3-4.5,1.3c-3.4,0-6.4-2.3-7.4-5.5H1.4v3.4C3.7,27.8,8.2,30.6,13.2,30.6z"/>
+                                <path fill="#FBBC04" d="M5.8,19.9c-0.6-1.6-0.6-3.4,0-5.1v-3.4H1.4c-1.9,3.7-1.9,8.1,0,11.9L5.8,19.9z"/>
+                                <path fill="#EA4335" d="M13.2,9.4c1.9,0,3.7,0.7,5.1,2l0,0l3.8-3.8c-2.4-2.2-5.6-3.5-8.8-3.4c-5,0-9.6,2.8-11.8,7.3l4.4,3.4C6.8,11.7,9.8,9.4,13.2,9.4z"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Col 3: WhatsApp -->
+                <div class="footer-col-3">
+                    <a href="https://api.whatsapp.com/message/IM6TSGT5DQ5VB1" class="footer-whatsapp" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        <span data-i18n="whatsapp_cta">Contact Us</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>&copy; <span id="footer-year"></span> Auto Reservation Plus Limited</div>
+                <div class="footer-bottom-center">Company no. 05040025</div>
+                <div class="footer-bottom-right">
+                    <a href="/privacy-policy">Privacy Policy</a>
+                    <a href="/terms-and-conditions">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script is:inline>
         (function() {
-            var toggle = document.getElementById('nav-toggle');
-            var offCanvas = document.getElementById('off-canvas');
-            var overlay = document.getElementById('nav-overlay');
-            function openMenu() {
-                toggle.classList.add('is-open');
-                offCanvas.classList.add('is-open');
-                overlay.classList.add('is-open');
-                offCanvas.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden';
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+            var langLabels     = { en:'EN', fr:'FR', de:'DE', es:'ES', it:'IT' };
+            var currencyLabels = { GBP:'£ GBP', EUR:'€ EUR', USD:'$ USD' };
+
+            var lang     = window.ARP.getLang();
+            var currency = window.ARP.getCurrency();
+
+            // Set button labels to current selections
+            document.getElementById('lang-label').textContent     = langLabels[lang]         || 'EN';
+            document.getElementById('currency-label').textContent = currencyLabels[currency] || '£ GBP';
+
+            // Mark active items in dropdowns
+            var activeLang = document.querySelector('[data-lang="' + lang + '"]');
+            var activeCurr = document.querySelector('[data-currency="' + currency + '"]');
+            if (activeLang) activeLang.classList.add('is-active');
+            if (activeCurr) activeCurr.classList.add('is-active');
+
+            // Dropdown toggle
+            function closeAll() {
+                document.querySelectorAll('.switcher-dropdown').forEach(function(d) { d.classList.remove('is-open'); });
+                document.querySelectorAll('.switcher-btn').forEach(function(b) { b.setAttribute('aria-expanded', 'false'); });
             }
-            function closeMenu() {
-                toggle.classList.remove('is-open');
-                offCanvas.classList.remove('is-open');
-                overlay.classList.remove('is-open');
-                offCanvas.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = '';
+            function toggleDropdown(btn, dropdown) {
+                var wasOpen = dropdown.classList.contains('is-open');
+                closeAll();
+                if (!wasOpen) {
+                    dropdown.classList.add('is-open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
             }
 
-            toggle.addEventListener('click', openMenu);
-            overlay.addEventListener('click', closeMenu);
-            document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
+            document.getElementById('lang-btn').addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleDropdown(this, document.getElementById('lang-dropdown'));
+            });
+            document.getElementById('currency-btn').addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleDropdown(this, document.getElementById('currency-dropdown'));
+            });
+
+            // Language selection — save and reload
+            document.querySelectorAll('[data-lang]').forEach(function(item) {
+                item.addEventListener('click', function() {
+                    localStorage.setItem('arp_lang', this.getAttribute('data-lang'));
+                    location.reload();
+                });
+            });
+
+            // Currency selection — save and reload
+            document.querySelectorAll('[data-currency]').forEach(function(item) {
+                item.addEventListener('click', function() {
+                    localStorage.setItem('arp_currency', this.getAttribute('data-currency'));
+                    location.reload();
+                });
+            });
+
+            // Close dropdowns on outside click
+            document.addEventListener('click', closeAll);
+
+            // Apply translations to layout elements (footer CTA etc.)
+            window.ARP.applyTranslations();
         })();
     </script>
 </body>

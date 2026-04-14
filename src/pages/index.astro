@@ -198,14 +198,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             margin-bottom: 4px;
         }
         .location-card-price {
-            display: inline-block;
-            background: var(--brand-orange);
-            color: #fff;
-            font-size: 0.78rem;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 20px;
-            letter-spacing: 0.02em;
+            display: none;
         }
 
         /* --- FAQ --- */
@@ -223,21 +216,19 @@ import MainLayout from '../layouts/MainLayout.astro';
         }
         .faq-layout {
             display: grid;
-            grid-template-columns: 60% 40%;
+            grid-template-columns: 3fr 2fr;
             gap: 60px;
-            align-items: start;
+            align-items: stretch;
         }
         .faq-list {
             display: flex;
             flex-direction: column;
             gap: 0;
+            align-self: start;
         }
         .faq-image {
             border-radius: 12px;
             overflow: hidden;
-            position: relative;
-            position: sticky;
-            top: 20px;
         }
         .faq-image img {
             width: 100%;
@@ -413,14 +404,14 @@ import MainLayout from '../layouts/MainLayout.astro';
                 </div>
                 <div class="hero-right">
                     <div class="hero-headline">
-                        <h1>Holiday Car Rentals</h1>
+                        <h1 data-i18n="hero_headline">Holiday Car Rentals</h1>
                     </div>
                     <div class="hero-checklist">
                         <ul class="check-list">
-                            <li>Free Cancellation</li>
-                            <li>No Hidden Charges</li>
-                            <li>800+ Suppliers Worldwide</li>
-                            <li>24/7 Customer Support</li>
+                            <li data-i18n="check_1">Free Cancellation</li>
+                            <li data-i18n="check_2">No Hidden Charges</li>
+                            <li data-i18n="check_3">800+ Suppliers Worldwide</li>
+                            <li data-i18n="check_4">24/7 Customer Support</li>
                         </ul>
                     </div>
                 </div>
@@ -464,7 +455,7 @@ import MainLayout from '../layouts/MainLayout.astro';
     <!-- POPULAR LOCATIONS -->
     <section class="locations-section">
         <div class="container">
-            <h2>Popular Rental Locations</h2>
+            <h2 data-i18n="locations_heading">Popular Rental Locations</h2>
             <div class="locations-grid">
 
                 <div class="location-card loc-paris">
@@ -472,7 +463,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                     <div class="location-card-overlay"></div>
                     <div class="location-card-content">
                         <span class="location-card-name">Paris</span>
-                        <span class="location-card-price">from £35 per day</span>
+                        <span class="location-card-price" data-i18n-price="paris">from £35 per day</span>
                     </div>
                 </div>
 
@@ -481,7 +472,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                     <div class="location-card-overlay"></div>
                     <div class="location-card-content">
                         <span class="location-card-name">Berlin</span>
-                        <span class="location-card-price">from £28 per day</span>
+                        <span class="location-card-price" data-i18n-price="berlin">from £28 per day</span>
                     </div>
                 </div>
 
@@ -490,7 +481,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                     <div class="location-card-overlay"></div>
                     <div class="location-card-content">
                         <span class="location-card-name">Madrid</span>
-                        <span class="location-card-price">from £22 per day</span>
+                        <span class="location-card-price" data-i18n-price="madrid">from £22 per day</span>
                     </div>
                 </div>
 
@@ -499,7 +490,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                     <div class="location-card-overlay"></div>
                     <div class="location-card-content">
                         <span class="location-card-name">Rome</span>
-                        <span class="location-card-price">from £30 per day</span>
+                        <span class="location-card-price" data-i18n-price="rome">from £30 per day</span>
                     </div>
                 </div>
 
@@ -508,7 +499,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                     <div class="location-card-overlay"></div>
                     <div class="location-card-content">
                         <span class="location-card-name">London</span>
-                        <span class="location-card-price">from £45 per day</span>
+                        <span class="location-card-price" data-i18n-price="london">from £45 per day</span>
                     </div>
                 </div>
 
@@ -517,7 +508,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                     <div class="location-card-overlay"></div>
                     <div class="location-card-content">
                         <span class="location-card-name">Lisbon</span>
-                        <span class="location-card-price">from £19 per day</span>
+                        <span class="location-card-price" data-i18n-price="lisbon">from £19 per day</span>
                     </div>
                 </div>
 
@@ -528,62 +519,62 @@ import MainLayout from '../layouts/MainLayout.astro';
     <!-- FAQ -->
     <section class="faq-section">
         <div class="container">
-            <h2>Frequently Asked Questions</h2>
+            <h2 data-i18n="faq_heading">Frequently Asked Questions</h2>
             <div class="faq-layout">
 
                 <div class="faq-list">
                     <div class="faq-item">
                         <button class="faq-question">
-                            What documents do I need to hire a car?
+                            <span data-i18n="faq_q1">What documents do I need to hire a car?</span>
                             <span class="faq-icon">+</span>
                         </button>
                         <div class="faq-answer"><div class="faq-answer-inner">
-                            <p>You'll need a valid full driving licence, a passport or national ID card, and a credit card in the main driver's name for the security deposit. Some destinations may require an International Driving Permit — we'll flag this during the booking process.</p>
+                            <p data-i18n="faq_a1">You'll need a valid full driving licence, a passport or national ID card, and a credit card in the main driver's name for the security deposit. Some destinations may require an International Driving Permit — we'll flag this during the booking process.</p>
                         </div></div>
                     </div>
                     <div class="faq-item">
                         <button class="faq-question">
-                            Is there a minimum age to rent a car?
+                            <span data-i18n="faq_q2">Is there a minimum age to rent a car?</span>
                             <span class="faq-icon">+</span>
                         </button>
                         <div class="faq-answer"><div class="faq-answer-inner">
-                            <p>The minimum age is typically 21, though this varies by supplier and country. Drivers under 25 may incur a young driver surcharge. Some premium or specialist vehicle categories require a minimum age of 25.</p>
+                            <p data-i18n="faq_a2">The minimum age is typically 21, though this varies by supplier and country. Drivers under 25 may incur a young driver surcharge. Some premium or specialist vehicle categories require a minimum age of 25.</p>
                         </div></div>
                     </div>
                     <div class="faq-item">
                         <button class="faq-question">
-                            Can I cancel or modify my booking?
+                            <span data-i18n="faq_q3">Can I cancel or modify my booking?</span>
                             <span class="faq-icon">+</span>
                         </button>
                         <div class="faq-answer"><div class="faq-answer-inner">
-                            <p>Yes — most bookings include free cancellation up to 48 hours before pick-up. Amendments can be made through the Manage Booking portal or by contacting our support team. Terms vary by rate type, so check your booking confirmation for full details.</p>
+                            <p data-i18n="faq_a3">Yes — most bookings include free cancellation up to 48 hours before pick-up. Amendments can be made by contacting our support team. Terms vary by rate type, so check your booking confirmation for full details.</p>
                         </div></div>
                     </div>
                     <div class="faq-item">
                         <button class="faq-question">
-                            What insurance is included?
+                            <span data-i18n="faq_q4">What insurance is included?</span>
                             <span class="faq-icon">+</span>
                         </button>
                         <div class="faq-answer"><div class="faq-answer-inner">
-                            <p>All rentals include Collision Damage Waiver (CDW) and Theft Protection as standard, reducing your liability in the event of an accident or theft. A refundable excess may still apply. We also offer full excess protection upgrades for complete peace of mind.</p>
+                            <p data-i18n="faq_a4">All rentals include Collision Damage Waiver (CDW) and Theft Protection as standard, reducing your liability in the event of an accident or theft. A refundable excess may still apply. We also offer full excess protection upgrades for complete peace of mind.</p>
                         </div></div>
                     </div>
                     <div class="faq-item">
                         <button class="faq-question">
-                            Can I add an additional driver?
+                            <span data-i18n="faq_q5">Can I add an additional driver?</span>
                             <span class="faq-icon">+</span>
                         </button>
                         <div class="faq-answer"><div class="faq-answer-inner">
-                            <p>Yes, additional drivers can be added at the rental desk for a small daily fee. They must be present at pick-up with their driving licence and passport. Some suppliers include one additional driver free of charge — this will be shown on your voucher if applicable.</p>
+                            <p data-i18n="faq_a5">Yes, additional drivers can be added at the rental desk for a small daily fee. They must be present at pick-up with their driving licence and passport. Some suppliers include one additional driver free of charge — this will be shown on your voucher if applicable.</p>
                         </div></div>
                     </div>
                     <div class="faq-item">
                         <button class="faq-question">
-                            What happens if I return the car late?
+                            <span data-i18n="faq_q6">What happens if I return the car late?</span>
                             <span class="faq-icon">+</span>
                         </button>
                         <div class="faq-answer"><div class="faq-answer-inner">
-                            <p>Suppliers typically allow a grace period of 30–60 minutes. Beyond that, an additional day's charge may be applied. If you know you'll be late, contact the rental desk directly or call our 24/7 support line as early as possible to avoid extra fees.</p>
+                            <p data-i18n="faq_a6">Suppliers typically allow a grace period of 30–60 minutes. Beyond that, an additional day's charge may be applied. If you know you'll be late, contact the rental desk directly or call our 24/7 support line as early as possible to avoid extra fees.</p>
                         </div></div>
                     </div>
                 </div>
@@ -597,11 +588,16 @@ import MainLayout from '../layouts/MainLayout.astro';
     </section>
 
     <script is:inline>
+        var _lang     = window.ARP.getLang();
+        var _currency = window.ARP.getCurrency();
+
         var CT = {
           ABE: {
             Settings: {
               clientID: '315556',
               type: window.innerWidth < 800 ? 'mobile' : 'desktop',
+              locale: window.ARP.ctLocales[_lang] || 'en_GB',
+              currency: _currency,
               step1: {
                 deeplinkURL: window.location.origin + '/results',
                 showAvailNewWindow: false
@@ -609,6 +605,8 @@ import MainLayout from '../layouts/MainLayout.astro';
             }
           }
         };
+
+        window.ARP.applyTranslations();
 
         (function() {
           CT.ABE.Settings.version = '5.0';
@@ -637,22 +635,6 @@ import MainLayout from '../layouts/MainLayout.astro';
             }
         }, 300);
 
-        /* --- FAQ IMAGE HEIGHT --- */
-        (function() {
-            function setFaqImageHeight() {
-                var list = document.querySelector('.faq-list');
-                var img  = document.querySelector('.faq-image');
-                if (!list || !img) return;
-                // Close all items first to measure collapsed height
-                var openItems = list.querySelectorAll('.faq-item.is-open');
-                openItems.forEach(function(el) { el.classList.remove('is-open'); });
-                img.style.height = list.offsetHeight + 'px';
-                // Restore open items
-                openItems.forEach(function(el) { el.classList.add('is-open'); });
-            }
-            setFaqImageHeight();
-            window.addEventListener('resize', setFaqImageHeight);
-        })();
 
         /* --- LOGO TICKER --- */
         (function() {
