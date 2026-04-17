@@ -1,5 +1,5 @@
 export default async function handler(request, context) {
-    const country = context.geo?.country?.code;
+    const country = context.geo?.country?.code || 'XX';
     const host = new URL(request.url).hostname;
 
     const isDotCom  = host === 'auto-reservation-plus.com'  || host === 'www.auto-reservation-plus.com';
@@ -17,5 +17,9 @@ export default async function handler(request, context) {
         return Response.redirect('https://auto-reservation-plus.com' + path, 302);
     }
 
-    return context.next();
+    // Pass through and stamp the country code as a cookie for client-side use
+    const response = await context.next();
+    const headers = new Headers(response.headers);
+    headers.set('Set-Cookie', `arp_country=${country}; Path=/; Max-Age=86400; SameSite=Lax`);
+    return new Response(response.body, { status: response.status, headers });
 }

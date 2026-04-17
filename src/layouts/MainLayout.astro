@@ -21,6 +21,21 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <script is:inline>
+        // Set language and currency from Netlify geo cookie on first visit
+        (function() {
+            if (localStorage.getItem('arp_lang')) return;
+            var match = document.cookie.match(/arp_country=([^;]+)/);
+            var country = match ? match[1] : null;
+            if (!country || country === 'XX') return;
+            var langMap = { ES:'es', FR:'fr', DE:'de', IT:'it', AT:'de', CH:'de', BE:'fr', LU:'fr' };
+            var eurozone = ['AT','BE','CY','EE','FI','FR','DE','GR','IE','IT','LV','LT','LU','MT','NL','PT','SK','SI','ES'];
+            var lang     = langMap[country] || 'en';
+            var currency = country === 'GB' ? 'GBP' : (eurozone.indexOf(country) !== -1 ? 'EUR' : 'USD');
+            localStorage.setItem('arp_lang', lang);
+            localStorage.setItem('arp_currency', currency);
+        })();
+    </script>
     <meta name="description" content="Compare global car rental options and book securely with Auto Reservation Plus. Backed by 40+ years of expertise." />
     <link rel="canonical" href={comURL} />
     <link rel="alternate" hreflang="x-default" href={comURL} />
