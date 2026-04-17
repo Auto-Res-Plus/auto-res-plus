@@ -101,9 +101,12 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
         .switcher-dropdown li:hover { background: #f5f5f5; }
         .switcher-dropdown li.is-active { color: var(--brand-blue); font-weight: 700; }
 
+        @media (max-width: 600px) {
+            .switcher-btn { padding: 5px 10px; font-size: 12px; gap: 3px; }
+        }
         @media (max-width: 400px) {
             .logo-area img { width: 200px; height: 27px; }
-            .switcher-btn { padding: 6px 9px; font-size: 12px; gap: 3px; }
+            .switcher-btn { padding: 4px 8px; font-size: 11px; gap: 2px; }
         }
 
         footer { background: white; color: #999; font-size: 13px; }
