@@ -1,0 +1,80 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+<MainLayout title="Page Not Found | Auto Reservation Plus">
+    <style>
+        .hero-404 {
+            width: 100%;
+            min-height: 600px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                        url('/images/hero-bg.webp');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .card-404 {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.2);
+            padding: 52px 48px;
+            text-align: center;
+            max-width: 480px;
+            width: 100%;
+        }
+        .card-404 h1 {
+            color: #fff;
+            font-size: 6rem;
+            font-weight: 900;
+            margin: 0 0 8px;
+            line-height: 1;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+        .card-404 h2 {
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 0 16px;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+        }
+        .card-404 p {
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0 0 32px;
+        }
+        .btn-home {
+            display: inline-block;
+            background: #ff6600;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+        .btn-home:hover { background: #e05a00; }
+
+        @media (max-width: 600px) {
+            .hero-404 { min-height: 480px; }
+            .card-404 { padding: 36px 24px; }
+            .card-404 h1 { font-size: 4.5rem; }
+            .card-404 h2 { font-size: 1.2rem; }
+        }
+    </style>
+
+    <section class="hero-404">
+        <div class="card-404">
+            <h1>404</h1>
+            <h2>Page not found</h2>
+            <p>The page you're looking for doesn't exist or may have moved. Head back to the homepage to search for your next car rental.</p>
+            <a href="/" class="btn-home">Back to homepage</a>
+        </div>
+    </section>
+</MainLayout>
