@@ -3,8 +3,8 @@ interface Props {
     title?: string;
 }
 const { title = 'Worldwide Car Rental Booking | Auto Reservation Plus' } = Astro.props;
-const comURL = 'https://www.auto-reservation-plus.com' + Astro.url.pathname;
-const coukURL = 'https://www.auto-reservation-plus.co.uk' + Astro.url.pathname;
+const comURL = 'https://auto-reservation-plus.com' + Astro.url.pathname;
+const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
 ---
 <!DOCTYPE html>
 <html lang="en" translate="no">
@@ -22,6 +22,7 @@ const coukURL = 'https://www.auto-reservation-plus.co.uk' + Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content="Compare global car rental options and book securely with Auto Reservation Plus. Backed by 40+ years of expertise." />
+    <link rel="canonical" href={comURL} />
     <link rel="alternate" hreflang="x-default" href={comURL} />
     <link rel="alternate" hreflang="en-gb" href={coukURL} />
     <!-- Google tag (gtag.js) -->
