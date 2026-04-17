@@ -639,6 +639,23 @@ import MainLayout from '../layouts/MainLayout.astro';
 
         window.ARP.applyTranslations();
 
+        // Sync CT's internal language/currency back to localStorage before navigating to results
+        window.addEventListener('pagehide', function() {
+            if (window.CT && window.CT.ABE && window.CT.ABE.Settings) {
+                var locale   = window.CT.ABE.Settings.locale;
+                var currency = window.CT.ABE.Settings.currency;
+                if (locale) {
+                    var lang = locale.split('_')[0];
+                    if (['en','fr','de','es','it'].indexOf(lang) !== -1) {
+                        localStorage.setItem('arp_lang', lang);
+                    }
+                }
+                if (currency) {
+                    localStorage.setItem('arp_currency', currency);
+                }
+            }
+        });
+
         (function() {
           CT.ABE.Settings.version = '5.0';
           var cts = document.createElement('script');
