@@ -620,7 +620,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 
     <script is:inline>
         var _lang     = window.ARP.getLang();
-        var _currency = window.ARP.getCurrency();
+        var _currency = localStorage.getItem('arp_currency') || ({'fr':'EUR','de':'EUR','es':'EUR','it':'EUR'}[_lang] || 'GBP');
 
         var CT = {
           ABE: {
