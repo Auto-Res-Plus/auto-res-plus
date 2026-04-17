@@ -327,10 +327,20 @@ import MainLayout from '../layouts/MainLayout.astro';
         }
         @media (max-width: 560px) {
             .locations-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
                 grid-template-rows: none;
+                gap: 12px;
             }
-            .location-card { aspect-ratio: 16 / 9; }
+            .location-card { aspect-ratio: 16 / 9; border-radius: 8px; }
+            .location-card-name {
+                background: none;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                border-radius: 0;
+            }
         }
 
         @media (max-width: 992px) {
@@ -344,7 +354,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             .hero-right { padding-top: 0; gap: 16px; }
             .hero-headline { width: 100%; text-align: center; }
             .hero-headline h1 { font-size: 2.2rem; }
-            .engine-card { max-width: 100%; margin: 10px auto; padding: 15px 15px 10px; }
+            .engine-card { max-width: 100%; margin: 10px auto; padding: 15px 15px 10px; min-height: 0; opacity: 1 !important; transition: none !important; }
             [ct-app], .ct-step-1-container, .ct-search-container { min-height: 0 !important; padding-bottom: 0 !important; }
             [ct-app] svg:not(.ctc-icon), [ct-app] img:not([class*="ctc-icon"]) { display: none !important; }
             .hero-checklist { text-align: center; }
