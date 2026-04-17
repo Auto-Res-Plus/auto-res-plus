@@ -326,6 +326,10 @@ import MainLayout from '../layouts/MainLayout.astro';
             .location-card { aspect-ratio: 16 / 9; }
         }
         @media (max-width: 560px) {
+            .locations-section h2,
+            .faq-section h2 { font-size: 1.7rem; }
+            .locations-section { padding-block: 2rem 4rem; }
+            .faq-section { padding-block: 4rem; }
             .locations-grid {
                 grid-template-columns: repeat(2, 1fr);
                 grid-template-rows: none;
@@ -354,7 +358,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             .hero-right { padding-top: 0; gap: 16px; }
             .hero-headline { width: 100%; text-align: center; }
             .hero-headline h1 { font-size: 2.2rem; }
-            .engine-card { max-width: 100%; margin: 10px auto; padding: 15px 15px 10px; min-height: 0; opacity: 1 !important; transition: none !important; }
+            .engine-card { max-width: 100%; margin: 10px auto; padding: 15px 15px 1rem; min-height: 0; opacity: 1 !important; transition: none !important; }
             [ct-app], .ct-step-1-container, .ct-search-container { min-height: 0 !important; padding-bottom: 0 !important; }
             [ct-app] svg:not(.ctc-icon), [ct-app] img:not([class*="ctc-icon"]) { display: none !important; }
             .hero-checklist { text-align: center; }
@@ -396,6 +400,8 @@ import MainLayout from '../layouts/MainLayout.astro';
                 padding: 0;
                 width: 100%;
                 min-height: 230px;
+                opacity: 0;
+                transition: opacity 0.3s ease;
             }
             .engine-card {
                 box-shadow: none;
@@ -405,7 +411,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                 width: calc(100% + 40px);
                 max-width: none;
                 border-radius: 0;
-                padding: 0 20px 10px;
+                padding: 0 20px 20px;
             }
             /* Hide CT decorative images/illustrations — they inflate card height on mobile */
             [ct-app] img, [ct-app] svg:not(.ctc-icon) { display: none !important; }
@@ -692,7 +698,9 @@ import MainLayout from '../layouts/MainLayout.astro';
         // Fade the engine card in only once CT has injected its content,
         // then fade the headline/checklist in shortly after
         (function() {
+            var isMobile = window.innerWidth <= 992;
             var card     = document.querySelector('.engine-card');
+            var engine   = document.querySelector('.hero-left-engine');
             var headline = document.querySelector('.hero-headline');
             var items    = document.querySelectorAll('.hero-checklist .check-list li');
             var mount    = document.getElementById('ct-mount-point');
@@ -702,14 +710,21 @@ import MainLayout from '../layouts/MainLayout.astro';
             var reveal = function() {
                 if (revealed) return;
                 revealed = true;
-                card.classList.add('ct-ready');
+                if (isMobile) {
+                    // On mobile, wait for CT to fully settle before revealing
+                    setTimeout(function() {
+                        if (engine) engine.style.opacity = '1';
+                    }, 500);
+                } else {
+                    card.classList.add('ct-ready');
+                }
                 setTimeout(function() {
                     if (headline) headline.style.opacity = '1';
-                }, 150);
+                }, isMobile ? 600 : 150);
                 items.forEach(function(item, i) {
                     setTimeout(function() {
                         item.style.opacity = '1';
-                    }, 350 + i * 120);
+                    }, (isMobile ? 700 : 350) + i * 120);
                 });
             };
 
