@@ -31,11 +31,11 @@ import MainLayout from '../layouts/MainLayout.astro';
         }
 
         .hero-headline { opacity: 0; transition: opacity 0.4s ease; }
-        .hero-checklist { opacity: 0; transition: opacity 0.4s ease; }
+        .hero-checklist .check-list li { opacity: 0; transition: opacity 0.4s ease; }
         .hero-headline h1 { color: white; font-size: 3.2rem; margin: 0; line-height: 1.1; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
 
         .check-list { list-style: none; padding: 0; margin: 0; }
-        .check-list li { color: white; font-size: 1.15rem; margin-bottom: 10px; display: flex; align-items: center; font-weight: 500; }
+        .check-list li { color: white; font-size: 1.25rem; margin-bottom: 10px; display: flex; align-items: center; font-weight: 500; }
         .check-list li::before {
             content: '✓'; display: inline-block; width: 22px; height: 22px; background: var(--brand-green);
             color: white; border-radius: 50%; text-align: center; line-height: 22px; margin-right: 12px; font-weight: bold; font-size: 12px;
@@ -682,10 +682,10 @@ import MainLayout from '../layouts/MainLayout.astro';
         // Fade the engine card in only once CT has injected its content,
         // then fade the headline/checklist in shortly after
         (function() {
-            var card      = document.querySelector('.engine-card');
-            var headline  = document.querySelector('.hero-headline');
-            var checklist = document.querySelector('.hero-checklist');
-            var mount     = document.getElementById('ct-mount-point');
+            var card     = document.querySelector('.engine-card');
+            var headline = document.querySelector('.hero-headline');
+            var items    = document.querySelectorAll('.hero-checklist .check-list li');
+            var mount    = document.getElementById('ct-mount-point');
             if (!card || !mount) return;
 
             var revealed = false;
@@ -696,9 +696,11 @@ import MainLayout from '../layouts/MainLayout.astro';
                 setTimeout(function() {
                     if (headline) headline.style.opacity = '1';
                 }, 150);
-                setTimeout(function() {
-                    if (checklist) checklist.style.opacity = '1';
-                }, 350);
+                items.forEach(function(item, i) {
+                    setTimeout(function() {
+                        item.style.opacity = '1';
+                    }, 350 + i * 120);
+                });
             };
 
             var observer = new MutationObserver(function(_mutations, obs) {
