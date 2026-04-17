@@ -51,7 +51,7 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
         header { background: white; border-bottom: 1px solid #eee; padding-block: 0.5rem; }
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
         .logo-area { line-height: 0; padding: 10px 0; }
-        .logo-area img { width: 260px; height: 35px; }
+        .logo-area img { width: 300px; height: 41px; }
 
         /* --- LANGUAGE & CURRENCY SWITCHERS --- */
         .switchers { display: flex; gap: 8px; align-items: center; }
@@ -102,11 +102,12 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
         .switcher-dropdown li.is-active { color: var(--brand-blue); font-weight: 700; }
 
         @media (max-width: 600px) {
-            .switcher-btn { padding: 5px 10px; font-size: 12px; gap: 3px; }
+            .logo-area img { width: 260px; height: 35px; }
+            .switcher-btn { padding: 0 10px; font-size: 12px; gap: 3px; height: 34px; }
         }
         @media (max-width: 400px) {
             .logo-area img { width: 200px; height: 27px; }
-            .switcher-btn { padding: 4px 8px; font-size: 11px; gap: 2px; }
+            .switcher-btn { padding: 0 8px; font-size: 11px; gap: 2px; height: 34px; }
         }
 
         footer { background: white; color: #999; font-size: 13px; }
@@ -372,7 +373,7 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
 
     <header>
         <div class="container top-flex">
-            <div class="logo-area"><a href="/"><img src="/images/logo.png" alt="Auto Reservation Plus logo" width="612"></a></div>
+            <div class="logo-area"><a href="/"><img src="/images/logo.png" alt="Auto Reservation Plus logo" width="300" height="41"></a></div>
 
             <div class="switchers">
                 <!-- Language switcher -->
