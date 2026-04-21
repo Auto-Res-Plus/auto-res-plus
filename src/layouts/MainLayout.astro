@@ -39,13 +39,21 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
     <link rel="canonical" href={comURL} />
     <link rel="alternate" hreflang="x-default" href={comURL} />
     <link rel="alternate" hreflang="en-gb" href={coukURL} />
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V4F5EHGHHS" is:inline></script>
+    <!-- Google Analytics — loaded only after cookie consent -->
     <script is:inline>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-V4F5EHGHHS');
+        function loadGA() {
+            if (window._gaLoaded) return;
+            window._gaLoaded = true;
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=G-V4F5EHGHHS';
+            document.head.appendChild(s);
+            gtag('js', new Date());
+            gtag('config', 'G-V4F5EHGHHS');
+        }
+        if (localStorage.getItem('arp_cookie_consent') === 'accepted') loadGA();
     </script>
     <style is:global>
         :root {
@@ -67,64 +75,14 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
         .logo-area { line-height: 0; padding: 10px 0; }
         .logo-area img { width: 300px; height: 41px; }
 
-        /* --- LANGUAGE & CURRENCY SWITCHERS --- */
-        .switchers { display: flex; gap: 8px; align-items: center; }
-        .switcher { position: relative; }
-        .switcher-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            padding: 6px 12px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--dark-text);
-            font-family: inherit;
-            white-space: nowrap;
-            transition: border-color 0.2s, background 0.2s;
-        }
-        .switcher-btn:hover { border-color: var(--brand-blue); background: #fff; }
-        .switcher-btn svg { flex-shrink: 0; }
-        .switcher-dropdown {
-            position: absolute;
-            top: calc(100% + 6px);
-            right: 0;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-            list-style: none;
-            margin: 0;
-            padding: 6px 0;
-            min-width: 145px;
-            z-index: 500;
-            display: none;
-        }
-        .switcher-dropdown.is-open { display: block; }
-        .switcher-dropdown li {
-            padding: 9px 16px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--dark-text);
-            transition: background 0.15s;
-        }
-        .switcher-dropdown li:hover { background: #f5f5f5; }
-        .switcher-dropdown li.is-active { color: var(--brand-blue); font-weight: 700; }
-
         @media (max-width: 600px) {
             .logo-area img { width: 260px; height: 35px; }
-            .switcher-btn { padding: 0 10px; font-size: 12px; gap: 3px; height: 34px; }
         }
         @media (max-width: 400px) {
             .logo-area img { width: 200px; height: 27px; }
-            .switcher-btn { padding: 0 8px; font-size: 11px; gap: 2px; height: 34px; }
         }
 
-        footer { background: white; color: #999; font-size: 13px; }
+        footer { background: white; color: #999; font-size: 13px; border-top: 1px solid #eee; }
         .footer-main {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -388,37 +346,6 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
     <header>
         <div class="container top-flex">
             <div class="logo-area"><a href="/"><img src="/images/logo.png" alt="Auto Reservation Plus logo" width="260" height="35"></a></div>
-
-            <div class="switchers">
-                <!-- Language switcher -->
-                <div class="switcher" style="display:none">
-                    <button class="switcher-btn" id="lang-btn" aria-haspopup="listbox" aria-expanded="false">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                        <span id="lang-label">EN</span>
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <ul class="switcher-dropdown" id="lang-dropdown" role="listbox">
-                        <li data-lang="en">🇬🇧 English</li>
-                        <li data-lang="fr">🇫🇷 Français</li>
-                        <li data-lang="de">🇩🇪 Deutsch</li>
-                        <li data-lang="es">🇪🇸 Español</li>
-                        <li data-lang="it">🇮🇹 Italiano</li>
-                    </ul>
-                </div>
-
-                <!-- Currency switcher -->
-                <div class="switcher" style="display:none">
-                    <button class="switcher-btn" id="currency-btn" aria-haspopup="listbox" aria-expanded="false">
-                        <span id="currency-label">£ GBP</span>
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <ul class="switcher-dropdown" id="currency-dropdown" role="listbox">
-                        <li data-currency="GBP">£ GBP</li>
-                        <li data-currency="EUR">€ EUR</li>
-                        <li data-currency="USD">$ USD</li>
-                    </ul>
-                </div>
-            </div>
         </div>
     </header>
 
@@ -492,67 +419,127 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
     <script is:inline>
         (function() {
             document.getElementById('footer-year').textContent = new Date().getFullYear();
-
-            var langLabels     = { en:'EN', fr:'FR', de:'DE', es:'ES', it:'IT' };
-            var currencyLabels = { GBP:'£ GBP', EUR:'€ EUR', USD:'$ USD' };
-
-            var lang     = window.ARP.getLang();
-            var currency = window.ARP.getCurrency();
-
-            // Set button labels to current selections
-            document.getElementById('lang-label').textContent     = langLabels[lang]         || 'EN';
-            document.getElementById('currency-label').textContent = currencyLabels[currency] || '£ GBP';
-
-            // Mark active items in dropdowns
-            var activeLang = document.querySelector('[data-lang="' + lang + '"]');
-            var activeCurr = document.querySelector('[data-currency="' + currency + '"]');
-            if (activeLang) activeLang.classList.add('is-active');
-            if (activeCurr) activeCurr.classList.add('is-active');
-
-            // Dropdown toggle
-            function closeAll() {
-                document.querySelectorAll('.switcher-dropdown').forEach(function(d) { d.classList.remove('is-open'); });
-                document.querySelectorAll('.switcher-btn').forEach(function(b) { b.setAttribute('aria-expanded', 'false'); });
-            }
-            function toggleDropdown(btn, dropdown) {
-                var wasOpen = dropdown.classList.contains('is-open');
-                closeAll();
-                if (!wasOpen) {
-                    dropdown.classList.add('is-open');
-                    btn.setAttribute('aria-expanded', 'true');
-                }
-            }
-
-            document.getElementById('lang-btn').addEventListener('click', function(e) {
-                e.stopPropagation();
-                toggleDropdown(this, document.getElementById('lang-dropdown'));
-            });
-            document.getElementById('currency-btn').addEventListener('click', function(e) {
-                e.stopPropagation();
-                toggleDropdown(this, document.getElementById('currency-dropdown'));
-            });
-
-            // Language selection — save and reload
-            document.querySelectorAll('[data-lang]').forEach(function(item) {
-                item.addEventListener('click', function() {
-                    localStorage.setItem('arp_lang', this.getAttribute('data-lang'));
-                    location.reload();
-                });
-            });
-
-            // Currency selection — save and reload
-            document.querySelectorAll('[data-currency]').forEach(function(item) {
-                item.addEventListener('click', function() {
-                    localStorage.setItem('arp_currency', this.getAttribute('data-currency'));
-                    location.reload();
-                });
-            });
-
-            // Close dropdowns on outside click
-            document.addEventListener('click', closeAll);
-
-            // Apply translations to layout elements (footer CTA etc.)
             window.ARP.applyTranslations();
+        })();
+    </script>
+
+    <!-- COOKIE CONSENT BANNER -->
+    <style is:global>
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            background: #1a1a2e;
+            color: #e0e0e0;
+            padding: 20px 0;
+            box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
+            transform: translateY(100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #cookie-banner.is-visible {
+            transform: translateY(0);
+        }
+        .cookie-inner {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .cookie-text {
+            flex: 1;
+            min-width: 240px;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: #ccc;
+        }
+        .cookie-text strong {
+            color: #fff;
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .cookie-text a {
+            color: var(--brand-blue);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .cookie-text a:hover { text-decoration: underline; }
+        .cookie-actions {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .cookie-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s, color 0.2s, opacity 0.2s;
+            white-space: nowrap;
+        }
+        .cookie-btn-accept {
+            background: var(--brand-blue);
+            color: #fff;
+        }
+        .cookie-btn-accept:hover { background: #2494b5; }
+        .cookie-btn-reject {
+            background: transparent;
+            color: #aaa;
+            border: 1px solid #444;
+        }
+        .cookie-btn-reject:hover { border-color: #888; color: #fff; }
+
+        @media (max-width: 600px) {
+            .cookie-inner { gap: 16px; }
+            .cookie-actions { width: 100%; }
+            .cookie-btn { flex: 1; }
+        }
+    </style>
+
+    <div id="cookie-banner" role="dialog" aria-label="Cookie consent" aria-live="polite">
+        <div class="container">
+            <div class="cookie-inner">
+                <div class="cookie-text">
+                    <strong>We use cookies</strong>
+                    We use essential cookies to make this site work and analytics cookies to understand how you use it. See our <a href="/privacy-policy#cookies">Privacy Policy</a> for details.
+                </div>
+                <div class="cookie-actions">
+                    <button class="cookie-btn cookie-btn-reject" id="cookie-reject">Reject Non-Essential</button>
+                    <button class="cookie-btn cookie-btn-accept" id="cookie-accept">Accept All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script is:inline>
+        (function() {
+            var banner  = document.getElementById('cookie-banner');
+            var consent = localStorage.getItem('arp_cookie_consent');
+            if (!banner) return;
+
+            if (!consent) {
+                // Show after a short delay so the page isn't immediately obscured
+                setTimeout(function() { banner.classList.add('is-visible'); }, 600);
+            }
+
+            document.getElementById('cookie-accept').addEventListener('click', function() {
+                localStorage.setItem('arp_cookie_consent', 'accepted');
+                banner.classList.remove('is-visible');
+                if (typeof loadGA === 'function') loadGA();
+            });
+
+            document.getElementById('cookie-reject').addEventListener('click', function() {
+                localStorage.setItem('arp_cookie_consent', 'rejected');
+                banner.classList.remove('is-visible');
+            });
         })();
     </script>
 </body>

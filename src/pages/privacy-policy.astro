@@ -1,0 +1,333 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+<MainLayout title="Privacy Policy | Auto Reservation Plus">
+    <style is:global>
+        .policy-hero {
+            background: var(--brand-blue);
+            padding-block: 3.5rem;
+        }
+        .policy-hero h1 {
+            color: white;
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin: 0 0 0.5rem;
+        }
+        .policy-hero p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .policy-body {
+            background: white;
+            padding-block: 4rem 6rem;
+        }
+        .policy-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* Sticky sidebar nav */
+        .policy-nav {
+            position: sticky;
+            top: 24px;
+        }
+        .policy-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border-left: 2px solid #e8e8e8;
+        }
+        .policy-nav li a {
+            display: block;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #666;
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            margin-left: -2px;
+            transition: color 0.2s, border-color 0.2s;
+            line-height: 1.4;
+        }
+        .policy-nav li a:hover {
+            color: var(--brand-blue);
+            border-left-color: var(--brand-blue);
+        }
+
+        /* Policy content */
+        .policy-content h2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--dark-text);
+            margin: 2.5rem 0 0.75rem;
+            padding-top: 0.25rem;
+            scroll-margin-top: 24px;
+        }
+        .policy-content h2:first-child { margin-top: 0; }
+        .policy-content h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin: 1.5rem 0 0.5rem;
+        }
+        .policy-content p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin: 0 0 1rem;
+        }
+        .policy-content ul, .policy-content ol {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin: 0 0 1rem;
+            padding-left: 1.5rem;
+        }
+        .policy-content li { margin-bottom: 0.4rem; }
+        .policy-content a { color: var(--brand-blue); text-decoration: none; }
+        .policy-content a:hover { text-decoration: underline; }
+        .policy-content .policy-divider {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 2.5rem 0;
+        }
+        .policy-content .info-box {
+            background: #f0f8fc;
+            border-left: 3px solid var(--brand-blue);
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin-bottom: 1rem;
+        }
+        .policy-content .info-box p { margin: 0; color: #444; }
+
+        @media (max-width: 860px) {
+            .policy-layout {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .policy-nav { position: static; }
+            .policy-nav ul { display: flex; flex-wrap: wrap; gap: 4px; border-left: none; }
+            .policy-nav li a {
+                border: 1px solid #ddd;
+                border-left: 1px solid #ddd;
+                border-radius: 20px;
+                padding: 6px 14px;
+                margin-left: 0;
+                font-size: 0.8rem;
+            }
+            .policy-nav li a:hover { border-color: var(--brand-blue); }
+        }
+        @media (max-width: 560px) {
+            .policy-hero h1 { font-size: 1.8rem; }
+            .policy-hero { padding-block: 2.5rem; }
+            .policy-body { padding-block: 2.5rem 4rem; }
+        }
+    </style>
+
+    <section class="policy-hero">
+        <div class="container">
+            <h1>Privacy Policy</h1>
+            <p>Last updated: April 2026</p>
+        </div>
+    </section>
+
+    <section class="policy-body">
+        <div class="container">
+            <div class="policy-layout">
+
+                <!-- Sidebar nav -->
+                <nav class="policy-nav" aria-label="Privacy policy sections">
+                    <ul>
+                        <li><a href="#who-we-are">1. Who We Are</a></li>
+                        <li><a href="#data-we-collect">2. Data We Collect</a></li>
+                        <li><a href="#how-we-use">3. How We Use Your Data</a></li>
+                        <li><a href="#legal-basis">4. Legal Basis</a></li>
+                        <li><a href="#sharing">5. Sharing Your Data</a></li>
+                        <li><a href="#international">6. International Transfers</a></li>
+                        <li><a href="#retention">7. Retention</a></li>
+                        <li><a href="#your-rights">8. Your Rights</a></li>
+                        <li><a href="#cookies">9. Cookies</a></li>
+                        <li><a href="#security">10. Security</a></li>
+                        <li><a href="#children">11. Children</a></li>
+                        <li><a href="#changes">12. Changes</a></li>
+                        <li><a href="#contact">13. Contact Us</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Policy content -->
+                <div class="policy-content">
+
+                    <div class="info-box">
+                        <p>This policy explains how Auto Reservation Plus Limited collects, uses and protects your personal data. We are committed to handling your information responsibly and in accordance with UK data protection law.</p>
+                    </div>
+
+                    <h2 id="who-we-are">1. Who We Are</h2>
+                    <p>Auto Reservation Plus Limited ("<strong>we</strong>", "<strong>us</strong>", "<strong>our</strong>") is a car rental booking service registered in England and Wales (Company No. 05040025). We operate the websites <strong>auto-reservation-plus.com</strong> and <strong>auto-reservation-plus.co.uk</strong>.</p>
+                    <p>We are the data controller for the personal information collected through our websites. For questions about how we handle your data, see <a href="#contact">Section 13</a>.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="data-we-collect">2. Data We Collect</h2>
+
+                    <h3>Information you provide directly</h3>
+                    <ul>
+                        <li><strong>Booking details</strong> — your name, email address, phone number, pick-up and drop-off locations, dates and times, and vehicle preferences when you make or enquire about a booking.</li>
+                        <li><strong>Payment information</strong> — credit or debit card details and billing address when completing a reservation. Payment data is processed securely by our payment partners and we do not store full card numbers on our systems.</li>
+                        <li><strong>Communications</strong> — messages, enquiries or complaints you send us by email, WhatsApp or any other channel, along with any information you include in those communications.</li>
+                        <li><strong>Driver information</strong> — driving licence details and date of birth when required by the rental supplier.</li>
+                    </ul>
+
+                    <h3>Information collected automatically</h3>
+                    <ul>
+                        <li><strong>Usage data</strong> — pages visited, search queries entered, links clicked, session duration and referral source.</li>
+                        <li><strong>Device and browser data</strong> — IP address, browser type and version, operating system, screen resolution and device type.</li>
+                        <li><strong>Location data</strong> — approximate country or region derived from your IP address, used to display relevant currency and language preferences.</li>
+                        <li><strong>Cookies and similar technologies</strong> — see <a href="#cookies">Section 9</a> for full details.</li>
+                    </ul>
+
+                    <h3>Information from third parties</h3>
+                    <p>We may receive information about you from car rental suppliers (for example, confirmation of a completed rental), payment processors, and fraud prevention services in order to fulfil your booking and keep our records accurate.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="how-we-use">3. How We Use Your Data</h2>
+                    <p>We use your personal data for the following purposes:</p>
+                    <ul>
+                        <li><strong>Fulfilling your booking</strong> — processing reservations, issuing booking confirmations and vouchers, and communicating changes or cancellations.</li>
+                        <li><strong>Customer support</strong> — responding to your enquiries, resolving complaints and providing assistance before, during and after your rental.</li>
+                        <li><strong>Payments</strong> — processing transactions, issuing refunds and handling payment disputes.</li>
+                        <li><strong>Account and preferences</strong> — remembering your language and currency preferences across visits.</li>
+                        <li><strong>Improving our service</strong> — analysing usage patterns to identify and fix issues, optimise the booking flow and develop new features.</li>
+                        <li><strong>Legal and compliance</strong> — meeting our obligations under applicable law, preventing fraud and resolving disputes.</li>
+                        <li><strong>Marketing</strong> — sending you promotional offers or travel inspiration by email where you have given consent or where we have a legitimate interest and you have not opted out. You can unsubscribe at any time.</li>
+                    </ul>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="legal-basis">4. Legal Basis for Processing</h2>
+                    <p>Under the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018, we rely on the following legal bases:</p>
+                    <ul>
+                        <li><strong>Contract</strong> — processing necessary to enter into or perform the contract with you (e.g. fulfilling a booking).</li>
+                        <li><strong>Legitimate interests</strong> — improving our website, preventing fraud, sending direct marketing to existing customers (where you have not opted out), and communicating service updates.</li>
+                        <li><strong>Legal obligation</strong> — retaining transaction records and complying with tax, accounting and other regulatory requirements.</li>
+                        <li><strong>Consent</strong> — where we have asked for and you have given your agreement, for example for non-essential cookies or certain marketing communications. You may withdraw consent at any time.</li>
+                    </ul>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="sharing">5. Sharing Your Data</h2>
+                    <p>We do not sell your personal data. We share it only as described below:</p>
+                    <ul>
+                        <li><strong>Car rental suppliers</strong> — your booking details are passed to the supplier you choose in order to prepare and fulfil your rental reservation.</li>
+                        <li><strong>CarTrawler</strong> — our search and booking engine is powered by CarTrawler (registered in Ireland). CarTrawler processes search queries and booking transactions on our behalf and operates under its own privacy policy.</li>
+                        <li><strong>Payment processors</strong> — card transactions are handled by regulated payment service providers who are contractually bound to protect your data and process it only on our instructions.</li>
+                        <li><strong>Analytics providers</strong> — we use Google Analytics to understand how visitors use our website. Data is pseudonymised and aggregated; Google may process this data on servers outside the UK (see <a href="#international">Section 6</a>).</li>
+                        <li><strong>Professional advisers</strong> — lawyers, accountants, insurers and auditors who require access to your data in the course of providing services to us, under strict confidentiality obligations.</li>
+                        <li><strong>Law enforcement and regulators</strong> — where we are required to do so by law, court order, or in connection with legal proceedings.</li>
+                    </ul>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="international">6. International Transfers</h2>
+                    <p>Some of our suppliers and service providers are based outside the United Kingdom. Where we transfer personal data outside the UK, we ensure that an appropriate level of protection is in place, such as:</p>
+                    <ul>
+                        <li>An adequacy decision by the UK Government confirming that the destination country provides an equivalent level of protection; or</li>
+                        <li>UK International Data Transfer Agreements (IDTAs) or equivalent contractual safeguards; or</li>
+                        <li>Another lawful transfer mechanism permitted under UK data protection law.</li>
+                    </ul>
+                    <p>You can request further information about the safeguards we have in place by contacting us using the details in <a href="#contact">Section 13</a>.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="retention">7. How Long We Keep Your Data</h2>
+                    <p>We retain personal data only for as long as necessary for the purposes set out in this policy, or as required by law:</p>
+                    <ul>
+                        <li><strong>Booking records</strong> — retained for 7 years after the rental date to comply with HMRC record-keeping requirements.</li>
+                        <li><strong>Customer support records</strong> — retained for 3 years from the date of the enquiry or complaint.</li>
+                        <li><strong>Marketing preferences</strong> — retained until you unsubscribe or withdraw consent, after which your opt-out record is kept indefinitely to prevent accidental re-contact.</li>
+                        <li><strong>Website analytics</strong> — aggregated and pseudonymised; individual-level data is retained for up to 26 months by default.</li>
+                    </ul>
+                    <p>When data is no longer required it is securely deleted or anonymised.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="your-rights">8. Your Rights</h2>
+                    <p>Under UK GDPR you have the following rights in relation to your personal data:</p>
+                    <ul>
+                        <li><strong>Access</strong> — to request a copy of the personal data we hold about you (a Subject Access Request).</li>
+                        <li><strong>Rectification</strong> — to ask us to correct inaccurate or incomplete data.</li>
+                        <li><strong>Erasure</strong> — to ask us to delete your data where there is no compelling reason for us to continue processing it.</li>
+                        <li><strong>Restriction</strong> — to ask us to restrict processing of your data in certain circumstances.</li>
+                        <li><strong>Portability</strong> — to receive your data in a structured, machine-readable format where processing is based on consent or contract.</li>
+                        <li><strong>Object</strong> — to object to processing based on legitimate interests, including direct marketing (which we will always honour).</li>
+                        <li><strong>Withdraw consent</strong> — where processing is based on your consent, to withdraw it at any time without affecting the lawfulness of prior processing.</li>
+                    </ul>
+                    <p>To exercise any of these rights, please contact us as described in <a href="#contact">Section 13</a>. We will respond within one month. There is no charge for most requests, although we may charge a reasonable fee for manifestly unfounded or excessive requests.</p>
+                    <p>If you are not satisfied with our response, you have the right to lodge a complaint with the <strong>Information Commissioner's Office (ICO)</strong> — the UK supervisory authority for data protection:</p>
+                    <ul>
+                        <li>Website: <a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer">ico.org.uk</a></li>
+                        <li>Helpline: 0303 123 1113</li>
+                    </ul>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="cookies">9. Cookies</h2>
+                    <p>We use cookies and similar technologies to make our website work, remember your preferences, and understand how visitors use it.</p>
+
+                    <h3>Essential cookies</h3>
+                    <p>These are necessary for the website to function and cannot be disabled. They include cookies that remember your language and currency preferences (<code>arp_lang</code>, <code>arp_currency</code>) and your country for localisation (<code>arp_country</code>).</p>
+
+                    <h3>Analytics cookies</h3>
+                    <p>We use <strong>Google Analytics</strong> to collect anonymous statistics about how visitors use our website (pages viewed, session duration, traffic sources). Google Analytics sets cookies such as <code>_ga</code> and <code>_gid</code>. This data is pseudonymised and does not identify you personally. You can opt out using the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics opt-out browser add-on</a>.</p>
+
+                    <h3>Third-party cookies</h3>
+                    <p>Our booking engine (powered by CarTrawler) may set its own cookies to maintain your search session and display available vehicles. These are governed by CarTrawler's privacy policy.</p>
+
+                    <h3>Managing cookies</h3>
+                    <p>You can control or delete cookies through your browser settings. Note that disabling certain cookies may affect the functionality of this website. For more information, visit <a href="https://www.aboutcookies.org" target="_blank" rel="noopener noreferrer">aboutcookies.org</a>.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="security">10. Security</h2>
+                    <p>We take the security of your personal data seriously and implement appropriate technical and organisational measures to protect it against unauthorised access, accidental loss, destruction or damage. These include:</p>
+                    <ul>
+                        <li>TLS encryption for all data transmitted between your browser and our websites.</li>
+                        <li>Access controls limiting who within our organisation can view personal data.</li>
+                        <li>Regular security reviews and updates to our systems.</li>
+                    </ul>
+                    <p>Where we share data with third parties, we require them to maintain equivalent security standards through contractual obligations.</p>
+                    <p>In the unlikely event of a data breach that poses a risk to your rights and freedoms, we will notify the ICO within 72 hours and inform affected individuals where required by law.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="children">11. Children</h2>
+                    <p>Our services are not directed at children under the age of 18. We do not knowingly collect personal data from children. If you believe we have inadvertently collected data about a child, please contact us immediately and we will delete it promptly.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="changes">12. Changes to This Policy</h2>
+                    <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology or legal requirements. When we make material changes we will update the "Last updated" date at the top of this page. We encourage you to review this policy periodically.</p>
+                    <p>Your continued use of our website after any changes constitutes your acknowledgement of the updated policy.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="contact">13. Contact Us</h2>
+                    <p>If you have any questions, concerns or requests regarding this Privacy Policy or the way we handle your personal data, please contact us:</p>
+                    <ul>
+                        <li><strong>Company:</strong> Auto Reservation Plus Limited</li>
+                        <li><strong>Company number:</strong> 05040025</li>
+                        <li><strong>Registered in:</strong> England and Wales</li>
+                        <li><strong>Email:</strong> <a href="mailto:info@auto-reservation-plus.com">info@auto-reservation-plus.com</a></li>
+                        <li><strong>WhatsApp:</strong> <a href="https://api.whatsapp.com/message/IM6TSGT5DQ5VB1" target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a></li>
+                    </ul>
+                    <p>We aim to respond to all data protection enquiries within 5 business days and to any formal rights requests within one calendar month.</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</MainLayout>

@@ -1,0 +1,350 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+<MainLayout title="Terms & Conditions | Auto Reservation Plus">
+    <style is:global>
+        .policy-hero {
+            background: var(--brand-blue);
+            padding-block: 3.5rem;
+        }
+        .policy-hero h1 {
+            color: white;
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin: 0 0 0.5rem;
+        }
+        .policy-hero p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .policy-body {
+            background: white;
+            padding-block: 4rem 6rem;
+        }
+        .policy-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .policy-nav {
+            position: sticky;
+            top: 24px;
+        }
+        .policy-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border-left: 2px solid #e8e8e8;
+        }
+        .policy-nav li a {
+            display: block;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #666;
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            margin-left: -2px;
+            transition: color 0.2s, border-color 0.2s;
+            line-height: 1.4;
+        }
+        .policy-nav li a:hover {
+            color: var(--brand-blue);
+            border-left-color: var(--brand-blue);
+        }
+
+        .policy-content h2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--dark-text);
+            margin: 2.5rem 0 0.75rem;
+            padding-top: 0.25rem;
+            scroll-margin-top: 24px;
+        }
+        .policy-content h2:first-child { margin-top: 0; }
+        .policy-content h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin: 1.5rem 0 0.5rem;
+        }
+        .policy-content p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin: 0 0 1rem;
+        }
+        .policy-content ul, .policy-content ol {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin: 0 0 1rem;
+            padding-left: 1.5rem;
+        }
+        .policy-content li { margin-bottom: 0.4rem; }
+        .policy-content a { color: var(--brand-blue); text-decoration: none; }
+        .policy-content a:hover { text-decoration: underline; }
+        .policy-content strong { color: #444; }
+        .policy-content .policy-divider {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 2.5rem 0;
+        }
+        .policy-content .info-box {
+            background: #f0f8fc;
+            border-left: 3px solid var(--brand-blue);
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin-bottom: 1rem;
+        }
+        .policy-content .info-box p { margin: 0; color: #444; }
+        .policy-content .warning-box {
+            background: #fff8f0;
+            border-left: 3px solid var(--brand-orange);
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin: 1rem 0;
+        }
+        .policy-content .warning-box p { margin: 0; color: #444; font-weight: 500; font-size: 0.9rem; }
+
+        @media (max-width: 860px) {
+            .policy-layout {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .policy-nav { position: static; }
+            .policy-nav ul { display: flex; flex-wrap: wrap; gap: 4px; border-left: none; }
+            .policy-nav li a {
+                border: 1px solid #ddd;
+                border-left: 1px solid #ddd;
+                border-radius: 20px;
+                padding: 6px 14px;
+                margin-left: 0;
+                font-size: 0.8rem;
+            }
+            .policy-nav li a:hover { border-color: var(--brand-blue); }
+        }
+        @media (max-width: 560px) {
+            .policy-hero h1 { font-size: 1.8rem; }
+            .policy-hero { padding-block: 2.5rem; }
+            .policy-body { padding-block: 2.5rem 4rem; }
+        }
+    </style>
+
+    <section class="policy-hero">
+        <div class="container">
+            <h1>Terms &amp; Conditions</h1>
+            <p>Booking Engine Terms and Conditions of Use</p>
+        </div>
+    </section>
+
+    <section class="policy-body">
+        <div class="container">
+            <div class="policy-layout">
+
+                <nav class="policy-nav" aria-label="Terms sections">
+                    <ul>
+                        <li><a href="#introduction">Introduction</a></li>
+                        <li><a href="#about-us">About Us</a></li>
+                        <li><a href="#fees">Fees &amp; Charges</a></li>
+                        <li><a href="#service-access">Service Access</a></li>
+                        <li><a href="#making-a-booking">A. Making a Booking</a></li>
+                        <li><a href="#confirmation">B. Confirmation</a></li>
+                        <li><a href="#cancellations">C. Cancellations</a></li>
+                        <li><a href="#force-majeure">D. Force Majeure</a></li>
+                        <li><a href="#pricing">E. Pricing &amp; Exchange</a></li>
+                        <li><a href="#complaints">F. Complaints</a></li>
+                        <li><a href="#third-party-links">Third Party Links</a></li>
+                        <li><a href="#liability">Liability</a></li>
+                        <li><a href="#prohibited-use">Prohibited Use</a></li>
+                        <li><a href="#age">Age &amp; Responsibility</a></li>
+                        <li><a href="#card-security">Card Security</a></li>
+                        <li><a href="#copyright">Copyright</a></li>
+                        <li><a href="#sort-order">Sort Order &amp; Pricing</a></li>
+                        <li><a href="#general">General</a></li>
+                    </ul>
+                </nav>
+
+                <div class="policy-content">
+
+                    <div class="info-box">
+                        <p>This booking engine is powered by CarTrawler's technology and allows you to book car hire or ground transportation from third-party suppliers. Please read these Terms and Conditions carefully — by using any part of this booking engine you agree to be bound by them.</p>
+                    </div>
+
+                    <h2 id="introduction">Introduction</h2>
+                    <p>This booking engine is powered by CarTrawler's technology and allows you to use CarTrawler's technology to book car hire or ground transportation (including but not limited to taxis, transfer services and chauffeur drive vehicle rental, private transfers, business class transfers, first class transfers, bus and mini bus transfers, train transfers, wheelchair transfers and limousine transfers) ("<strong>Transportation</strong>") from third party car hire or ground transportation suppliers ("<strong>Transportation Suppliers</strong>").</p>
+                    <p>Please read these CarTrawler booking engine Terms and Conditions of Use ("<strong>Booking Conditions</strong>") carefully as they apply to the entire contents of this booking engine. By using any part of this booking engine you indicate your acceptance of these Booking Conditions (regardless of whether or not you choose to register with us or book Transportation) and you agree (i) to conduct your use of this booking engine in accordance with the Booking Conditions and (ii) that the Booking Conditions constitute a legal agreement between CarTrawler and you. If you do not accept and/or do not agree to be bound by these Booking Conditions, do not use and/or immediately cease using this booking engine.</p>
+                    <p>By using this booking engine you acknowledge that all information including, but not limited to, information relating to Transportation, Transportation Suppliers, travel and holidays published on this booking engine may include inaccuracies and/or typographical errors and that CarTrawler will not be liable for any such inaccuracies or errors.</p>
+                    <p>CarTrawler may, at its absolute discretion, amend these Booking Conditions at any time by updating this posting. Certain provisions of these Booking Conditions may be superseded by expressly designated legal notices or terms located on the website through which you accessed this booking engine.</p>
+                    <p>These Booking Conditions also apply to all bookings made through the CarTrawler Customer Centre of Excellence ("<strong>CCE</strong>") and will be emailed to you where you make your booking by telephone through the CCE.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="about-us">Information About Us</h2>
+                    <p>This booking engine is operated by Etrawler Unlimited Company, an Irish registered company trading as CarTrawler ("<strong>CarTrawler</strong>", "<strong>we</strong>", "<strong>us</strong>" or "<strong>our</strong>"). CarTrawler is registered in Ireland under company number 93433 with its registered office at Classon House, Dundrum Business Park, Dundrum, Dublin 14, Ireland. CarTrawler's contact details are available at <a href="https://corporate.cartrawler.com/" target="_blank" rel="noopener noreferrer">corporate.cartrawler.com</a>.</p>
+                    <p>CarTrawler facilitates Transportation bookings by introducing you to Transportation Suppliers through this booking engine and receives a commission for doing so. <strong>CarTrawler does not own or operate any Transportation and is not a Transportation Supplier.</strong> Your contract for Transportation ("<strong>Transportation Conditions</strong>") will be between you and the Transportation Supplier; CarTrawler is not a party to that contract. The relevant Transportation Conditions can be accessed through this booking engine once you select a Transportation Supplier and insert your booking information. On making a booking, you are bound by and deemed to have accepted the Transportation Conditions of the relevant Transportation Supplier. CarTrawler makes no warranty or representation in relation to any Transportation Supplier and/or any Transportation offered by them. The Transportation Supplier is solely responsible for providing you with Transportation booked through this booking engine.</p>
+                    <p>For UK customers who make Transportation bookings through this booking engine and pay with UK-issued credit cards, CarTrawler sub-contracts the following services to its wholly owned UK subsidiary, Etrawler UK Limited (Company number 08565121): (i) payment processing; (ii) issuing of Transportation vouchers; and (iii) customer service (dealing with general customer queries, cancellations, refunds and complaints).</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="fees">Fees and Charges</h2>
+                    <p>The accuracy of any price quoted for Transportation via this booking engine is dependent upon and subject to the booking information you provide (including but not limited to the age of the driver, location and time of pick-up and/or drop-off).</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="service-access">Service Access</h2>
+                    <p>While CarTrawler endeavours to ensure that the booking engine is normally available 24 hours a day, CarTrawler will not be liable if, for any reason, the booking engine is unavailable at any time or for any period. Access to the booking engine may be suspended temporarily and without notice in the case of system failure, maintenance, repair or for reasons beyond CarTrawler's control.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="making-a-booking">Booking Conditions</h2>
+                    <p>Please read the following conditions which apply to bookings made by you with Transportation Suppliers through this booking engine.</p>
+
+                    <h3 id="making-a-booking">A. Making a Booking</h3>
+                    <p>As CarTrawler operates globally, it uses four types of business payment model for booking Transportation. The payment model available to you when making a booking will depend upon your location and/or the Transportation Conditions of the Transportation Supplier selected.</p>
+                    <p>The four business payment models are as follows:</p>
+                    <ol>
+                        <li>You pay a booking deposit to CarTrawler at the time of making your booking and you pay the balance to the Transportation Supplier on arrival at the Transportation Supplier's desk prior to use of the Transportation; or</li>
+                        <li>You pay a booking deposit to CarTrawler at the time of making your booking and the balance is paid in advance of your arrival at the Transportation Supplier's desk; or</li>
+                        <li>You pay the entire cost of the Transportation to CarTrawler at the time of making your booking and, in the case of car hire, you only pay for fuel (petrol/diesel) and optional extras, if not paid for at time of booking, on arrival at the Transportation Supplier's desk; or</li>
+                        <li>You pay nothing at the time of making your booking. You will pay the Transportation Supplier the entire cost of the Transportation on arrival at the Transportation Supplier's desk prior to use of the Transportation.</li>
+                    </ol>
+                    <p>Where you are paying the entire costs of the Transportation at the time of making your booking and have chosen to do so via a buy now pay later ("<strong>BNPL</strong>") provider, CarTrawler may transfer its right to receive payment from you to that BNPL provider.</p>
+                    <p>Please note that where you have not made a payment at the time of making your booking you are solely responsible for making all outstanding payments due to the Transportation Supplier as and when they fall due. Some transportation suppliers charge a no-show fee if you do not show up to use the transportation. You will be informed of any upfront payment required prior to completing your booking.</p>
+                    <p>For the avoidance of doubt, 'optional extras' (including, but not limited to, child seats, GPS devices, additional drivers) can be added to your booking in two ways, subject to supplier availability:</p>
+                    <ul>
+                        <li><strong>Pay on arrival</strong> — optional extras requested at the time of booking will not be charged to you at booking. Payment must be made directly to the Transportation Supplier on arrival before pick-up. Please note that CarTrawler cannot guarantee the availability or price of any pay on arrival optional extras requested.</li>
+                        <li><strong>Prepaid at booking</strong> — optional extras may be requested at the time of booking subject to supplier availability and are included in the overall rental price.</li>
+                    </ul>
+                    <p>At all times, you are responsible for payment of any additional services and/or optional extras requested and/or purchased by you and any additional applicable charges including, but not limited to, tolls and fuel charges, and you are responsible for any service or administration charges applied by the relevant Transportation Supplier.</p>
+                    <p>Any data transferred to a payment processor is transferred through an encrypted secure server. If you need to make any amendments to your booking, you must communicate this through one of the communication methods listed on your Voucher or via <a href="https://www.cartrawler.com" target="_blank" rel="noopener noreferrer">www.cartrawler.com</a>. CarTrawler cannot guarantee that amendments can be processed; however every effort will be made to reach a satisfactory outcome. Amendments cannot be processed after pick-up/use of, or failure to pick-up or use, your Transportation. For car hire, CarTrawler is unable to offer you a refund if you end your hire early. In the event that you require an extension of your car hire period after pick-up, you must pay any additional costs incurred directly to the Transportation Supplier at the local rental rates prevailing at that time, if the car is available for the additional time requested.</p>
+                    <p>On making a booking, it is your responsibility to inform the Transportation Supplier, if necessary, of any physical or mental condition relevant to your ability to operate or use the Transportation. In the event of an accident, you may not be able to claim under any relevant insurance policy if you fail to inform the Transportation Supplier of such conditions.</p>
+
+                    <div class="warning-box">
+                        <p>IN THE EVENT OF A FAILURE TO PRESENT THE REQUIRED DOCUMENTS AND/OR CREDIT CARD, THE CAR HIRE SUPPLIER MAY REFUSE TO RELEASE THE CAR AND NO REFUND WILL BE GIVEN. FOR CAR HIRE, ON PICK-UP YOU WILL BE REQUIRED TO PRESENT: (I) A FULL DRIVING LICENCE FROM YOUR COUNTRY OF ORIGIN (BOTH PARTS IN THE CASE OF A UK LICENCE); (II) YOUR VALID PASSPORT AND A VALID CREDIT CARD IN THE NAME OF THE MAIN DRIVER WITH SUFFICIENT AVAILABLE FUNDS TO COVER THE EXCESS; AND (III) A PRINTED COPY OF YOUR VOUCHER. PLEASE REVIEW YOUR TRANSPORTATION CONDITIONS FOR ANY FURTHER REQUIREMENTS. IN THE UNITED KINGDOM, PROOF OF ADDRESS MAY ALSO BE REQUIRED.</p>
+                    </div>
+
+                    <p>If you make a booking but do not pick-up/use the Transportation (and have not cancelled such booking in accordance with the cancellation policy set out below), no refund will be given.</p>
+                    <p>Please be advised that in the event that you expect to arrive late to pick-up/avail of the booked Transportation it is your responsibility to contact the Transportation Supplier to inform them.</p>
+                    <p>In the event of a flight cancellation or delay, CarTrawler will not be responsible for providing any refunds.</p>
+
+                    <h3 id="confirmation">B. Confirmation of Booking</h3>
+                    <p>Once your booking has been confirmed, CarTrawler will issue you with your Transportation voucher ("<strong>Voucher</strong>") via email on behalf of the Transportation Supplier, which includes the details of your booking. Your digital voucher must be presented to the Transportation Supplier at the time of pick-up/use of the Transportation. If you do not receive your Voucher please contact us immediately.</p>
+                    <p>The Voucher does not include details of the service charge or taxes charged by the Transportation Supplier or additional services requested by you at pick-up, and it is not an invoice. CarTrawler recommends that you carefully check the details contained in the Voucher (e.g. country, location, date and period of time). If there are any discrepancies, you should immediately contact CarTrawler through one of the communication methods listed on your Voucher or via <a href="https://www.cartrawler.com" target="_blank" rel="noopener noreferrer">www.cartrawler.com</a>.</p>
+                    <p>CarTrawler reserves the right to amend the booking after the relevant Transportation has been booked by you in the event of the discovery of an error in the booking and/or incorrect information having been displayed or communicated. Where this happens CarTrawler will endeavour to notify you as soon as reasonably practicable and you may elect to accept the amended terms or, alternatively, cancel your booking and receive a full refund.</p>
+                    <p>Please be advised that for bookings made within 48 hours of pickup, CarTrawler may take payment from you prior to the booking being confirmed by the Transportation Supplier. If the Transportation Supplier does not confirm your booking, CarTrawler will not issue you with a Voucher and a refund will be given.</p>
+                    <p><strong>The booking number included on the Voucher should be quoted for all enquiries, cancellations or modifications of the booking.</strong></p>
+
+                    <h3 id="cancellations">C. Cancellations</h3>
+                    <p>If you wish to cancel your booking, you may do so through one of the communication methods listed on your Voucher or via the Get In Touch or Manage Booking sections on the CarTrawler website in advance of the time of pick-up. <strong>Do not cancel your booking directly with the Transportation Supplier, as additional fees may apply.</strong> Please see the Transportation Conditions for details on the cancellation policy, any handling/administration charges, and any special conditions that may apply to your booking.</p>
+                    <p>In regard to car hire bookings where CarTrawler receives a cancellation notice <strong>less than 48 hours</strong> before the scheduled time of pick-up, you will receive a refund of the amount paid minus the cost of 3 days of your rental or $130, whichever is the greater. The maximum administration fee charged is $300. If your rental cost is less than $130, no refund will apply. In certain circumstances deemed outside of your control by CarTrawler, you may be entitled to a refund minus the cost of 3 days of your rental or $130, whichever is the greater, if you contact us up to 72 hours after the scheduled time of pick-up.</p>
+                    <p>Where CarTrawler receives notice of amendments to your car hire booking <strong>more than 48 hours</strong> before the scheduled time of pick-up, no additional rebook charge will be applicable. Should the value of the new booking be higher than the amount you initially paid, you will be charged the difference.</p>
+                    <p>Where CarTrawler receives notice of amendments to your car hire booking <strong>less than 48 hours</strong> before the scheduled time of pick-up and the amount you have paid exceeds $70, CarTrawler will transfer the amount you initially paid, minus a $70 administration charge, to your new booking. Should the amount transferred not cover the full cost of the new booking, you will be charged the difference. Where the amount you have paid is equal to or less than $70, no funds will be transferred to your new booking, and you will be charged the full value of the new booking.</p>
+                    <p>Please note that the cancellation and amendment policies above are subject to the Transportation Supplier's cancellation policy contained within the Transportation Conditions applicable to your booking. In the event of a cancellation of a booking when the entire Transportation fee is payable on arrival, there is no charge for a cancellation.</p>
+                    <p>Please note that no cancellations or refunds may be available in regard to certain types of Transportation including, but not limited to, coach, bus and/or train. Please review the relevant Transportation Supplier's cancellation and refund policy in full.</p>
+                    <p>It is your responsibility to ensure and arrange cancellation of any ancillary product and/or service that you may have purchased in conjunction with your Transportation booking, including products such as No Excess Insurance cover provided by third parties.</p>
+                    <p>In the event that you cancel or amend a credit/debit card booking, CarTrawler will not be liable for any monetary losses suffered by you as a result of a change in exchange rates between the time of your original booking and its subsequent cancellation or amendment. No cancellation or amendment is permitted after the date and time that pick-up/use of the Transportation is due to commence.</p>
+
+                    <h3 id="force-majeure">D. Force Majeure</h3>
+                    <p>We shall not be in breach of these Booking Conditions nor liable for delay in performing, or failure to perform, any of our obligations if such delay or failure results from events, circumstances or causes beyond our reasonable control. Such force majeure events may include, but are not limited to, acts of God, flood, drought, earthquake or other natural disaster, epidemics or pandemics, terrorist attacks, civil commotion or riots, wars, the imposition of sanctions and embargos. In such circumstances the time for performance shall be extended by a period equivalent to the period during which performance has been delayed or failed. In addition, if we or car rental services generally are affected by a force majeure event we will be entitled to provide a voucher or refund credit note in lieu of a cash refund if your booking is cancelled.</p>
+
+                    <h3 id="pricing">E. Transportation Pricing &amp; Exchange Rates</h3>
+                    <p>CarTrawler makes every effort to ensure that prices quoted for Transportation are accurate in all material respects at all times including at the time you book. Nonetheless, CarTrawler and/or the Transportation Supplier reserves the right to amend the price of Transportation in the event of a manifest or patent error in the price quoted. Where this happens CarTrawler will endeavour to notify you as soon as reasonably practicable and you may elect to either pay the amended price or, alternatively, cancel your booking and receive a full refund.</p>
+                    <p>The foreign exchange rates used by CarTrawler to display prices in the currency chosen by you are updated frequently. Foreign exchange rates used by your credit or debit card company may vary. CarTrawler is not responsible for any discrepancy between the price displayed and the amount charged by your card company due to the rate of exchange used.</p>
+
+                    <h3 id="complaints">F. Complaints Procedure</h3>
+                    <p>We are passionate about delivering the very best customer experience in partnership with our global network of transportation suppliers. If you feel this has not been delivered, you can log a complaint upon completion of your trip via the following methods:</p>
+                    <ul>
+                        <li><strong>Online Booking Manager</strong> — submit the details of your complaint, along with any relevant documentation, via the 'Help Centre' tab in your Booking Manager.</li>
+                        <li><strong>Phone</strong> — please refer to the phone number listed at the bottom of your rental voucher.</li>
+                    </ul>
+                    <p>To ensure the complaint process operates correctly we must receive any complaints within <strong>120 days</strong> following the drop-off date for your rental car, or within <strong>30 days</strong> following your final scheduled day for transportation services. Complaints lodged after these periods will not be processed. Please allow up to 20 working days for full investigation of your complaint. In the event that the complaint is not resolved through the CarTrawler complaints procedure, you may refer to additional consumer redress information available at <a href="https://consumer-redress.ec.europa.eu/" target="_blank" rel="noopener noreferrer">consumer-redress.ec.europa.eu</a>.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="third-party-links">Links to Third Party Sites</h2>
+                    <p>This booking engine may display links to resources located on servers or websites operated by parties other than CarTrawler. The listing of any link(s) to external resources is not and should not be taken as a recommendation from CarTrawler or a warranty or representation that the information or services offered on such websites will be of a certain standard or suitable for your purpose. Such hyperlinks are provided for your reference and convenience only.</p>
+                    <p>CarTrawler does not control and is not responsible for such websites or the parties operating them, and accordingly accepts no responsibility or liability for any material contained on those servers or websites, or the accuracy or legality of information contained on them. If you decide to access any of the third party websites linked to this booking engine, you do so entirely at your own risk.</p>
+                    <p>The Google Terms of Service for Google Maps govern your use of Google Maps on our site. When using Google Maps you must comply with the <a href="https://developers.google.com/maps/terms?hl=en" target="_blank" rel="noopener noreferrer">Google Maps Terms of Service</a>.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="liability">Liability</h2>
+                    <p>In the event of a dispute between CarTrawler and you, our liability to you, if any, is limited to the amount paid by you for the Transportation. CarTrawler hereby excludes to the fullest extent permitted by law any warranties (whether express or implied), as to the quality, completeness, performance or fitness for a particular purpose of (i) Transportation booked through this booking engine and (ii) this booking engine and any of its contents.</p>
+                    <p>As CarTrawler is not providing Transportation and is not a party to the Transportation Conditions, it has no responsibility or liability to you in respect of the terms of your Transportation Conditions, including any issues or disputes with the Transportation Supplier relating to personal injury or damage to Transportation.</p>
+                    <p>EXCEPT TO THE EXTENT CONTRARY TO LAW, NEITHER CARTRAWLER NOR ANY OF OUR DIRECTORS, OWNERS, EMPLOYEES, AFFILIATES, TRAVEL PARTNERS OR OTHER REPRESENTATIVES WILL BE LIABLE TO YOU OR ANY OTHER PARTY FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE AND/OR CONSEQUENTIAL LOSSES AND/OR DAMAGES ARISING OUT OF, OR IN CONNECTION WITH YOUR USE OF ANY INFORMATION, PRODUCTS, SERVICES AND/OR MATERIALS OFFERED AND/OR BOOKED THROUGH THIS BOOKING ENGINE, INCLUDING BUT NOT LIMITED TO LOSS OF DATA, BUSINESS REVENUE, INCOME, TIME, SAVINGS, PROFIT AND/OR OPPORTUNITY AND/OR LOSS OF AND/OR DAMAGE TO PROPERTY, EVEN IF CARTRAWLER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH LOSS OR DAMAGE.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="prohibited-use">No Unlawful or Prohibited Use</h2>
+                    <p>As a condition of your use of this booking engine, you undertake to CarTrawler that you will not use this booking engine for any purpose that is unlawful or prohibited by or contrary to the Booking Conditions or in any way that might bring the reputation of CarTrawler into disrepute.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="age">Age and Responsibility</h2>
+                    <p>By using this booking engine, you confirm that you are of sufficient legal age to book Transportation and to take responsibility for any liability you may incur as a result of the use of this booking engine. You understand that you are responsible, financially and otherwise, for all uses of this booking engine by you and those using your login information.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="card-security">No Liability in Credit Card or Debit Card Transactions</h2>
+                    <p>CarTrawler endeavours to ensure that all credit card and debit card transactions conducted on this booking engine are secure. However, if unauthorised charges appear on any credit or debit card statement for any card used during the booking process on this booking engine, CarTrawler will not be liable or responsible in any way for any damage or loss of any nature whatsoever suffered by you arising from or in any way connected with such use or disclosure, save that this will not affect any statutory rights which you may have.</p>
+                    <p>Please note this booking engine is VeriSign secured. CarTrawler is fully compliant with the requirements for cardholder data prescribed in the Payment Card Industry Data Security Standard.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="copyright">Copyright, Notice and Limited Licence</h2>
+                    <p>All of the information within this booking engine including, but not limited to, content, text, graphics, images, trade names, structure, photographs, buttons, artwork and computer code are protected by various intellectual property laws including copyright law and are available to you only for the purpose of making a Transportation booking. Unless you have received written consent from CarTrawler to the contrary, you may only use the booking engine and its content for personal purposes. You do not have permission to modify, copy, distribute, collate, transfer, reproduce or display any of the above for any purpose.</p>
+                    <p>In particular, by proceeding to access this booking engine, you agree not to:</p>
+                    <ol>
+                        <li>use the booking engine to make any speculative or false bookings;</li>
+                        <li>use the booking engine to research Transportation Suppliers or Transportation Suppliers' pricing;</li>
+                        <li>use any automated systems, robots or software to extract data from this booking engine;</li>
+                        <li>use the name "CarTrawler" or any CarTrawler branding for commercial purposes without obtaining prior written permission from CarTrawler; and/or</li>
+                        <li>copy or reproduce material from this booking engine for commercial purposes.</li>
+                    </ol>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="sort-order">Sort Order, Sponsored Placements &amp; Personalised Pricing</h2>
+
+                    <h3>How does the 'Recommended' sort order work?</h3>
+                    <p>The 'Recommended' sort order uses a variety of factors to rank vehicles in an order which ensures you see the best 'Value for Money' at the top of your search results. Commission received from car rental suppliers influences this order.</p>
+
+                    <h3>What does 'Value for Money' mean?</h3>
+                    <p>The term 'Value for Money' describes the variables which influence a customer's likelihood to purchase car rental. The commission we (CarTrawler) receive from car rental suppliers recognises the role we play in the booking and influences how we determine the overall 'Value for Money'.</p>
+
+                    <h3>What variables are considered in the sort order?</h3>
+                    <p>In identifying the best 'Value for Money' for our customers, our sort order considers a number of variables, including:</p>
+                    <ul>
+                        <li>The booking date and location of the search.</li>
+                        <li>The duration of the rental period.</li>
+                        <li>Customer ratings of car rental suppliers based on CSAT scores and NPS.</li>
+                        <li>The historic behaviour of customers in relation to past purchases and historic pricing of similar car rental results.</li>
+                        <li>The commission we receive from car rental suppliers or insurance partners.</li>
+                    </ul>
+
+                    <h3>How do Sponsored Placements work?</h3>
+                    <p>Some travel partners work with selected car rental suppliers. Sponsored placements may be featured at the top of the search results due to payments received by the travel partner from the selected car rental supplier. Customers can identify these sponsored placements where they are highlighted in a branded placement at the top of the search results.</p>
+
+                    <h3>Personalised Pricing</h3>
+                    <p>We may personalise the pricing for services available through the booking engine on the basis of automated decision-making.</p>
+
+                    <hr class="policy-divider">
+
+                    <h2 id="general">General</h2>
+                    <p>As a consumer, you will benefit from any mandatory provisions of the law of the country in which you are resident. Nothing in these terms and conditions, including the governing law provision below, affects your rights as a consumer to rely on such mandatory provisions of local law.</p>
+                    <p>The Booking Conditions and your use of and access to this booking engine are governed by the laws of Ireland. Where you are domiciled in Ireland, the courts of Ireland will have exclusive jurisdiction over all disputes arising between you and CarTrawler out of or relating to your use of this booking engine. Where you are domiciled in any country other than Ireland, the courts of Ireland will have non-exclusive jurisdiction over all such disputes.</p>
+                    <p>Use of this booking engine is unauthorised in any jurisdiction that does not give effect to all provisions of the Booking Conditions. You agree that no partnership, employment, or agency relationship exists between you and CarTrawler as a result of the Booking Conditions or your use of this booking engine.</p>
+                    <p>CarTrawler reserves the right, at its absolute discretion, to amend and/or update the Booking Conditions and the contents of this booking engine for any reason, without prior notice, and without liability to you, any other user or any third party. You should check these Booking Conditions for any changes each time you access the booking engine.</p>
+                    <p>The Transportation Supplier may from time to time change its Transportation Conditions. CarTrawler is not responsible and will have no liability if the Transportation Conditions available on this booking engine or in your Voucher have been changed by the Transportation Supplier at any time.</p>
+                    <p>Our failure to enforce at any time, or for any period, any one or more of the Booking Conditions will not be a waiver of any such Booking Conditions or the rights attaching to any of them.</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</MainLayout>

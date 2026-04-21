@@ -66,8 +66,8 @@ import MainLayout from '../layouts/MainLayout.astro';
             height: auto !important;
         }
 
-        .ct-btn-p { background: var(--brand-orange) !important; }
-        .ct-btn-p:hover { background: #FF7E29 !important; }
+        .ct-btn-p { background: #ff6600 !important; }
+        .ct-btn-p:hover { background: #ff7e29 !important; }
 
         /* --- LOGO TICKER --- */
         .logo-ticker-section {
@@ -629,9 +629,28 @@ import MainLayout from '../layouts/MainLayout.astro';
               type: window.innerWidth < 800 ? 'mobile' : 'desktop',
               locale: window.ARP.ctLocales[_lang] || 'en_GB',
               currency: _currency,
+              logo: '/images/logo.png',
               step1: {
                 deeplinkURL: window.location.origin + '/results',
-                showAvailNewWindow: false
+                showAvailNewWindow: false,
+                advancedOptions: {
+                  currency: false,
+                  residency: false
+                }
+              },
+              events: {
+                ready: function() {
+                  if (typeof gtag === 'function') gtag('event', 'ct_ready', { event_category: 'CarTrawler' });
+                },
+                searchCars: function(status, data) {
+                  if (status === 'start' && typeof gtag === 'function') {
+                    gtag('event', 'ct_search', {
+                      event_category: 'CarTrawler',
+                      pickup_location: data && data.searchData && data.searchData.pickUpLocation,
+                      pickup_date: data && data.searchData && data.searchData.pickUpDateTime
+                    });
+                  }
+                }
               }
             }
           }
@@ -665,23 +684,44 @@ import MainLayout from '../layouts/MainLayout.astro';
           s.parentNode.insertBefore(cts, s);
         })();
 
-        /* --- THE COLOR AND PADDING POLICE --- */
-        const tidyUp = setInterval(() => {
-            const btn = document.querySelector('.ct-btn-search');
-            const ctContainer = document.querySelector('.ct-search-container');
-
-            if (btn) {
-                btn.style.setProperty('background-color', '#2BA6CB', 'important');
-                btn.style.setProperty('background-image', 'none', 'important');
-
-                if (ctContainer) {
-                    ctContainer.style.setProperty('margin', '0', 'important');
-                    ctContainer.style.setProperty('padding', '0', 'important');
+        /* --- CT OVERRIDES --- */
+        (function() {
+            // Fix button colour and container padding once CT renders
+            var tidyUp = setInterval(function() {
+                var btn = document.querySelector('.ct-btn-search');
+                var ctContainer = document.querySelector('.ct-search-container');
+                if (btn) {
+                    btn.style.setProperty('background-color', '#ff6600', 'important');
+                    btn.style.setProperty('background-image', 'none', 'important');
+                    if (ctContainer) {
+                        ctContainer.style.setProperty('margin', '0', 'important');
+                        ctContainer.style.setProperty('padding', '0', 'important');
+                    }
+                    clearInterval(tidyUp);
                 }
+            }, 300);
 
-                clearInterval(tidyUp);
+            // Hide CT's own mobile locale/currency header bar — we manage these ourselves
+            function hideCTLocaleSwitchers(root) {
+                [
+                    '.ct-locale-selector', '.ct-currency-selector',
+                    '.ct-header__locale', '.ct-header__currency',
+                    '.ct-lang-selector', '.ct-curr-selector',
+                    '.ct-mobile-locale', '.ct-mobile-currency',
+                    '.ctc-lang', '.ctc-currency',
+                    '.ct-steps__locale', '.ct-search-form__locale'
+                ].forEach(function(sel) {
+                    root.querySelectorAll(sel).forEach(function(el) {
+                        el.style.setProperty('display', 'none', 'important');
+                    });
+                });
             }
-        }, 300);
+            var mount = document.getElementById('ct-mount-point');
+            if (mount) {
+                new MutationObserver(function() { hideCTLocaleSwitchers(mount); })
+                    .observe(mount, { childList: true, subtree: true });
+            }
+        })();
 
 
         /* --- LOGO TICKER --- */

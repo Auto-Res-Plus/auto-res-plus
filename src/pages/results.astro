@@ -38,7 +38,47 @@ import MainLayout from '../layouts/MainLayout.astro';
               type: window.innerWidth < 800 ? 'mobile' : 'desktop',
               locale: window.ARP.ctLocales[_lang] || 'en_GB',
               currency: _currency,
-              logo: '/images/logo.png'
+              logo: '/images/logo.png',
+              events: {
+                vehicles: function(status, data) {
+                  if (status === 'success' && typeof gtag === 'function') {
+                    gtag('event', 'ct_vehicles', {
+                      event_category: 'CarTrawler',
+                      results_count: data && data.vehiclesData && data.vehiclesData.length
+                    });
+                  }
+                },
+                vehicle: function(status, data) {
+                  if (status === 'success' && typeof gtag === 'function') {
+                    gtag('event', 'ct_vehicle_selected', {
+                      event_category: 'CarTrawler',
+                      vehicle_name: data && data.vehicleData && data.vehicleData.name,
+                      value: data && data.vehicleData && data.vehicleData.price,
+                      currency: _currency
+                    });
+                  }
+                },
+                details: function(status) {
+                  if (status === 'start' && typeof gtag === 'function') {
+                    gtag('event', 'ct_details', { event_category: 'CarTrawler' });
+                  }
+                },
+                payment: function(status) {
+                  if (status === 'start' && typeof gtag === 'function') {
+                    gtag('event', 'ct_payment', { event_category: 'CarTrawler' });
+                  }
+                },
+                confirmation: function(status, data) {
+                  if (status === 'success' && typeof gtag === 'function') {
+                    gtag('event', 'purchase', {
+                      event_category: 'CarTrawler',
+                      transaction_id: data && data.reservationData && data.reservationData.id,
+                      value: data && data.vehicleData && data.vehicleData.price,
+                      currency: _currency
+                    });
+                  }
+                }
+              }
             }
           }
         };

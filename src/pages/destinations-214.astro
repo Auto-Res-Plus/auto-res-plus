@@ -1,0 +1,688 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+<MainLayout title="Car Rental Destinations | Auto Reservation Plus">
+    <style is:global>
+        /* ── HERO ── */
+        .dest-hero-wrapper {
+            width: 100%;
+            min-height: 600px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                        url('/images/destinations-bg.webp');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+        }
+        .dest-hero-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 40px;
+            padding: 40px 0;
+            align-items: center;
+        }
+        .dest-hero-left { align-self: center; }
+        .dest-hero-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-top: 24px;
+            align-self: start;
+        }
+
+        .dest-headline { opacity: 0; transition: opacity 0.4s ease; }
+        .dest-checklist .check-list li { opacity: 0; transition: opacity 0.4s ease; }
+        .dest-headline h1 { color: white; font-size: 3.2rem; margin: 0; line-height: 1.1; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+
+        .check-list { list-style: none; padding: 0; margin: 0; }
+        .check-list li { color: white; font-size: 1.25rem; margin-bottom: 10px; display: flex; align-items: center; font-weight: 500; }
+        .check-list li::before {
+            content: '✓'; display: inline-block; width: 22px; height: 22px; background: var(--brand-green);
+            color: white; border-radius: 50%; text-align: center; line-height: 22px; margin-right: 12px; font-weight: bold; font-size: 12px;
+        }
+
+        [ct-app], .ct-step-1-container, .ct-search-container {
+            background: transparent !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            height: auto !important;
+        }
+        .ct-btn-p { background: #ff6600 !important; }
+        .ct-btn-p:hover { background: #ff7e29 !important; }
+
+        .dest-engine-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            padding: 25px;
+            width: 100%;
+            max-width: 420px;
+            margin-right: auto;
+            position: relative;
+            min-height: 414px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .dest-engine-card.ct-ready { opacity: 1; }
+
+        /* ── DESTINATIONS GRID ── */
+        .dest-section {
+            background: white;
+            padding-block: 5rem 6rem;
+        }
+        .dest-section h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--dark-text);
+            margin: 0 0 0.5rem;
+        }
+        .dest-section .section-intro {
+            color: #666;
+            font-size: 1.05rem;
+            margin: 0 0 2rem;
+            max-width: 640px;
+        }
+        .dest-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 240px);
+            gap: 20px;
+        }
+        .dest-card {
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .dest-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(0,0,0,0.25);
+        }
+        .dest-card-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.4s ease;
+        }
+        .dest-card:hover .dest-card-bg { transform: scale(1.05); }
+        .dest-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.6) 100%);
+            transition: opacity 0.4s ease;
+        }
+        .dest-card:hover .dest-card-overlay { opacity: 0.2; }
+        .dest-card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 16px 18px;
+        }
+        .dest-card-name {
+            display: inline-block;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            margin-bottom: 4px;
+            padding: 4px 12px;
+            background: rgba(255,255,255,0.18);
+            backdrop-filter: blur(12px) saturate(1.4);
+            -webkit-backdrop-filter: blur(12px) saturate(1.4);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.35);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.25);
+        }
+        .dest-card-tag {
+            display: block;
+            color: rgba(255,255,255,0.85);
+            font-size: 0.8rem;
+            margin-top: 6px;
+            padding-left: 4px;
+        }
+        .dc-paris   .dest-card-bg { background-image: url('/images/locations/paris.webp'); }
+        .dc-berlin  .dest-card-bg { background-image: url('/images/locations/berlin.webp'); }
+        .dc-madrid  .dest-card-bg { background-image: url('/images/locations/madrid.webp'); }
+        .dc-rome    .dest-card-bg { background-image: url('/images/locations/rome.webp'); }
+        .dc-london  .dest-card-bg { background-image: url('/images/locations/london.webp'); }
+        .dc-lisbon  .dest-card-bg { background-image: url('/images/locations/lisbon.webp'); }
+
+        /* ── WHY SECTION ── */
+        .why-section {
+            background: var(--light-bg);
+            padding-block: 5rem;
+        }
+        .why-section h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--dark-text);
+            margin: 0 0 2.5rem;
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .why-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px 28px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        }
+        .why-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--brand-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+        }
+        .why-icon svg { color: white; }
+        .why-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin: 0 0 10px;
+        }
+        .why-card p {
+            font-size: 0.92rem;
+            color: #666;
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        /* ── GALLERY ── */
+        .gallery-section {
+            background: white;
+            padding-block: 5rem 6rem;
+        }
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--dark-text);
+            margin: 0 0 0.5rem;
+        }
+        .gallery-section .section-intro {
+            color: #666;
+            font-size: 1.05rem;
+            margin: 0 0 2rem;
+            max-width: 640px;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 280px 280px;
+            gap: 16px;
+        }
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        .gallery-item.tall {
+            grid-row: span 2;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.04); }
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 12px 16px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.55));
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-item:hover .gallery-caption { opacity: 1; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 992px) {
+            .dest-hero-wrapper { min-height: 0; }
+            .dest-hero-grid {
+                display: flex;
+                flex-direction: column;
+                padding: 30px 0;
+                gap: 20px;
+            }
+            .dest-hero-right { padding-top: 0; gap: 16px; }
+            .dest-headline { width: 100%; text-align: center; }
+            .dest-headline h1 { font-size: 2.2rem; }
+            .dest-engine-card { max-width: 100%; margin: 10px auto; padding: 15px 15px 1rem; min-height: 0; opacity: 1 !important; transition: none !important; }
+            [ct-app], .ct-step-1-container, .ct-search-container { min-height: 0 !important; padding-bottom: 0 !important; }
+            [ct-app] svg:not(.ctc-icon), [ct-app] img:not([class*="ctc-icon"]) { display: none !important; }
+            .dest-checklist { text-align: center; }
+            .check-list { display: inline-block; text-align: left; }
+            .check-list li { justify-content: flex-start; }
+
+            .dest-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: none;
+            }
+            .dest-card { aspect-ratio: 16 / 9; }
+
+            .why-grid { grid-template-columns: repeat(2, 1fr); }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: none;
+            }
+            .gallery-item.tall { grid-row: span 1; aspect-ratio: 16/9; }
+            .gallery-item { aspect-ratio: 16/9; }
+        }
+
+        @media (max-width: 767px) {
+            .dest-hero-wrapper { background: white; }
+            .dest-hero-grid { padding: 0; gap: 0; }
+            .dest-hero-right {
+                order: -1;
+                background:
+                    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+                    url('/images/destinations-bg.webp') center / cover no-repeat;
+                padding: 44px 20px 40px;
+                margin-left: -20px;
+                margin-right: -20px;
+                width: calc(100% + 40px);
+                gap: 16px;
+            }
+            .dest-headline { text-align: left; }
+            .dest-headline h1 { font-size: 2rem; }
+            .dest-checklist { text-align: left; }
+            .check-list { display: block; width: 100%; }
+            .check-list li { font-size: 1.0925rem; }
+            .dest-hero-left {
+                background: white;
+                padding: 0;
+                width: 100%;
+                min-height: 230px;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .dest-engine-card {
+                box-shadow: none;
+                margin-top: 0;
+                margin-left: -20px;
+                margin-right: -20px;
+                width: calc(100% + 40px);
+                max-width: none;
+                border-radius: 0;
+                padding: 0 20px 20px;
+            }
+            [ct-app] img, [ct-app] svg:not(.ctc-icon) { display: none !important; }
+            .ct-usps__main { display: none !important; }
+            .ct-container-search-cars { min-height: 0 !important; padding-bottom: 2rem !important; }
+            [ct-app], .ct-step-1-container, .ct-search-container {
+                min-height: 0 !important;
+                height: auto !important;
+                padding-bottom: 0 !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .dest-section { padding-block: 3rem 4rem; }
+            .dest-section h2, .why-section h2, .gallery-section h2 { font-size: 1.5rem; }
+            .dest-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .dest-card { border-radius: 8px; }
+            .why-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-item { aspect-ratio: 16/9; }
+            .gallery-item.tall { grid-row: span 1; aspect-ratio: 16/9; }
+            .gallery-section { padding-block: 3rem 4rem; }
+            .why-section { padding-block: 3rem; }
+        }
+    </style>
+
+    <!-- HERO -->
+    <section class="dest-hero-wrapper">
+        <div class="container">
+            <div class="dest-hero-grid">
+                <div class="dest-hero-left">
+                    <div class="dest-engine-card">
+                        <div ct-app id="ct-mount-point"></div>
+                    </div>
+                </div>
+                <div class="dest-hero-right">
+                    <div class="dest-headline">
+                        <h1 data-i18n="hero_headline">Holiday Car Rentals</h1>
+                    </div>
+                    <div class="dest-checklist">
+                        <ul class="check-list">
+                            <li data-i18n="check_1">Free Cancellation</li>
+                            <li data-i18n="check_2">No Hidden Charges</li>
+                            <li data-i18n="check_3">800+ Suppliers Worldwide</li>
+                            <li data-i18n="check_4">24/7 Customer Support</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POPULAR DESTINATIONS -->
+    <section class="dest-section">
+        <div class="container">
+            <h2>Popular Car Rental Destinations</h2>
+            <p class="section-intro">From sun-drenched coastlines to bustling city centres — explore Europe at your own pace with a hire car waiting at your arrival airport.</p>
+            <div class="dest-grid">
+
+                <div class="dest-card dc-paris">
+                    <div class="dest-card-bg"></div>
+                    <div class="dest-card-overlay"></div>
+                    <div class="dest-card-content">
+                        <span class="dest-card-name">Paris</span>
+                        <span class="dest-card-tag">Île-de-France, France</span>
+                    </div>
+                </div>
+
+                <div class="dest-card dc-berlin">
+                    <div class="dest-card-bg"></div>
+                    <div class="dest-card-overlay"></div>
+                    <div class="dest-card-content">
+                        <span class="dest-card-name">Berlin</span>
+                        <span class="dest-card-tag">Brandenburg, Germany</span>
+                    </div>
+                </div>
+
+                <div class="dest-card dc-madrid">
+                    <div class="dest-card-bg"></div>
+                    <div class="dest-card-overlay"></div>
+                    <div class="dest-card-content">
+                        <span class="dest-card-name">Madrid</span>
+                        <span class="dest-card-tag">Comunidad de Madrid, Spain</span>
+                    </div>
+                </div>
+
+                <div class="dest-card dc-rome">
+                    <div class="dest-card-bg"></div>
+                    <div class="dest-card-overlay"></div>
+                    <div class="dest-card-content">
+                        <span class="dest-card-name">Rome</span>
+                        <span class="dest-card-tag">Lazio, Italy</span>
+                    </div>
+                </div>
+
+                <div class="dest-card dc-london">
+                    <div class="dest-card-bg"></div>
+                    <div class="dest-card-overlay"></div>
+                    <div class="dest-card-content">
+                        <span class="dest-card-name">London</span>
+                        <span class="dest-card-tag">England, United Kingdom</span>
+                    </div>
+                </div>
+
+                <div class="dest-card dc-lisbon">
+                    <div class="dest-card-bg"></div>
+                    <div class="dest-card-overlay"></div>
+                    <div class="dest-card-content">
+                        <span class="dest-card-name">Lisbon</span>
+                        <span class="dest-card-tag">Lisboa, Portugal</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY RENT WITH US -->
+    <section class="why-section">
+        <div class="container">
+            <h2>Why Rent Through Us</h2>
+            <div class="why-grid">
+
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Price Match Guarantee</h3>
+                    <p>We compare rates across 800+ suppliers in real time so you always see the best available price. Found it cheaper elsewhere? We'll match it.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <h3>Free Cancellation</h3>
+                    <p>Plans change. Most bookings include free cancellation up to 48 hours before pick-up — no fees, no fuss.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.79a16 16 0 0 0 6.29 6.29l1.83-1.83a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <h3>24/7 Customer Support</h3>
+                    <p>Our team is available around the clock by phone, email or WhatsApp — whether you need help before booking or support during your trip.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                    </div>
+                    <h3>All Vehicle Types</h3>
+                    <p>Economy runabouts, spacious SUVs, luxury saloons or people carriers — filter by size, transmission or fuel type to find exactly what you need.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <h3>Airport & City Pick-up</h3>
+                    <p>Pick up your car at the terminal or in town. We cover thousands of locations across Europe, North America, Asia and beyond.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    </div>
+                    <h3>No Hidden Charges</h3>
+                    <p>The price you see is the price you pay. CDW and theft protection are always included — no surprise extras at the rental desk.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2>Explore Europe by Road</h2>
+            <p class="section-intro">From the sun-baked plazas of Madrid to the cobbled hills of Lisbon — every great road trip starts with the right car.</p>
+            <div class="gallery-grid">
+
+                <div class="gallery-item tall">
+                    <img src="/images/locations/paris.webp" alt="Paris, France" loading="lazy">
+                    <div class="gallery-caption">Paris, France</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="/images/locations/berlin.webp" alt="Berlin, Germany" loading="lazy">
+                    <div class="gallery-caption">Berlin, Germany</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="/images/locations/madrid.webp" alt="Madrid, Spain" loading="lazy">
+                    <div class="gallery-caption">Madrid, Spain</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="/images/locations/rome.webp" alt="Rome, Italy" loading="lazy">
+                    <div class="gallery-caption">Rome, Italy</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="/images/locations/london.webp" alt="London, UK" loading="lazy">
+                    <div class="gallery-caption">London, UK</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="/images/locations/lisbon.webp" alt="Lisbon, Portugal" loading="lazy">
+                    <div class="gallery-caption">Lisbon, Portugal</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script is:inline>
+        var _lang     = window.ARP.getLang();
+        var _currency = localStorage.getItem('arp_currency') || ({'fr':'EUR','de':'EUR','es':'EUR','it':'EUR'}[_lang] || 'GBP');
+
+        var CT = {
+          ABE: {
+            Settings: {
+              clientID: '315556',
+              type: window.innerWidth < 800 ? 'mobile' : 'desktop',
+              locale: window.ARP.ctLocales[_lang] || 'en_GB',
+              currency: _currency,
+              logo: '/images/logo.png',
+              step1: {
+                deeplinkURL: window.location.origin + '/results',
+                showAvailNewWindow: false,
+                advancedOptions: {
+                  currency: false,
+                  residency: false
+                }
+              },
+              events: {
+                ready: function() {
+                  if (typeof gtag === 'function') gtag('event', 'ct_ready', { event_category: 'CarTrawler' });
+                },
+                searchCars: function(status, data) {
+                  if (status === 'start' && typeof gtag === 'function') {
+                    gtag('event', 'ct_search', {
+                      event_category: 'CarTrawler',
+                      pickup_location: data && data.searchData && data.searchData.pickUpLocation,
+                      pickup_date: data && data.searchData && data.searchData.pickUpDateTime
+                    });
+                  }
+                }
+              }
+            }
+          }
+        };
+
+        window.ARP.applyTranslations();
+
+        window.addEventListener('pagehide', function() {
+            if (window.CT && window.CT.ABE && window.CT.ABE.Settings) {
+                var locale   = window.CT.ABE.Settings.locale;
+                var currency = window.CT.ABE.Settings.currency;
+                if (locale) {
+                    var lang = locale.split('_')[0];
+                    if (['en','fr','de','es','it'].indexOf(lang) !== -1) {
+                        localStorage.setItem('arp_lang', lang);
+                    }
+                }
+                if (currency) {
+                    localStorage.setItem('arp_currency', currency);
+                }
+            }
+        });
+
+        (function() {
+          CT.ABE.Settings.version = '5.0';
+          var cts = document.createElement('script');
+          cts.type = 'text/javascript'; cts.async = true;
+          cts.src = 'https://ajaxgeo.cartrawler.com/abe5.0/ct_loader.js?' + new Date().getTime();
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(cts, s);
+        })();
+
+        /* --- CT OVERRIDES --- */
+        (function() {
+            var tidyUp = setInterval(function() {
+                var btn = document.querySelector('.ct-btn-search');
+                var ctContainer = document.querySelector('.ct-search-container');
+                if (btn) {
+                    btn.style.setProperty('background-color', '#ff6600', 'important');
+                    btn.style.setProperty('background-image', 'none', 'important');
+                    if (ctContainer) {
+                        ctContainer.style.setProperty('margin', '0', 'important');
+                        ctContainer.style.setProperty('padding', '0', 'important');
+                    }
+                    clearInterval(tidyUp);
+                }
+            }, 300);
+
+            function hideCTLocaleSwitchers(root) {
+                [
+                    '.ct-locale-selector', '.ct-currency-selector',
+                    '.ct-header__locale', '.ct-header__currency',
+                    '.ct-lang-selector', '.ct-curr-selector',
+                    '.ct-mobile-locale', '.ct-mobile-currency',
+                    '.ctc-lang', '.ctc-currency',
+                    '.ct-steps__locale', '.ct-search-form__locale'
+                ].forEach(function(sel) {
+                    root.querySelectorAll(sel).forEach(function(el) {
+                        el.style.setProperty('display', 'none', 'important');
+                    });
+                });
+            }
+            var mount = document.getElementById('ct-mount-point');
+            if (mount) {
+                new MutationObserver(function() { hideCTLocaleSwitchers(mount); })
+                    .observe(mount, { childList: true, subtree: true });
+            }
+        })();
+
+        /* Fade engine card in once CT injects content */
+        (function() {
+            var isMobile = window.innerWidth <= 992;
+            var card     = document.querySelector('.dest-engine-card');
+            var engine   = document.querySelector('.dest-hero-left');
+            var headline = document.querySelector('.dest-headline');
+            var items    = document.querySelectorAll('.dest-checklist .check-list li');
+            var mount    = document.getElementById('ct-mount-point');
+            if (!card || !mount) return;
+
+            var revealed = false;
+            var reveal = function() {
+                if (revealed) return;
+                revealed = true;
+                if (isMobile) {
+                    setTimeout(function() {
+                        if (engine) engine.style.opacity = '1';
+                    }, 500);
+                } else {
+                    card.classList.add('ct-ready');
+                }
+                setTimeout(function() {
+                    if (headline) headline.style.opacity = '1';
+                }, isMobile ? 600 : 150);
+                items.forEach(function(item, i) {
+                    setTimeout(function() {
+                        item.style.opacity = '1';
+                    }, (isMobile ? 700 : 350) + i * 120);
+                });
+            };
+
+            var observer = new MutationObserver(function(_mutations, obs) {
+                if (mount.children.length > 0) {
+                    obs.disconnect();
+                    reveal();
+                }
+            });
+            observer.observe(mount, { childList: true, subtree: true });
+
+            setTimeout(function() { reveal(); }, 4000);
+        })();
+    </script>
+</MainLayout>
