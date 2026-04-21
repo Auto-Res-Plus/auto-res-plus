@@ -69,6 +69,8 @@ import MainLayout from '../layouts/MainLayout.astro';
         .ct-btn-p { background: #ff6600 !important; }
         .ct-btn-p:hover { background: #ff7e29 !important; }
 
+        .ct-page-header { display: none !important; }
+
         /* --- LOGO TICKER --- */
         .logo-ticker-section {
             background: #fff;
@@ -627,7 +629,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             Settings: {
               clientID: '315556',
               type: window.innerWidth < 800 ? 'mobile' : 'desktop',
-              locale: window.ARP.ctLocales[_lang] || 'en_GB',
+              language: window.ARP.ctLocales[_lang] || 'en_GB',
               currency: _currency,
               logo: '/images/logo.png',
               step1: {
