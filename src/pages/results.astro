@@ -36,7 +36,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             Settings: {
               clientID: '315556',
               type: window.innerWidth < 800 ? 'mobile' : 'desktop',
-              language: window.ARP.ctLocales[_lang] || 'en_GB',
+              locale: window.ARP.ctLocales[_lang] || 'en_GB',
               currency: _currency,
               logo: '/images/logo.png',
               events: {

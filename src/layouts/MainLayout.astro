@@ -430,19 +430,23 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
     <style is:global>
         #cookie-banner {
             position: fixed;
-            bottom: 0;
+            top: 0;
             left: 0;
             right: 0;
             z-index: 9999;
             background: #1a1a2e;
             color: #e0e0e0;
             padding: 20px 0;
-            box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
-            transform: translateY(100%);
+            transform: translateY(-100%);
+            pointer-events: none;
+        }
+        #cookie-banner.is-animated {
             transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
         #cookie-banner.is-visible {
             transform: translateY(0);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+            pointer-events: auto;
         }
         .cookie-inner {
             display: flex;
@@ -528,8 +532,10 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
             var consent = localStorage.getItem('arp_cookie_consent');
             if (!banner) return;
 
+            // Enable transition only after first paint so the initial hidden state doesn't animate
+            requestAnimationFrame(function() { banner.classList.add('is-animated'); });
+
             if (!consent) {
-                // Show after a short delay so the page isn't immediately obscured
                 setTimeout(function() { banner.classList.add('is-visible'); }, 600);
             }
 
