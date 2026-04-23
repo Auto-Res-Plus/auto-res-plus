@@ -44,19 +44,38 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
     <link rel="alternate" hreflang="en-gb" href={coukURL} />
     <!-- Google Analytics — loaded only after cookie consent -->
     <script is:inline>
+        // Google Consent Mode v2
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        function loadGA() {
-            if (window._gaLoaded) return;
-            window._gaLoaded = true;
+
+        // Set denied defaults before GA loads — required for Consent Mode v2
+        gtag('consent', 'default', {
+            analytics_storage:    'denied',
+            ad_storage:           'denied',
+            ad_user_data:         'denied',
+            ad_personalization:   'denied',
+            wait_for_update:      500
+        });
+
+        // If user has already consented, grant immediately
+        if (localStorage.getItem('arp_cookie_consent') === 'accepted') {
+            gtag('consent', 'update', {
+                analytics_storage:  'granted',
+                ad_storage:         'granted',
+                ad_user_data:       'granted',
+                ad_personalization: 'granted'
+            });
+        }
+
+        // Load GA for all visitors — runs cookieless until consent granted
+        (function() {
             var s = document.createElement('script');
             s.async = true;
             s.src = 'https://www.googletagmanager.com/gtag/js?id=G-V4F5EHGHHS';
             document.head.appendChild(s);
-            gtag('js', new Date());
-            gtag('config', 'G-V4F5EHGHHS');
-        }
-        if (localStorage.getItem('arp_cookie_consent') === 'accepted') loadGA();
+        })();
+        gtag('js', new Date());
+        gtag('config', 'G-V4F5EHGHHS', { anonymize_ip: true });
     </script>
     <style is:global>
         :root {
@@ -542,7 +561,12 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
             document.getElementById('cookie-accept').addEventListener('click', function() {
                 localStorage.setItem('arp_cookie_consent', 'accepted');
                 banner.classList.remove('is-visible');
-                if (typeof loadGA === 'function') loadGA();
+                gtag('consent', 'update', {
+                    analytics_storage:  'granted',
+                    ad_storage:         'granted',
+                    ad_user_data:       'granted',
+                    ad_personalization: 'granted'
+                });
             });
 
             document.getElementById('cookie-reject').addEventListener('click', function() {
