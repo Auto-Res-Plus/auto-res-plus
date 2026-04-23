@@ -281,19 +281,11 @@ import MainLayout from '../layouts/MainLayout.astro';
         .faq-question:hover { color: var(--brand-blue); }
         .faq-icon {
             flex-shrink: 0;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: var(--brand-blue);
-            color: white;
-            font-size: 1.1rem;
-            line-height: 22px;
-            text-align: center;
-            transition: transform 0.3s ease, background 0.2s;
+            color: #999;
+            transition: transform 0.25s ease;
         }
         .faq-item.is-open .faq-icon {
-            transform: rotate(45deg);
-            background: var(--brand-orange);
+            transform: rotate(180deg);
         }
         .faq-answer {
             display: grid;
@@ -559,7 +551,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                     <div class="faq-item">
                         <button class="faq-question">
                             <span data-i18n="faq_q1">What documents do I need to hire a car?</span>
-                            <span class="faq-icon">+</span>
+                            <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer"><div class="faq-answer-inner">
                             <p data-i18n="faq_a1">You'll need a valid full driving licence, a passport or national ID card, and a credit card in the main driver's name for the security deposit. Some destinations may require an International Driving Permit — we'll flag this during the booking process.</p>
@@ -568,7 +560,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                     <div class="faq-item">
                         <button class="faq-question">
                             <span data-i18n="faq_q2">Is there a minimum age to rent a car?</span>
-                            <span class="faq-icon">+</span>
+                            <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer"><div class="faq-answer-inner">
                             <p data-i18n="faq_a2">The minimum age is typically 21, though this varies by supplier and country. Drivers under 25 may incur a young driver surcharge. Some premium or specialist vehicle categories require a minimum age of 25.</p>
@@ -577,7 +569,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                     <div class="faq-item">
                         <button class="faq-question">
                             <span data-i18n="faq_q3">Can I cancel or modify my booking?</span>
-                            <span class="faq-icon">+</span>
+                            <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer"><div class="faq-answer-inner">
                             <p data-i18n="faq_a3">Yes — most bookings include free cancellation up to 48 hours before pick-up. Amendments can be made by contacting our support team. Terms vary by rate type, so check your booking confirmation for full details.</p>
@@ -586,7 +578,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                     <div class="faq-item">
                         <button class="faq-question">
                             <span data-i18n="faq_q4">What insurance is included?</span>
-                            <span class="faq-icon">+</span>
+                            <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer"><div class="faq-answer-inner">
                             <p data-i18n="faq_a4">All rentals include Collision Damage Waiver (CDW) and Theft Protection as standard, reducing your liability in the event of an accident or theft. A refundable excess may still apply. We also offer full excess protection upgrades for complete peace of mind.</p>
@@ -595,7 +587,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                     <div class="faq-item">
                         <button class="faq-question">
                             <span data-i18n="faq_q5">Can I add an additional driver?</span>
-                            <span class="faq-icon">+</span>
+                            <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer"><div class="faq-answer-inner">
                             <p data-i18n="faq_a5">Yes, additional drivers can be added at the rental desk for a small daily fee. They must be present at pick-up with their driving licence and passport. Some suppliers include one additional driver free of charge — this will be shown on your voucher if applicable.</p>
@@ -604,7 +596,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                     <div class="faq-item">
                         <button class="faq-question">
                             <span data-i18n="faq_q6">What happens if I return the car late?</span>
-                            <span class="faq-icon">+</span>
+                            <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer"><div class="faq-answer-inner">
                             <p data-i18n="faq_a6">Suppliers typically allow a grace period of 30–60 minutes. Beyond that, an additional day's charge may be applied. If you know you'll be late, contact the rental desk directly or call our 24/7 support line as early as possible to avoid extra fees.</p>

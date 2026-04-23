@@ -156,13 +156,16 @@ import MainLayout from '../layouts/MainLayout.astro';
 
         /* ── WHY SECTION ── */
         .why-section {
-            background: var(--light-bg);
+            background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+                        url('/images/destinations-bg-2.webp');
+            background-size: cover;
+            background-position: center;
             padding-block: 5rem;
         }
         .why-section h2 {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--dark-text);
+            color: white;
             margin: 0 0 2.5rem;
         }
         .why-grid {
@@ -179,14 +182,15 @@ import MainLayout from '../layouts/MainLayout.astro';
         .why-icon {
             width: 48px;
             height: 48px;
-            border-radius: 12px;
-            background: var(--brand-blue);
+            border-radius: 100%;
+            background: transparent;
+            border: 2px solid var(--brand-orange);
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 18px;
         }
-        .why-icon svg { color: white; }
+        .why-icon svg { color: var(--brand-orange); }
         .why-card h3 {
             font-size: 1.05rem;
             font-weight: 700;
@@ -198,6 +202,88 @@ import MainLayout from '../layouts/MainLayout.astro';
             color: #666;
             line-height: 1.65;
             margin: 0;
+        }
+
+        /* ── TOP LOCATIONS ── */
+        .top-locations-section {
+            background: #f2fcff;
+            padding-block: 5rem;
+        }
+        .top-locations-section h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--dark-text);
+            margin: 0 0 2rem;
+        }
+        .top-locations-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            column-gap: 2rem;
+            row-gap: 1rem;
+            background: white;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            padding: 2rem;
+            border-radius: 12px;
+        }
+        .top-location-item {
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 10px;
+            padding: 0 20px;
+        }
+        .top-location-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 18px 0;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            text-align: left;
+            gap: 12px;
+        }
+        .top-location-btn:hover { color: var(--brand-blue); }
+        .top-location-icon {
+            flex-shrink: 0;
+            color: #999;
+            transition: transform 0.25s ease;
+        }
+        .top-location-item.is-open .top-location-icon {
+            transform: rotate(180deg);
+        }
+        .top-location-dropdown {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.35s ease;
+        }
+        .top-location-item.is-open .top-location-dropdown {
+            grid-template-rows: 1fr;
+        }
+        .top-location-dropdown-inner {
+            overflow: hidden;
+        }
+        .top-location-dropdown-inner li {
+            padding: 6px 0;
+            font-size: 0.925rem;
+            color: #555;
+        }
+        .top-location-dropdown-inner li:last-child { padding-bottom: 18px; }
+        @media (max-width: 992px) {
+            .top-locations-grid { grid-template-columns: repeat(2, 1fr); }
+            .top-location-btn { padding-right: 8px; }
+        }
+        @media (max-width: 600px) {
+            .top-locations-grid { grid-template-columns: repeat(2, 1fr); }
+            .top-locations-section { padding-block: 3rem; }
+            .top-locations-section h2 { font-size: 1.5rem; }
         }
 
         /* ── GALLERY ── */
@@ -221,7 +307,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: 280px 280px;
-            gap: 16px;
+            gap: 20px;
         }
         .gallery-item {
             border-radius: 10px;
@@ -230,6 +316,10 @@ import MainLayout from '../layouts/MainLayout.astro';
         }
         .gallery-item.tall {
             grid-row: span 2;
+        }
+        .gallery-item.wide {
+            grid-column: span 2;
+            grid-row: 1;
         }
         .gallery-item img {
             width: 100%;
@@ -287,6 +377,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             }
             .gallery-item.tall { grid-row: span 1; aspect-ratio: 16/9; }
             .gallery-item { aspect-ratio: 16/9; }
+            .gallery-item.wide { grid-column: span 1; grid-row: auto; order: -1; }
         }
 
         @media (max-width: 767px) {
@@ -345,9 +436,10 @@ import MainLayout from '../layouts/MainLayout.astro';
             }
             .dest-card { border-radius: 8px; }
             .why-grid { grid-template-columns: 1fr; }
-            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .gallery-item { aspect-ratio: 16/9; }
             .gallery-item.tall { grid-row: span 1; aspect-ratio: 16/9; }
+            .gallery-item.wide { grid-column: span 1; grid-row: auto; order: -1; }
             .gallery-section { padding-block: 3rem 4rem; }
             .why-section { padding-block: 3rem; }
         }
@@ -379,66 +471,99 @@ import MainLayout from '../layouts/MainLayout.astro';
         </div>
     </section>
 
-    <!-- POPULAR DESTINATIONS -->
-    <section class="dest-section">
+    <!-- TOP LOCATIONS -->
+    <section class="top-locations-section">
         <div class="container">
-            <h2>Popular Car Rental Destinations</h2>
-            <p class="section-intro">From sun-drenched coastlines to bustling city centres — explore Europe at your own pace with a hire car waiting at your arrival airport.</p>
-            <div class="dest-grid">
+            <h2>Top rental locations</h2>
+            <div class="top-locations-grid">
 
-                <div class="dest-card dc-paris">
-                    <div class="dest-card-bg"></div>
-                    <div class="dest-card-overlay"></div>
-                    <div class="dest-card-content">
-                        <span class="dest-card-name">Paris</span>
-                        <span class="dest-card-tag">Île-de-France, France</span>
-                    </div>
+                <div class="top-location-item">
+                    <button class="top-location-btn">🇪🇸 Spain<svg class="top-location-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <ul class="top-location-dropdown"><div class="top-location-dropdown-inner"><li>Malaga</li><li>Alicante</li><li>Palma</li></div></ul>
                 </div>
 
-                <div class="dest-card dc-berlin">
-                    <div class="dest-card-bg"></div>
-                    <div class="dest-card-overlay"></div>
-                    <div class="dest-card-content">
-                        <span class="dest-card-name">Berlin</span>
-                        <span class="dest-card-tag">Brandenburg, Germany</span>
-                    </div>
+                <div class="top-location-item">
+                    <button class="top-location-btn">🇫🇷 France<svg class="top-location-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <ul class="top-location-dropdown"><div class="top-location-dropdown-inner"><li>Nice</li><li>Geneva</li><li>Paris</li></div></ul>
                 </div>
 
-                <div class="dest-card dc-madrid">
-                    <div class="dest-card-bg"></div>
-                    <div class="dest-card-overlay"></div>
-                    <div class="dest-card-content">
-                        <span class="dest-card-name">Madrid</span>
-                        <span class="dest-card-tag">Comunidad de Madrid, Spain</span>
-                    </div>
+                <div class="top-location-item">
+                    <button class="top-location-btn">🇮🇹 Italy<svg class="top-location-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <ul class="top-location-dropdown"><div class="top-location-dropdown-inner"><li>Pisa</li><li>Rome</li><li>Milan</li></div></ul>
                 </div>
 
-                <div class="dest-card dc-rome">
-                    <div class="dest-card-bg"></div>
-                    <div class="dest-card-overlay"></div>
-                    <div class="dest-card-content">
-                        <span class="dest-card-name">Rome</span>
-                        <span class="dest-card-tag">Lazio, Italy</span>
-                    </div>
+                <div class="top-location-item">
+                    <button class="top-location-btn">🇬🇧 United Kingdom<svg class="top-location-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <ul class="top-location-dropdown"><div class="top-location-dropdown-inner"><li>London</li><li>Belfast</li><li>Edinburgh</li></div></ul>
                 </div>
 
-                <div class="dest-card dc-london">
-                    <div class="dest-card-bg"></div>
-                    <div class="dest-card-overlay"></div>
-                    <div class="dest-card-content">
-                        <span class="dest-card-name">London</span>
-                        <span class="dest-card-tag">England, United Kingdom</span>
-                    </div>
+                <div class="top-location-item">
+                    <button class="top-location-btn">🇵🇹 Portugal<svg class="top-location-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <ul class="top-location-dropdown"><div class="top-location-dropdown-inner"><li>Lisbon</li><li>Faro</li><li>Porto</li></div></ul>
                 </div>
 
-                <div class="dest-card dc-lisbon">
-                    <div class="dest-card-bg"></div>
-                    <div class="dest-card-overlay"></div>
-                    <div class="dest-card-content">
-                        <span class="dest-card-name">Lisbon</span>
-                        <span class="dest-card-tag">Lisboa, Portugal</span>
-                    </div>
+                <div class="top-location-item">
+                    <button class="top-location-btn">🇺🇸 United States<svg class="top-location-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <ul class="top-location-dropdown"><div class="top-location-dropdown-inner"><li>Orlando</li><li>San Francisco</li><li>Los Angeles</li></div></ul>
                 </div>
+
+                <div class="top-location-item">
+                    <button class="top-location-btn">🇮🇪 Ireland<svg class="top-location-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <ul class="top-location-dropdown"><div class="top-location-dropdown-inner"><li>Dublin</li><li>Cork</li><li>Shannon</li></div></ul>
+                </div>
+
+                <div class="top-location-item">
+                    <button class="top-location-btn">🇩🇪 Germany<svg class="top-location-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <ul class="top-location-dropdown"><div class="top-location-dropdown-inner"><li>Munich</li><li>Berlin</li><li>Düsseldorf</li></div></ul>
+                </div>
+
+                <div class="top-location-item">
+                    <button class="top-location-btn">🇬🇷 Greece<svg class="top-location-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <ul class="top-location-dropdown"><div class="top-location-dropdown-inner"><li>Rhodes</li><li>Heraklion</li><li>Athens</li></div></ul>
+                </div>
+
+                <div class="top-location-item">
+                    <button class="top-location-btn">🇿🇦 South Africa<svg class="top-location-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <ul class="top-location-dropdown"><div class="top-location-dropdown-inner"><li>Cape Town</li><li>Johannesburg</li><li>Durban</li></div></ul>
+                </div>
+
+                <div class="top-location-item">
+                    <button class="top-location-btn">🇨🇾 Cyprus<svg class="top-location-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <ul class="top-location-dropdown"><div class="top-location-dropdown-inner"><li>Paphos</li><li>Larnaca</li><li>Paphos Airport</li></div></ul>
+                </div>
+
+                <div class="top-location-item">
+                    <button class="top-location-btn">🇦🇺 Australia<svg class="top-location-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                    <ul class="top-location-dropdown"><div class="top-location-dropdown-inner"><li>Melbourne</li><li>Sydney</li><li>Brisbane</li></div></ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2>Explore breathtaking scenery by road</h2>
+            <p class="section-intro">Every great road trip starts with the right car.</p>
+            <div class="gallery-grid">
+
+                <div class="gallery-item tall">
+                    <img src="/images/destinations-gallery-1b.webp" alt="European destinations" loading="lazy">
+                </div>
+
+                <div class="gallery-item wide">
+                    <img src="/images/destinations-gallery-2.webp" alt="European destinations" loading="lazy">
+                </div>
+
+                <div class="gallery-item">
+                    <img src="/images/destinations-gallery-4.webp" alt="European destinations" loading="lazy">
+                </div>
+
+                <div class="gallery-item">
+                    <img src="/images/destinations-gallery-3.webp" alt="European destinations" loading="lazy">
+                </div>
+
 
             </div>
         </div>
@@ -452,7 +577,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 
                 <div class="why-card">
                     <div class="why-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M4 14h12M19 6a7 7 0 1 0 0 12"/></svg>
                     </div>
                     <h3>Price Match Guarantee</h3>
                     <p>We compare rates across 800+ suppliers in real time so you always see the best available price. Found it cheaper elsewhere? We'll match it.</p>
@@ -476,7 +601,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 
                 <div class="why-card">
                     <div class="why-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                        <svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M27,23H5c-1.1,0-2-0.9-2-2v-4c0-2.2,1.8-4,4-4h18c2.2,0,4,1.8,4,4v4C29,22.1,28.1,23,27,23z"/><path d="M26,13H6l2-4.6C8.6,7,10,6,11.6,6h8.7c1.6,0,3,1,3.7,2.4L26,13z"/><path d="M10,23H4v2c0,1.1,0.9,2,2,2h2c1.1,0,2-0.9,2-2V23z"/><path d="M28,23h-6v2c0,1.1,0.9,2,2,2h2c1.1,0,2-0.9,2-2V23z"/><line x1="3" y1="12" x2="6.4" y2="12"/><line x1="26" y1="12" x2="29" y2="12"/><path d="M21,23H11l1.4-2.9c0.3-0.7,1-1.1,1.8-1.1h3.5c0.8,0,1.5,0.4,1.8,1.1L21,23z"/><line x1="6" y1="18" x2="9" y2="18"/><line x1="23" y1="18" x2="26" y2="18"/></svg>
                     </div>
                     <h3>All Vehicle Types</h3>
                     <p>Economy runabouts, spacious SUVs, luxury saloons or people carriers — filter by size, transmission or fuel type to find exactly what you need.</p>
@@ -492,51 +617,10 @@ import MainLayout from '../layouts/MainLayout.astro';
 
                 <div class="why-card">
                     <div class="why-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
                     </div>
                     <h3>No Hidden Charges</h3>
                     <p>The price you see is the price you pay. CDW and theft protection are always included — no surprise extras at the rental desk.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- GALLERY -->
-    <section class="gallery-section">
-        <div class="container">
-            <h2>Explore Europe by Road</h2>
-            <p class="section-intro">From the sun-baked plazas of Madrid to the cobbled hills of Lisbon — every great road trip starts with the right car.</p>
-            <div class="gallery-grid">
-
-                <div class="gallery-item tall">
-                    <img src="/images/locations/paris.webp" alt="Paris, France" loading="lazy">
-                    <div class="gallery-caption">Paris, France</div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="/images/locations/berlin.webp" alt="Berlin, Germany" loading="lazy">
-                    <div class="gallery-caption">Berlin, Germany</div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="/images/locations/madrid.webp" alt="Madrid, Spain" loading="lazy">
-                    <div class="gallery-caption">Madrid, Spain</div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="/images/locations/rome.webp" alt="Rome, Italy" loading="lazy">
-                    <div class="gallery-caption">Rome, Italy</div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="/images/locations/london.webp" alt="London, UK" loading="lazy">
-                    <div class="gallery-caption">London, UK</div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="/images/locations/lisbon.webp" alt="Lisbon, Portugal" loading="lazy">
-                    <div class="gallery-caption">Lisbon, Portugal</div>
                 </div>
 
             </div>
@@ -582,6 +666,14 @@ import MainLayout from '../layouts/MainLayout.astro';
         };
 
         window.ARP.applyTranslations();
+
+        // Top locations accordion
+        document.querySelectorAll('.top-location-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var item = btn.closest('.top-location-item');
+                item.classList.toggle('is-open');
+            });
+        });
 
         window.addEventListener('pagehide', function() {
             if (window.CT && window.CT.ABE && window.CT.ABE.Settings) {
