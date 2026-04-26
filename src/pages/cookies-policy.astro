@@ -1,0 +1,345 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+<MainLayout title="Cookies Policy | Auto Reservation Plus">
+    <style is:global>
+        .policy-hero {
+            background: var(--brand-blue);
+            padding-block: 3.5rem;
+        }
+        .policy-hero h1 {
+            color: white;
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin: 0 0 0.5rem;
+        }
+        .policy-hero p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        .policy-body {
+            background: white;
+            padding-block: 4rem 6rem;
+        }
+        .policy-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        .policy-nav {
+            position: sticky;
+            top: 24px;
+        }
+        .policy-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border-left: 2px solid #e8e8e8;
+        }
+        .policy-nav li a {
+            display: block;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #666;
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            margin-left: -2px;
+            transition: color 0.2s, border-color 0.2s;
+            line-height: 1.4;
+        }
+        .policy-nav li a:hover {
+            color: var(--brand-blue);
+            border-left-color: var(--brand-blue);
+        }
+        .policy-content { min-width: 0; }
+        .policy-content h2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--dark-text);
+            margin: 2.5rem 0 0.75rem;
+            padding-top: 0.5rem;
+        }
+        .policy-content h2:first-child { margin-top: 0; }
+        .policy-content p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin: 0 0 1rem;
+        }
+
+        /* Cookie table */
+        .cookie-table-wrap {
+            overflow-x: auto;
+            margin: 1.25rem 0 2rem;
+            border-radius: 8px;
+            border: 1px solid #e8e8e8;
+        }
+        .cookie-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+        .cookie-table thead {
+            background: #f5f5f5;
+        }
+        .cookie-table th {
+            text-align: left;
+            padding: 10px 14px;
+            font-weight: 700;
+            color: var(--dark-text);
+            border-bottom: 1px solid #e8e8e8;
+            white-space: nowrap;
+        }
+        .cookie-table td {
+            padding: 9px 14px;
+            color: #555;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: top;
+        }
+        .cookie-table tbody tr:last-child td { border-bottom: none; }
+        .cookie-table tbody tr:hover td { background: #fafafa; }
+        .cookie-table td:first-child { font-family: monospace; font-size: 0.82rem; color: var(--dark-text); }
+
+        .cookie-category-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .label-first  { background: #e8f5e9; color: #2e7d32; }
+        .label-third  { background: #fff3e0; color: #e65100; }
+
+        @media (max-width: 900px) {
+            .policy-layout { grid-template-columns: 1fr; gap: 32px; }
+            .policy-nav { position: static; }
+        }
+        @media (max-width: 600px) {
+            .policy-hero h1 { font-size: 1.8rem; }
+            .policy-body { padding-block: 2.5rem 4rem; }
+        }
+    </style>
+
+    <section class="policy-hero">
+        <div class="container">
+            <h1>Cookies Policy</h1>
+            <p>Last updated: April 2026</p>
+        </div>
+    </section>
+
+    <section class="policy-body">
+        <div class="container">
+            <div class="policy-layout">
+
+                <!-- Sidebar nav -->
+                <nav class="policy-nav">
+                    <ul>
+                        <li><a href="#what-are-cookies">What are cookies?</a></li>
+                        <li><a href="#how-we-use">How we use cookies</a></li>
+                        <li><a href="#strictly-necessary">Strictly Necessary</a></li>
+                        <li><a href="#performance">Performance Cookies</a></li>
+                        <li><a href="#functional">Functional Cookies</a></li>
+                        <li><a href="#targeting">Targeting Cookies</a></li>
+                        <li><a href="#third-party">Third-Party Cookies</a></li>
+                        <li><a href="#consent-mode">Google Consent Mode</a></li>
+                        <li><a href="#managing">Managing Cookies</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Content -->
+                <div class="policy-content">
+
+                    <h2 id="what-are-cookies">What are cookies?</h2>
+                    <p>A cookie is a small piece of data (text file) that a website places on your device when you visit it. Cookies help websites remember information about you — such as your language preference or login status — so the site can work properly or provide a more personalised experience.</p>
+                    <p>Cookies set by the website owner (in this case, Auto Reservation Plus) are called first-party cookies. Cookies set by parties other than the website owner are called third-party cookies. Third-party cookies may be used to support advertising, analytics, or other features delivered by external services.</p>
+
+                    <h2 id="how-we-use">How we use cookies</h2>
+                    <p>We use cookies to ensure the site functions correctly, to remember your preferences (such as language and currency), and — with your consent — to understand how visitors use our site through analytics. We also use third-party cookies placed by our car rental booking engine, CarTrawler, which is required for the booking functionality to work.</p>
+                    <p>Under UK law (PECR), we are required to obtain your consent before placing any non-essential cookies on your device. You can manage your preferences at any time using the banner that appears when you first visit the site.</p>
+
+                    <h2 id="strictly-necessary">Strictly Necessary Cookies</h2>
+                    <p>These cookies are essential for the website to function and cannot be switched off. They are set in response to actions you take, such as setting your language or accepting the cookie banner. You cannot opt out of these cookies.</p>
+
+                    <div class="cookie-table-wrap">
+                        <table class="cookie-table">
+                            <thead>
+                                <tr>
+                                    <th>Cookie</th>
+                                    <th>Domain</th>
+                                    <th>Duration</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>arp_cookie_consent</td>
+                                    <td>auto-reservation-plus.com</td>
+                                    <td>1 Year</td>
+                                    <td><span class="cookie-category-label label-first">First Party</span></td>
+                                </tr>
+                                <tr>
+                                    <td>arp_lang</td>
+                                    <td>auto-reservation-plus.com</td>
+                                    <td>Persistent</td>
+                                    <td><span class="cookie-category-label label-first">First Party</span></td>
+                                </tr>
+                                <tr>
+                                    <td>arp_currency</td>
+                                    <td>auto-reservation-plus.com</td>
+                                    <td>Persistent</td>
+                                    <td><span class="cookie-category-label label-first">First Party</span></td>
+                                </tr>
+                                <tr>
+                                    <td>arp_country</td>
+                                    <td>auto-reservation-plus.com</td>
+                                    <td>Session</td>
+                                    <td><span class="cookie-category-label label-first">First Party</span></td>
+                                </tr>
+                                <tr>
+                                    <td>CT_browserSessionID</td>
+                                    <td>cartrawler.com</td>
+                                    <td>Session</td>
+                                    <td><span class="cookie-category-label label-third">Third Party</span></td>
+                                </tr>
+                                <tr>
+                                    <td>PLAY_SESSION</td>
+                                    <td>ct-errs.cartrawler.com</td>
+                                    <td>A few seconds</td>
+                                    <td><span class="cookie-category-label label-third">Third Party</span></td>
+                                </tr>
+                                <tr>
+                                    <td>PLAY_ERRORS</td>
+                                    <td>ct-errs.cartrawler.com</td>
+                                    <td>A few seconds</td>
+                                    <td><span class="cookie-category-label label-third">Third Party</span></td>
+                                </tr>
+                                <tr>
+                                    <td>PLAY_FLASH</td>
+                                    <td>ct-errs.cartrawler.com</td>
+                                    <td>A few seconds</td>
+                                    <td><span class="cookie-category-label label-third">Third Party</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2 id="performance">Performance Cookies</h2>
+                    <p>These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us understand which pages are most and least popular and see how visitors move around the site. All information is aggregated and anonymous. If you do not allow these cookies, we will not know when you visited our site.</p>
+
+                    <div class="cookie-table-wrap">
+                        <table class="cookie-table">
+                            <thead>
+                                <tr>
+                                    <th>Cookie</th>
+                                    <th>Domain</th>
+                                    <th>Duration</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>_ga</td>
+                                    <td>auto-reservation-plus.com</td>
+                                    <td>399 Days</td>
+                                    <td><span class="cookie-category-label label-first">First Party</span></td>
+                                </tr>
+                                <tr>
+                                    <td>_ga_*</td>
+                                    <td>auto-reservation-plus.com</td>
+                                    <td>399 Days</td>
+                                    <td><span class="cookie-category-label label-first">First Party</span></td>
+                                </tr>
+                                <tr>
+                                    <td>CT_MVT_SBXS</td>
+                                    <td>product-router.cartrawler.com</td>
+                                    <td>A few seconds</td>
+                                    <td><span class="cookie-category-label label-third">Third Party</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2 id="functional">Functional Cookies</h2>
+                    <p>These cookies enable the website to provide enhanced functionality and personalisation. They may be set by us or by third-party providers whose services we have added to our site. If you do not allow these cookies, some features may not work correctly.</p>
+
+                    <div class="cookie-table-wrap">
+                        <table class="cookie-table">
+                            <thead>
+                                <tr>
+                                    <th>Cookie</th>
+                                    <th>Domain</th>
+                                    <th>Duration</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>cartrawler-sp.js</td>
+                                    <td>cartrawler.com</td>
+                                    <td>Session</td>
+                                    <td><span class="cookie-category-label label-third">Third Party</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2 id="targeting">Targeting Cookies</h2>
+                    <p>These cookies may be set by our advertising partners. They may be used to build a profile of your interests and show you relevant adverts on other sites. If you do not allow these cookies, you will experience less targeted advertising.</p>
+
+                    <div class="cookie-table-wrap">
+                        <table class="cookie-table">
+                            <thead>
+                                <tr>
+                                    <th>Cookie</th>
+                                    <th>Domain</th>
+                                    <th>Duration</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>_ga</td>
+                                    <td>auto-reservation-plus.com</td>
+                                    <td>399 Days</td>
+                                    <td><span class="cookie-category-label label-first">First Party</span></td>
+                                </tr>
+                                <tr>
+                                    <td>_gid</td>
+                                    <td>auto-reservation-plus.com</td>
+                                    <td>24 Hours</td>
+                                    <td><span class="cookie-category-label label-first">First Party</span></td>
+                                </tr>
+                                <tr>
+                                    <td>_gat</td>
+                                    <td>auto-reservation-plus.com</td>
+                                    <td>1 Minute</td>
+                                    <td><span class="cookie-category-label label-first">First Party</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2 id="third-party">Third-Party Cookies</h2>
+                    <p>Our website uses CarTrawler to power the car rental search and booking engine. CarTrawler may place cookies on your device to enable the booking functionality, measure performance, and prevent fraud. These cookies are governed by <a href="https://www.cartrawler.com/ct/privacy-policy/" target="_blank" rel="noopener noreferrer" style="color:var(--brand-blue)">CarTrawler's Privacy Policy</a>.</p>
+                    <p>We do not control the cookies placed by CarTrawler or other third parties and recommend reviewing their individual privacy policies for full details.</p>
+
+                    <h2 id="consent-mode">Google Consent Mode</h2>
+                    <p>We use Google Consent Mode v2, which allows Google Analytics to operate in a restricted, cookieless mode for visitors who have not consented to analytics cookies. In this mode, no personally identifiable data is collected and no cookies are set. Google uses anonymised, aggregated signals to model traffic patterns. If you accept analytics cookies, full tracking is enabled and Google Analytics will set cookies on your device as described above.</p>
+
+                    <h2 id="managing">Managing Cookies</h2>
+                    <p>You can update your cookie preferences at any time by clearing your browser's local storage and revisiting the site, at which point the consent banner will reappear.</p>
+                    <p>You can also manage or delete cookies directly through your browser settings. Please note that disabling cookies may affect the functionality of this website and the booking engine. For guidance on managing cookies in your browser, visit <a href="https://www.aboutcookies.org" target="_blank" rel="noopener noreferrer" style="color:var(--brand-blue)">www.aboutcookies.org</a>.</p>
+
+                    <h2 id="contact">Contact Us</h2>
+                    <p>If you have any questions about our use of cookies, please contact us at <a href="mailto:info@auto-reservation-plus.com" style="color:var(--brand-blue)">info@auto-reservation-plus.com</a>.</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</MainLayout>
