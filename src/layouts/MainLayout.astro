@@ -21,6 +21,7 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <style is:inline>.site-nav ul li a.nav-pill{border-radius:50px;background:#edf5f9;box-shadow:inset 0 0 0 2px #bee1eb;}</style>
     <script is:inline>
         // Set language and currency from Netlify geo cookie on first visit.
         // Reloads when a non-English locale is detected so CT initialises with the
@@ -109,6 +110,12 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
         }
         .site-nav ul li a:hover { color: var(--brand-orange); }
         .site-nav ul li a.is-active { color: var(--brand-orange); }
+        .site-nav ul li a.nav-pill {
+            border-radius: 50px;
+            background: #edf5f9;
+            box-shadow: inset 0 0 0 2px #bee1eb;
+            transition: none;
+        }
 
         .nav-toggle {
             display: none;
@@ -469,7 +476,7 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
             <nav class="site-nav">
                 <ul>
                     <li><a href="/" class={Astro.url.pathname === '/' ? 'is-active' : ''}>Home</a></li>
-                    <li><a href="/car-hire-destinations" class={Astro.url.pathname === '/car-hire-destinations' || Astro.url.pathname === '/car-hire-destinations/' ? 'is-active' : ''}>Explore &amp; Drive</a></li>
+                    <li><a href="/car-hire-destinations" class={`nav-pill${Astro.url.pathname === '/car-hire-destinations' || Astro.url.pathname === '/car-hire-destinations/' ? ' is-active' : ''}`}>Explore &amp; Drive</a></li>
                 </ul>
             </nav>
             <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-controls="off-canvas">
