@@ -1,18 +1,20 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 ---
-<MainLayout title="Car Rental Destinations | Auto Reservation Plus">
+<MainLayout title="Car Rental Destinations | Auto Reservation Plus" preloadImage="/images/destinations-bg.webp">
     <style is:global>
         /* ── HERO ── */
         .dest-hero-wrapper {
             width: 100%;
             min-height: 600px;
+            background-color: #1e2d3b;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
                         url('/images/destinations-bg.webp');
             background-size: cover;
             background-position: center;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            padding-top: 53px;
         }
         .dest-hero-grid {
             display: grid;
@@ -21,7 +23,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             padding: 40px 0;
             align-items: center;
         }
-        .dest-hero-left { align-self: center; }
+        .dest-hero-left { align-self: start; }
         .dest-hero-right {
             display: flex;
             flex-direction: column;
@@ -46,6 +48,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             margin: 0 !important;
             padding: 0 !important;
             height: auto !important;
+            min-height: 0 !important;
         }
         .ct-btn-p { background: #ff6600 !important; }
         .ct-btn-p:hover { background: #ff7e29 !important; }
@@ -62,10 +65,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             margin-right: auto;
             position: relative;
             min-height: 414px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
-        .dest-engine-card.ct-ready { opacity: 1; }
 
         /* ── DESTINATIONS GRID ── */
         .dest-section {
@@ -347,7 +347,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 
         /* ── RESPONSIVE ── */
         @media (max-width: 992px) {
-            .dest-hero-wrapper { min-height: 0; }
+            .dest-hero-wrapper { min-height: 0; padding-top: 0; }
             .dest-hero-grid {
                 display: flex;
                 flex-direction: column;
@@ -458,6 +458,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             <div class="dest-hero-grid">
                 <div class="dest-hero-left">
                     <div class="dest-engine-card">
+                        <div class="engine-skeleton"></div>
                         <div ct-app id="ct-mount-point"></div>
                     </div>
                 </div>

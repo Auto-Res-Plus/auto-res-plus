@@ -1,18 +1,20 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 ---
-<MainLayout>
+<MainLayout preloadImage="/images/hero-bg.webp">
     <style is:global>
         /* --- THE HERO GRID --- */
         .hero-grid-wrapper {
             width: 100%;
             min-height: 600px;
+            background-color: #1e2d3b;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
                         url('/images/hero-bg.webp');
             background-size: cover;
             background-position: center;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            padding-top: 53px;
         }
         .hero-grid {
             display: grid;
@@ -21,7 +23,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             padding: 40px 0;
             align-items: center;
         }
-        .hero-left-engine { align-self: center; }
+        .hero-left-engine { align-self: start; }
         .hero-right {
             display: flex;
             flex-direction: column;
@@ -52,11 +54,6 @@ import MainLayout from '../layouts/MainLayout.astro';
             margin-right: auto;
             position: relative;
             min-height: 414px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .engine-card.ct-ready {
-            opacity: 1;
         }
 
         [ct-app], .ct-step-1-container, .ct-search-container {
@@ -64,6 +61,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             margin: 0 !important;
             padding: 0 !important;
             height: auto !important;
+            min-height: 0 !important;
         }
 
         .ct-btn-p { background: #ff6600 !important; }
@@ -123,12 +121,34 @@ import MainLayout from '../layouts/MainLayout.astro';
             background: white;
             padding-block: 2rem 6rem;
         }
+        .locations-heading-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 0 0 1.75rem;
+        }
         .locations-section h2 {
             font-size: 1.8rem;
             font-weight: 800;
             color: var(--dark-text);
-            margin: 0 0 1.75rem;
+            margin: 0;
         }
+        .explore-drive-pill {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 50px;
+            background: #edf5f9;
+            box-shadow: inset 0 0 0 2px #bee1eb;
+            color: var(--brand-blue);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: color 0.2s ease;
+        }
+        .explore-drive-pill:hover { color: var(--brand-orange); }
         .locations-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -342,7 +362,7 @@ import MainLayout from '../layouts/MainLayout.astro';
         }
 
         @media (max-width: 992px) {
-            .hero-grid-wrapper { min-height: 0; }
+            .hero-grid-wrapper { min-height: 0; padding-top: 0; }
             .hero-grid {
                 display: flex;
                 flex-direction: column;
@@ -424,6 +444,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             <div class="hero-grid">
                 <div class="hero-left-engine">
                     <div class="engine-card">
+                        <div class="engine-skeleton"></div>
                         <div ct-app id="ct-mount-point"></div>
                     </div>
                 </div>
@@ -480,7 +501,10 @@ import MainLayout from '../layouts/MainLayout.astro';
     <!-- POPULAR LOCATIONS -->
     <section class="locations-section">
         <div class="container">
-            <h2 data-i18n="locations_heading">Popular Rental Locations</h2>
+            <div class="locations-heading-row">
+                <h2 data-i18n="locations_heading">Popular Rental Locations</h2>
+                <a href="/car-hire-destinations" class="explore-drive-pill">Explore &amp; Drive</a>
+            </div>
             <div class="locations-grid">
 
                 <div class="location-card loc-paris">
