@@ -22,7 +22,7 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
-    {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} />}
     <script is:inline>
         // Set language and currency from Netlify geo cookie on first visit.
         // Reloads when a non-English locale is detected so CT initialises with the
