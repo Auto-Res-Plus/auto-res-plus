@@ -87,7 +87,7 @@ import MainLayout from '../layouts/MainLayout.astro';
           CT.ABE.Settings.version = '5.0';
           var cts = document.createElement('script');
           cts.type = 'text/javascript'; cts.async = true;
-          cts.src = 'https://ajaxgeo.cartrawler.com/abe5.0/ct_loader.js?' + new Date().getTime();
+          cts.src = 'https://ajaxgeo.cartrawler.com/abe5.0/ct_loader.js';
           var s = document.getElementsByTagName('script')[0];
           s.parentNode.insertBefore(cts, s);
         })();

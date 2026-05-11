@@ -7,9 +7,9 @@ import MainLayout from '../layouts/MainLayout.astro';
         .hero-grid-wrapper {
             width: 100%;
             min-height: 600px;
-            background-color: #1e2d3b;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
-                        url('/images/hero-bg.webp');
+            background-color: #1a3f5c;
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                              url('/images/hero-bg.webp');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -392,9 +392,11 @@ import MainLayout from '../layouts/MainLayout.astro';
             /* Hero image block: full-bleed, headline + checklist overlaid */
             .hero-right {
                 order: -1;
-                background:
-                    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-                    url('/images/hero-bg.webp') center / cover no-repeat;
+                background-color: #1a3f5c;
+                background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+                    url('/images/hero-bg.webp');
+                background-size: cover;
+                background-position: center;
                 padding: 44px 20px 40px;
                 /* break out of .container's 20px side padding */
                 margin-left: -20px;
@@ -629,7 +631,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                 </div>
 
                 <div class="faq-image">
-                    <img src="/images/faq-1.webp" alt="family holiday with hire car">
+                    <img src="/images/faq-1.webp" alt="family holiday with hire car" loading="lazy" decoding="async">
                 </div>
 
             </div>
@@ -697,7 +699,7 @@ import MainLayout from '../layouts/MainLayout.astro';
           CT.ABE.Settings.version = '5.0';
           var cts = document.createElement('script');
           cts.type = 'text/javascript'; cts.async = true;
-          cts.src = 'https://ajaxgeo.cartrawler.com/abe5.0/ct_loader.js?' + new Date().getTime();
+          cts.src = 'https://ajaxgeo.cartrawler.com/abe5.0/ct_loader.js';
           var s = document.getElementsByTagName('script')[0];
           s.parentNode.insertBefore(cts, s);
         })();

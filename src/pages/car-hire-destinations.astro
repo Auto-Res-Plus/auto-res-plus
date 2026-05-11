@@ -7,9 +7,9 @@ import MainLayout from '../layouts/MainLayout.astro';
         .dest-hero-wrapper {
             width: 100%;
             min-height: 600px;
-            background-color: #1e2d3b;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
-                        url('/images/destinations-bg.webp');
+            background-color: #1a3f5c;
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                              url('/images/destinations-bg.webp');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -156,8 +156,9 @@ import MainLayout from '../layouts/MainLayout.astro';
 
         /* ── WHY SECTION ── */
         .why-section {
-            background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
-                        url('/images/destinations-bg-2.webp');
+            background-color: #1a3f5c;
+            background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+                              url('/images/destinations-bg-2.webp');
             background-size: cover;
             background-position: center;
             padding-block: 5rem;
@@ -386,9 +387,11 @@ import MainLayout from '../layouts/MainLayout.astro';
             .dest-hero-grid { padding: 0; gap: 0; }
             .dest-hero-right {
                 order: -1;
-                background:
-                    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-                    url('/images/destinations-bg.webp') center / cover no-repeat;
+                background-color: #1a3f5c;
+                background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+                    url('/images/destinations-bg.webp');
+                background-size: cover;
+                background-position: center;
                 padding: 44px 20px 40px;
                 margin-left: -20px;
                 margin-right: -20px;
@@ -557,19 +560,19 @@ import MainLayout from '../layouts/MainLayout.astro';
             <div class="gallery-grid">
 
                 <div class="gallery-item tall">
-                    <img src="/images/destinations-gallery-1b.webp" alt="European destinations" loading="lazy">
+                    <img src="/images/destinations-gallery-1b.webp" alt="European destinations" loading="lazy" decoding="async">
                 </div>
 
                 <div class="gallery-item wide">
-                    <img src="/images/destinations-gallery-2.webp" alt="European destinations" loading="lazy">
+                    <img src="/images/destinations-gallery-2.webp" alt="European destinations" loading="lazy" decoding="async">
                 </div>
 
                 <div class="gallery-item">
-                    <img src="/images/destinations-gallery-4.webp" alt="European destinations" loading="lazy">
+                    <img src="/images/destinations-gallery-4.webp" alt="European destinations" loading="lazy" decoding="async">
                 </div>
 
                 <div class="gallery-item">
-                    <img src="/images/destinations-gallery-3.webp" alt="European destinations" loading="lazy">
+                    <img src="/images/destinations-gallery-3.webp" alt="European destinations" loading="lazy" decoding="async">
                 </div>
 
 
@@ -703,7 +706,7 @@ import MainLayout from '../layouts/MainLayout.astro';
           CT.ABE.Settings.version = '5.0';
           var cts = document.createElement('script');
           cts.type = 'text/javascript'; cts.async = true;
-          cts.src = 'https://ajaxgeo.cartrawler.com/abe5.0/ct_loader.js?' + new Date().getTime();
+          cts.src = 'https://ajaxgeo.cartrawler.com/abe5.0/ct_loader.js';
           var s = document.getElementsByTagName('script')[0];
           s.parentNode.insertBefore(cts, s);
         })();

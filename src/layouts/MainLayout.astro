@@ -22,7 +22,7 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
-    {preloadImage && <link rel="preload" as="image" href={preloadImage} />}
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
     <script is:inline>
         // Set language and currency from Netlify geo cookie on first visit.
         // Reloads when a non-English locale is detected so CT initialises with the
@@ -97,13 +97,13 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
         header { background: white; border-bottom: 1px solid #eee; padding-block: 0.5rem !important; box-sizing: border-box !important; }
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
         .logo-area { line-height: 0; padding: 10px 0 !important; }
-        .logo-area img { width: 300px !important; height: 41px !important; display: block !important; }
+        .logo-area img { width: 300px !important; height: auto !important; display: block !important; }
 
         @media (max-width: 600px) {
-            .logo-area img { width: 260px !important; height: 35px !important; }
+            .logo-area img { width: 260px !important; }
         }
         @media (max-width: 400px) {
-            .logo-area img { width: 200px !important; height: 27px !important; }
+            .logo-area img { width: 200px !important; }
         }
 
         @keyframes engine-shimmer {
@@ -387,7 +387,7 @@ const coukURL = 'https://auto-reservation-plus.co.uk' + Astro.url.pathname;
 
     <header>
         <div class="container top-flex">
-            <div class="logo-area"><a href="/"><img src="/images/logo.png" alt="Auto Reservation Plus logo" width="260" height="35"></a></div>
+            <div class="logo-area"><a href="/"><img src="/images/arp-logo.svg" alt="Auto Reservation Plus logo" width="300" height="23"></a></div>
         </div>
     </header>
 
